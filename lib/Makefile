@@ -1,9 +1,9 @@
 ROOT=..
 include $(ROOT)/mk/hdr.mk
-include $(ROOT)/mk/wmii.mk
+include $(ROOT)/mk/xnjj.mk
 
 PDIRS = \
-	libwmii_hack
+	libxnjj_hack
 
 DIRS =	\
 	libstuff  \
