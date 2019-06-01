@@ -29,10 +29,10 @@ CFLAGS += \
 MKDEP = cpp -M
 SOCFLAGS += -fPIC
 
-SETFOCUS_OBJECTS := cmd/x11/setfocus.o
-WIKEYNAME_OBJECTS := cmd/x11/wikeyname.o
-WIWARP_OBJECTS := cmd/x11/wiwarp.o
-WMII9MENU_OBJECTS := cmd/x11/wmii9menu.o
+SETFOCUS_OBJECTS := setfocus.o
+WIKEYNAME_OBJECTS := wikeyname.o
+WIWARP_OBJECTS := wiwarp.o
+WMII9MENU_OBJECTS := wmii9menu.o
 
 X11_OBJECTS := ${SETFOCUS_OBJECTS} \
 			   ${WIKEYNAME_OBJECTS} \
@@ -40,10 +40,10 @@ X11_OBJECTS := ${SETFOCUS_OBJECTS} \
 			   ${WMII9MENU_OBJECTS}
 
 
-SETFOCUS_APP := cmd/x11/setfocus.out
-WIKEYNAME_APP := cmd/x11/wikeyname.out
-WIWARP_APP := cmd/x11/wiwarp.out
-WMII9MENU_APP := cmd/x11/wmii9menu.out
+SETFOCUS_APP := setfocus.out
+WIKEYNAME_APP := wikeyname.out
+WIWARP_APP := wiwarp.out
+WMII9MENU_APP := wmii9menu.out
 
 
 
