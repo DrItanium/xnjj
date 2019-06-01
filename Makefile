@@ -1,5 +1,5 @@
 include config.mk
-INCLUDES := -Iinclude
+INCLUDES := -I.
 DEBUGCFLAGS = \
 	-g \
 	-O0 \
