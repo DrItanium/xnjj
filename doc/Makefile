@@ -1,8 +1,8 @@
 ROOT=..
 include $(ROOT)/mk/hdr.mk
-include $(ROOT)/mk/wmii.mk
+include $(ROOT)/mk/xnjj.mk
 
-TARG =	wmii.pdf
+TARG =	xnjj.pdf
 
 all: $(TARG)
 

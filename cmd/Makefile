@@ -1,20 +1,20 @@
 ROOT=..
 include $(ROOT)/mk/hdr.mk
-include $(ROOT)/mk/wmii.mk
+include $(ROOT)/mk/xnjj.mk
 
-wmiir.c: $(ROOT)/mk/wmii.mk
+xnjjr.c: $(ROOT)/mk/xnjj.mk
 
 DIRS =	menu \
 	strut \
 	tray \
-	wmii \
+	xnjj \
 	x11
 TARG =	wihack    \
-	wmii.rc   \
-	wmii.sh   \
-	wmiir
+	xnjj.rc   \
+	xnjj.sh   \
+	xnjjr
 
-LIBS += $(LIBS9) $(LIBIXP)
+LIBS += $(LIBS9) $(LIBJYQ)
 
 include $(ROOT)/mk/many.mk
 include $(ROOT)/mk/dir.mk

@@ -1,6 +1,6 @@
 MKSHELL=rc
 
-TARG = wmii.pdf
+TARG = xnjj.pdf
 SRC = ${TARG:%.pdf=%.tex}
 TEX = xelatex
 
