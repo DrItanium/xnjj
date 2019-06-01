@@ -17,7 +17,7 @@ LIBS = -L$(ROOT)/lib -L/usr/lib
 TERMINAL = xterm
 
 # Flags
-include $(ROOT)/mk/gcc.mk
+#include $(ROOT)/mk/gcc.mk
 CFLAGS += -Os $(DEBUGCFLAGS)
 LDFLAGS += -g
 
