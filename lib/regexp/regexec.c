@@ -167,10 +167,10 @@ regexec2(Reprog *progp,	/* program to run */
 	Relist *relist0, *relist1;
 
 	/* mark space */
-	relist0 = malloc(BIGLISTSIZE*sizeof(Relist));
+	relist0 = (decltype(relist0))malloc(BIGLISTSIZE*sizeof(Relist));
 	if(relist0 == nil)
 		return -1;
-	relist1 = malloc(BIGLISTSIZE*sizeof(Relist));
+	relist1 = (decltype(relist1))malloc(BIGLISTSIZE*sizeof(Relist));
 	if(relist1 == nil){
 		free(relist1);
 		return -1;

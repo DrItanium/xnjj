@@ -9,6 +9,9 @@
 #include <time.h>
 #include "fns.h"
 
+char* argv0 = nullptr;
+Display* display = nullptr;
+Screen scr;
 static Window*	testwin;
 static ulong	testtime[2];
 
@@ -26,7 +29,7 @@ search_wins(char *pattern) {
 	ulong *wins;
 	ulong n, num;
 	int i;
-	char **class;
+	char **_class;
 	Reprog *regexp;
 	Window *win;
 
@@ -36,13 +39,13 @@ search_wins(char *pattern) {
 	for(i = 0; i < num; i++) {
 		win = window(wins[i]);
 
-		n = getprop_textlist(win, "WM_CLASS", &class);
+		n = getprop_textlist(win, "WM_CLASS", &_class);
 		bufclear();
 		bufprint("%s:%s:%s",
-			 (n > 0 ? class[0] : "<nil>"),
-			 (n > 1 ? class[1] : "<nil>"),
+			 (n > 0 ? _class[0] : "<nil>"),
+			 (n > 1 ? _class[1] : "<nil>"),
 			 freelater(windowname(win)));
-		freestringlist(class);
+		freestringlist(_class);
 		if(regexec(regexp, buffer, nil, 0))
 			manage(wins[i]);
 	}
@@ -109,8 +112,8 @@ manage(ulong xid) {
 	if(!managable(xid))
 		return;
 
-	win = emallocz(sizeof *win);
-	frame = emalloc(sizeof *frame);
+	win = (decltype(win))emallocz(sizeof *win);
+	frame = (decltype(frame))emalloc(sizeof *frame);
 
 	win->type = WWindow;
 	win->xid = xid;
@@ -119,7 +122,7 @@ manage(ulong xid) {
 
 	getwinsize(frame);
 	restrut(frame);
-	sethandler(frame, &handlers);
+	sethandler(frame, &getHandlers());
 	selectinput(frame, StructureNotifyMask);
 
 	changeprop_ulong(frame, "_WMII_STRUT", "WINDOW", testtime, nelem(testtime));

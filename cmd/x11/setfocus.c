@@ -9,8 +9,8 @@
 #include <stuff/util.h>
 #include <fmt.h>
 
-char* argv0;
-Display* display;
+char* argv0 = nullptr;
+Display* display = nullptr;
 Screen scr;
 int
 main(int argc, char *argv[]) {

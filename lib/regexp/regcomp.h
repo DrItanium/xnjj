@@ -11,7 +11,7 @@ struct	Resublist
 
 /* max character classes per program */
 extern Reprog	RePrOg;
-#define	NCLASS	(sizeof(RePrOg.class)/sizeof(Reclass))
+#define	NCLASS	(sizeof(RePrOg._class)/sizeof(Reclass))
 
 /* max rune ranges per character class */
 #define NCCRUNE	(sizeof(Reclass)/sizeof(Rune))

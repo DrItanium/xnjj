@@ -39,7 +39,7 @@ static	Rune	yyrune;		/* last lex'd rune */
 static	Reclass*yyclassp;	/* last lex'd class */
 
 /* predeclared crap */
-static	void	operator(int);
+static	void	_operator(int);
 static	void	pushand(Reinst*, Reinst*);
 static	void	pushator(int);
 static	void	evaluntil(int);
@@ -70,7 +70,7 @@ operand(int t)
 	Reinst *i;
 
 	if(lastwasand)
-		operator(CAT);	/* catenate is implicit */
+		_operator(CAT);	/* catenate is implicit */
 	i = newinst(t);
 
 	if(t == CCLASS || t == NCCLASS)
@@ -83,7 +83,7 @@ operand(int t)
 }
 
 static	void
-operator(int t)
+_operator(int t)
 {
 	if(t==RBRA && --nbra<0)
 		rcerror("unmatched right paren");
@@ -92,7 +92,7 @@ operator(int t)
 			rcerror ("too many subexpressions");
 		nbra++;
 		if(lastwasand)
-			operator(CAT);
+			_operator(CAT);
 	} else
 		evaluntil(t);
 	if(t != RBRA)
@@ -254,7 +254,7 @@ optimize(Reprog *pp)
 	 *  and then relocate the code.
 	 */
 	size = sizeof(Reprog) + (freep - pp->firstinst)*sizeof(Reinst);
-	npp = realloc(pp, size);
+	npp = (decltype(npp))realloc(pp, size);
 	if(npp==0 || npp==pp)
 		return pp;
 	diff = (char *)npp - (char *)pp;
@@ -479,13 +479,13 @@ regcomp1(char *s, int literal, int dot_type)
 	Reprog *volatile pp;
 
 	/* get memory for the program */
-	pp = malloc(sizeof(Reprog) + 6*sizeof(Reinst)*strlen(s));
+	pp = (decltype(pp))malloc(sizeof(Reprog) + 6*sizeof(Reinst)*strlen(s));
 	if(pp == 0){
 		regerror("out of memory");
 		return 0;
 	}
 	freep = pp->firstinst;
-	classp = pp->class;
+	classp = pp->_class;
 	errors = 0;
 
 	if(setjmp(regkaboom))
@@ -506,7 +506,7 @@ regcomp1(char *s, int literal, int dot_type)
 	pushator(START-1);
 	while((token = lex(literal, dot_type)) != END){
 		if((token&0300) == OPERATOR)
-			operator(token);
+			_operator(token);
 		else
 			operand(token);
 	}

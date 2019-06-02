@@ -76,7 +76,7 @@ restrut(Window *frame) {
 	pstrut(Bottom);
 #endif
 
-	ewmh_setstrut(frame->aux, strut);
+	ewmh_setstrut((Window*)frame->aux, strut);
 }
 
 static bool
@@ -97,8 +97,12 @@ destroy_event(Window *w, void *aux, XDestroyWindowEvent *ev) {
 	return false;
 }
 
-Handlers handlers = {
+Handlers& 
+getHandlers() {
+static Handlers handlers = {
 	.config = config_event,
 	.destroy = destroy_event,
 };
+return handlers;
+}
 

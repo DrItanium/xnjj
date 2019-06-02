@@ -32,7 +32,7 @@ ewmh_getstrut(Window *w, Rectangle struts[4]) {
 			free(strut);
 			return;
 		}
-		strut = erealloc(strut, Last * sizeof *strut);
+		strut = (decltype(strut))erealloc(strut, Last * sizeof *strut);
 		strut[LeftMin] = strut[RightMin] = 0;
 		strut[LeftMax] = strut[RightMax] = INT_MAX;
 		strut[TopMin] = strut[BottomMin] = 0;

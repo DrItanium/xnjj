@@ -1,6 +1,7 @@
 /* Copyright ©2008-2010 Kris Maglione <maglione.k at Gmail>
  * See LICENSE file for license details.
  */
+#include <stuff/util.h>
 
 char	buffer[8092];
 char*	_buffer;
