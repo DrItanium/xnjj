@@ -293,6 +293,25 @@ UTFLIB_OBJECTS := \
 	utf/utfrune.o\
 	utf/utfutf.o
 
+BIOLIB_OBJECTS := \
+	bio/bbuffered.o\
+	bio/bfildes.o\
+	bio/bflush.o\
+	bio/bgetc.o\
+	bio/bgetd.o\
+	bio/bgetrune.o\
+	bio/binit.o\
+	bio/boffset.o\
+	bio/bprint.o\
+	bio/bvprint.o\
+	bio/bputc.o\
+	bio/bputrune.o\
+	bio/brdline.o\
+	bio/brdstr.o\
+	bio/bread.o\
+	bio/bseek.o\
+	bio/bwrite.o
+
 
 SETFOCUS_APP := setfocus.out
 WIKEYNAME_APP := wikeyname.out
@@ -303,20 +322,30 @@ WMII9MENU_APP := wmii9menu.out
 STUFFLIB_ARCHIVE := libstuff.a
 FMTLIB_ARCHIVE := libfmt.a
 UTFLIB_ARCHIVE := libutf.a
+BIOLIB_ARCHIVE := libbio.a
+
+WMIIR_OBJECTS := wmiir.o
+
+WMIIR_APP := wmiir.out
+
 
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
 	    ${WIWARP_APP} \
-	    ${WMII9MENU_APP}
+	    ${WMII9MENU_APP} \
+		${WMIIR_APP}
 
 LIBS := ${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
-		${UTFLIB_ARCHIVE}
+		${UTFLIB_ARCHIVE} \
+		${BIOLIB_ARCHIVE}
 
 OBJECTS := ${X11_OBJECTS} \
 		   ${STUFFLIB_OBJECTS} \
 		   ${FMTLIB_OBJECTS} \
-		   ${UTFLIB_OBJECTS}
+		   ${UTFLIB_OBJECTS} \
+		   ${WMIIR_OBJECTS}  \
+		   ${BIOLIB_OBJECTS} 
 
 BASE_X11DEPS := x11 xinerama xrender xrandr
 BASE_X11_SOLIBS := $$(pkg-config --libs $(BASE_X11DEPS))
@@ -344,6 +373,10 @@ ${FMTLIB_ARCHIVE}: ${FMTLIB_OBJECTS}
 ${UTFLIB_ARCHIVE}: ${UTFLIB_OBJECTS}
 	@echo AR ${UTFLIB_ARCHIVE}
 	@${AR} ${UTFLIB_ARCHIVE} ${UTFLIB_OBJECTS}
+
+${BIOLIB_ARCHIVE}: ${BIOLIB_OBJECTS}
+	@echo AR ${BIOLIB_ARCHIVE}
+	@${AR} ${BIOLIB_ARCHIVE} ${BIOLIB_OBJECTS}
 
 ${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE}
 	@echo LD ${SETFOCUS_APP}
@@ -382,6 +415,20 @@ ${WMII9MENU_APP}: ${WMII9MENU_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${U
 		-ldl \
 		-lixp \
 		${BASE_X11_SOLIBS}
+
+${WMIIR_APP}: ${WMIIR_OBJECTS} \
+	${STUFFLIB_ARCHIVE} \
+	${FMTLIB_ARCHIVE} \
+	${UTFLIB_ARCHIVE} \
+	${BIOLIB_ARCHIVE}
+	@echo LD ${WMIIR_APP}
+	@${LD} -o ${WMIIR_APP} \
+		${WMIIR_OBJECTS} \
+		${STUFFLIB_ARCHIVE} \
+		${FMTLIB_ARCHIVE} \
+		${UTFLIB_ARCHIVE} \
+		${BIOLIB_ARCHIVE} \
+		-lixp
 
 clean: 
 	@echo Cleaning...
