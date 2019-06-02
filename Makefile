@@ -314,6 +314,7 @@ BIOLIB_OBJECTS := \
 	lib/bio/bwrite.o
 
 
+
 SETFOCUS_APP := cmd/x11/setfocus.out
 WIKEYNAME_APP := cmd/x11/wikeyname.out
 WIWARP_APP := cmd/x11/wiwarp.out
@@ -338,13 +339,24 @@ WITRAY_OBJECTS = \
 	cmd/tray/xembed.o
 WITRAY_APP = cmd/tray/witray.out
 
+WIMENU_OBJECTS =\
+	cmd/menu/main.o	\
+	cmd/menu/caret.o	\
+	cmd/menu/history.o	\
+	cmd/menu/menu.o	\
+	cmd/menu/keys.o	\
+	cmd/menu/bindings.o
+
+WIMENU_APP := cmd/menu/wimenu.out
+
 
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
 	    ${WIWARP_APP} \
 	    ${WMII9MENU_APP} \
 		${WMIIR_APP} \
-		${WITRAY_APP}
+		${WITRAY_APP} \
+		${WIMENU_APP}
 
 LIBS := ${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
@@ -357,7 +369,8 @@ OBJECTS := ${X11_OBJECTS} \
 		   ${UTFLIB_OBJECTS} \
 		   ${WMIIR_OBJECTS}  \
 		   ${BIOLIB_OBJECTS} \
-		   ${WITRAY_OBJECTS}
+		   ${WITRAY_OBJECTS} \
+		   ${WIMENU_OBJECTS}
 
 BASE_X11DEPS := x11 xinerama xrender xrandr
 BASE_X11_SOLIBS := $$(pkg-config --libs $(BASE_X11DEPS))
@@ -458,6 +471,22 @@ ${WITRAY_APP}: ${WITRAY_OBJECTS} \
 		-ldl \
 		${BASE_X11_SOLIBS}
 
+${WIMENU_APP}: ${WIMENU_OBJECTS} \
+	${STUFFLIB_ARCHIVE} \
+	${FMTLIB_ARCHIVE} \
+	${UTFLIB_ARCHIVE} \
+	${BIOLIB_ARCHIVE}
+	@echo LD ${WIMENU_APP}
+	@${LD} -o ${WIMENU_APP} \
+		${WIMENU_OBJECTS} \
+		${STUFFLIB_ARCHIVE} \
+		${FMTLIB_ARCHIVE} \
+		${UTFLIB_ARCHIVE} \
+		${BIOLIB_ARCHIVE} \
+		-lixp \
+		-ldl \
+		${BASE_X11_SOLIBS}
+
 clean: 
 	@echo Cleaning...
 	@rm -f ${APPS} ${OBJECTS} ${LIBS}
@@ -465,8 +494,13 @@ clean:
 .PHONY: clean
 
 
-# generated via g++ -MM -std=c++17 *.cc
 
+cmd/menu/bindings.c: cmd/menu/keys.txt Makefile
+	( echo "char binding_spec[] ="; \
+	  sed 's/.*/	"&\\n"/' cmd/menu/keys.txt; \
+	  echo "	;" ) >$@
+
+# generated via g++ -MM -std=c++17 *.cc
 
 bbuffered.o: lib/bio/bbuffered.c lib/plan9.h
 bcat.o: lib/bio/bcat.c lib/bio/bio.h
