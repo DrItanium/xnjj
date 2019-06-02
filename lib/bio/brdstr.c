@@ -8,7 +8,7 @@ badd(char *p, int *np, char *data, int ndata, int delim, int nulldelim)
 	int n;
 
 	n = *np;
-	p = realloc(p, n+ndata+1);
+	p = (decltype(p))realloc(p, n+ndata+1);
 	if(p){
 		memmove(p+n, data, ndata);
 		n += ndata;
@@ -45,7 +45,7 @@ Brdstr(Biobuf *bp, int delim, int nulldelim)
 	 * first try in remainder of buffer (gbuf doesn't change)
 	 */
 	ip = (char*)bp->ebuf - i;
-	ep = memchr(ip, delim, i);
+	ep = (decltype(ep))memchr(ip, delim, i);
 	if(ep) {
 		j = (ep - ip) + 1;
 		bp->icount += j;
@@ -81,7 +81,7 @@ Brdstr(Biobuf *bp, int delim, int nulldelim)
 				*ep = delim;	/* there will be room for this */
 			}else{
 				bp->offset += j;
-				ep = memchr(ip, delim, j);
+				ep = (decltype(ep))memchr(ip, delim, j);
 			}
 			i += j;
 			if(ep) {

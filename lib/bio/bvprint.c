@@ -4,9 +4,7 @@
 static int
 fmtBflush(Fmt *f)
 {
-	Biobuf *bp;
-
-	bp = f->farg;
+	auto bp = (Biobuf*)f->farg;
 	bp->ocount = (char*)f->to - (char*)f->stop;
 	if(Bflush(bp) < 0)
 		return 0;

@@ -15,7 +15,9 @@
 #include <unistd.h>
 #include <wchar.h>
 
+extern "C" {
 #include <ixp.h>
+}
 #include <stuff/util.h>
 #include <bio.h>
 #include <fmt.h>
@@ -249,7 +251,7 @@ xawrite(int argc, char *argv[]) {
 	nbuf = 1;
 	for(i=0; i < argc; i++)
 		nbuf += strlen(argv[i]) + (i > 0);
-	buf = emalloc(nbuf);
+	buf = (decltype(buf))emalloc(nbuf);
 	buf[0] = '\0';
 	while(argc) {
 		strcat(buf, ARGF());
@@ -321,7 +323,7 @@ xread(int argc, char *argv[]) {
 		if(fid == nil)
 			fatal("Can't open file '%s': %r\n", file);
 
-		buf = emalloc(fid->iounit);
+		buf = (decltype(buf))emalloc(fid->iounit);
 		while((count = ixp_read(fid, buf, fid->iounit)) > 0) {
 			unflush(1, buf, count, binary);
 			if (!binary && count < fid->iounit)
@@ -390,14 +392,14 @@ xls(int argc, char *argv[]) {
 
 		nstat = 0;
 		mstat = 16;
-		stat = emalloc(mstat * sizeof *stat);
-		buf = emalloc(fid->iounit);
+		stat = (decltype(stat))emalloc(mstat * sizeof *stat);
+		buf = (decltype(buf))emalloc(fid->iounit);
 		while((count = ixp_read(fid, buf, fid->iounit)) > 0) {
 			m = ixp_message(buf, count, MsgUnpack);
 			while(m.pos < m.end) {
 				if(nstat == mstat) {
 					mstat <<= 1;
-					stat = erealloc(stat, mstat * sizeof *stat);
+					stat = (decltype(stat))erealloc(stat, mstat * sizeof *stat);
 				}
 				ixp_pstat(&m, &stat[nstat++]);
 			}
@@ -450,7 +452,7 @@ xproglist(int argc, char *argv[]) {
 
 	i = 7, cwd = nil;
 	do
-		cwd = erealloc(cwd, 1<<i);
+		cwd = (decltype(cwd))erealloc(cwd, 1<<i);
 	while(!getcwd(cwd, 1<<i) && errno == ERANGE);
 
 	while((dir = ARGF()))

@@ -8,7 +8,7 @@ Bread(Biobuf *bp, void *ap, long count)
 	unsigned char *p;
 	int i, n, ic;
 
-	p = ap;
+	p = (decltype(p))ap;
 	c = count;
 	ic = bp->icount;
 

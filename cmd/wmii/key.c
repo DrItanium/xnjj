@@ -129,7 +129,7 @@ fake_keypress(ulong mod, KeyCode key) {
 	e.type = KeyRelease;
 	sendevent(&c->w, true, KeyReleaseMask, (XEvent*)&e);
 
-	sync();
+	stuff_sync();
 }
 
 static Key *

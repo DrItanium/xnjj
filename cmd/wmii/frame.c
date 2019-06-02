@@ -187,7 +187,7 @@ bdown_event(Window *w, void *aux, XButtonEvent *e) {
 		else {
 			/* Ungrab so a menu can receive events before the button is released */
 			XUngrabPointer(display, e->time);
-			sync();
+			stuff_sync();
 
 			event("ClientMouseDown %#C %d\n", f->client, e->button);
 		}

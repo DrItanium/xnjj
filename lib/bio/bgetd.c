@@ -11,7 +11,7 @@ static int
 Bgetdf(void *vp)
 {
 	int c;
-	struct bgetd *bg = vp;
+	bgetd *bg = (bgetd*)vp;
 
 	c = Bgetc(bg->b);
 	if(c == Beof)
@@ -23,7 +23,7 @@ int
 Bgetd(Biobuf *bp, double *dp)
 {
 	double d;
-	struct bgetd b;
+	bgetd b;
 
 	b.b = bp;
 	b.eof = 0;

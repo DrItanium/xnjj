@@ -309,7 +309,7 @@ void	setshapemask(Window *dst, Image *src, Point);
 void	setwinattr(Window*, WinAttr*, int valmask);
 Rectangle	sizehint(WinHints*, Rectangle);
 char**	strlistdup(char**);
-void	sync(void);
+void	stuff_sync();
 Rectangle	textextents_l(Font*, const char*, uint, int*);
 uint	textwidth(Font*, const char*);
 uint	textwidth_l(Font*, const char*, uint len);

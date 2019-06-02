@@ -458,7 +458,7 @@ mouse_resize(Client *c, Align align, bool grabmod) {
 
 		warppointer(d);
 	}
-	sync();
+	stuff_sync();
 	event_flush(PointerMotionMask, false);
 
 	while(readmotion(&d)) {

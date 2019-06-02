@@ -4,8 +4,8 @@
 #include "dat.h"
 #include "fns.h"
 
-static Handlers selection_handlers;
-static Handlers steal_handlers;
+static Handlers& getSelectionHandlers();
+static Handlers& getStealHandlers();
 
 static Selection*
 _selection_create(char *selection, ulong time,
@@ -17,7 +17,7 @@ _selection_create(char *selection, ulong time,
 	if(time == 0)
 		time = event_xtime;
 
-	s = emallocz(sizeof *s);
+	s = (decltype(s))emallocz(sizeof *s);
 	s->owner = createwindow(&scr.root, Rect(0, 0, 1, 1), 0,
 				InputOnly, nil, 0);
 	s->owner->aux = s;
@@ -25,7 +25,7 @@ _selection_create(char *selection, ulong time,
 	s->cleanup = cleanup;
 	s->time_start = time;
 
-	sethandler(s->owner, &selection_handlers);
+	sethandler(s->owner, &getSelectionHandlers());
 
 	if (!lazy) {
 		XSetSelectionOwner(display, xatom(selection), s->owner->xid, time);
@@ -79,11 +79,11 @@ static void
 timeout(long timer, void *v) {
 	Selection *s;
 
-	s = v;
+	s = (decltype(s))v;
 	Dprint("[selection] Done waiting. Killing 0x%ulx.\n", s->oldowner);
 	s->timer = 0;
 	XKillClient(display, s->oldowner);
-	sync();
+	stuff_sync();
 }
 
 Selection*
@@ -99,7 +99,7 @@ selection_manage(char *selection, ulong time,
 		if (!steal)
 			return nil;
 
-		w = emallocz(sizeof *w);
+		w = (decltype(w))emallocz(sizeof *w);
 		w->type = WWindow;
 		w->xid = old;
 		selectinput(w, StructureNotifyMask);
@@ -122,7 +122,7 @@ selection_manage(char *selection, ulong time,
 			_selection_manage(s);
 		else {
 			Dprint("[selection] Waiting for old owner %W to die...\n", w);
-			pushhandler(w, &steal_handlers, s);
+			pushhandler(w, &getStealHandlers(), s);
 			s->timer = ixp_settimer(&srv, 2000, timeout, s);
 		}
 	}
@@ -159,7 +159,7 @@ static bool
 message_event(Window *w, void *aux, XClientMessageEvent *ev) {
 	Selection *s;
 
-	s = aux;
+	s = (decltype(s))aux;
 	if(s->message)
 		s->message(s, ev);
 	return false;
@@ -171,7 +171,7 @@ selectionclear_event(Window *w, void *aux, XSelectionClearEvent *ev) {
 
 	USED(w, ev);
 	Dprint("[selection] Lost selection\n");
-	s = aux;
+	s = (decltype(s))aux;
 	s->time_end = ev->time;
 	selection_release(s);
 	return false;
@@ -181,7 +181,7 @@ static bool
 selectionrequest_event(Window *w, void *aux, XSelectionRequestEvent *ev) {
 	Selection *s;
 
-	s = aux;
+	s = (decltype(s))aux;
 	if(ev->property == None)
 		ev->property = ev->target; /* Per ICCCM §2.2. */
 
@@ -202,18 +202,25 @@ selectionrequest_event(Window *w, void *aux, XSelectionRequestEvent *ev) {
 	return false;
 }
 
-static Handlers selection_handlers = {
-	.message = message_event,
-	.selectionclear = selectionclear_event,
-	.selectionrequest = selectionrequest_event,
-};
+Handlers&
+getSelectionHandlers() {
+    static bool init = false;
+    static Handlers _handlers;
+    if (!init) {
+        init = true;
+        _handlers.message = message_event;
+        _handlers.selectionclear = selectionclear_event;
+        _handlers.selectionrequest = selectionrequest_event;
+    }
+    return _handlers;
+}
 
 static bool
 destroy_event(Window *w, void *aux, XDestroyWindowEvent *e) {
 	Selection *s;
 
 	Dprint("[selection] Old owner is dead.\n");
-	s = aux;
+	s = (decltype(s))aux;
 	if(s->timer)
 		ixp_unsettimer(&srv, s->timer);
 	s->timer = 0;
@@ -223,7 +230,14 @@ destroy_event(Window *w, void *aux, XDestroyWindowEvent *e) {
 	return false;
 }
 
-static Handlers steal_handlers = {
-	.destroy = destroy_event,
-};
+Handlers&
+getStealHandlers() {
+    static bool init = false;
+    static Handlers _handlers;
+    if (!init) {
+        init = true;
+        _handlers.destroy = destroy_event;
+    }
+    return _handlers;
+}
 

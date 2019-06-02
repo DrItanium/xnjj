@@ -39,7 +39,7 @@ XEmbed*
 xembed_swallow(Window *parent, Window *client, void (*cleanup)(XEmbed*)) {
 	XEmbed *xembed;
 
-	xembed = emallocz(sizeof *xembed);
+	xembed = (decltype(xembed))emallocz(sizeof *xembed);
 	xembed->w = client;
 	xembed->owner = parent;
 	xembed->cleanup = cleanup;
@@ -104,7 +104,7 @@ static bool
 destroy_event(Window *w, void *aux, XDestroyWindowEvent *ev) {
 	XEmbed *xembed;
 
-	xembed = aux;
+	xembed = (decltype(xembed))aux;
 	xembed->flags = DEAD;
 	xembed_disown(xembed);
 	return false;
@@ -116,7 +116,7 @@ property_event(Window *w, void *aux, XPropertyEvent *ev) {
 
 	Dprint("property_event(%W, %p, %A)\n",
 	       w, aux, ev->atom);
-	xembed = aux;
+	xembed = (decltype(xembed))aux;
 	if(ev->atom == xatom("_XEMBED_INFO"))
 		xembed_updateinfo(xembed);
 	return false;
@@ -126,16 +126,19 @@ static bool
 reparent_event(Window *w, void *aux, XReparentEvent *ev) {
 	XEmbed *xembed;
 
-	xembed = aux;
+	xembed = (decltype(xembed))aux;
 	if(ev->parent != xembed->owner->xid) {
 		xembed->flags = DEAD;
 		xembed_disown(xembed);
 	}
 	return false;
 }
-
+Handlers&
+getHandlers() {
 static Handlers handlers = {
 	.destroy = destroy_event,
 	.property = property_event,
 	.reparent = reparent_event,
 };
+return handlers;
+}

@@ -47,7 +47,7 @@ draw(Window *w) {
 	fill(w, r, 0UL);
 	border(w, Rect(3, 3, 97, 97), 2, ~0UL);
 	border(w, Rect(8, 8, 92, 92), 2, ~0UL);
-	sync();
+	stuff_sync();
 }
 
 static void

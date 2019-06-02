@@ -103,7 +103,7 @@ Bfdopen(int f, int mode)
 {
 	Biobuf *bp;
 
-	bp = malloc(sizeof(Biobuf));
+	bp = (decltype(bp))malloc(sizeof(Biobuf));
 	if(bp == 0)
 		return 0;
 	Binits(bp, f, mode, bp->b, sizeof(bp->b));

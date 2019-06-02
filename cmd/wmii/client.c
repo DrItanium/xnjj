@@ -533,7 +533,7 @@ client_focus(Client *c) {
 	if(c && c->group)
 		c->group->client = c;
 
-	sync();
+	stuff_sync();
 	event_flush(FocusChangeMask, true);
 
 	Dprint(DFocus, "client_focus([%#C]%C) collapsed=%s\n",
@@ -552,7 +552,7 @@ client_focus(Client *c) {
 		}else
 			setfocus(screen->barwin, RevertToParent);
 
-		sync();
+		stuff_sync();
 		event_flush(FocusChangeMask, true);
 	}
 }

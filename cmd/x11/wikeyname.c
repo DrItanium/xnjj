@@ -7,9 +7,13 @@
 #include <locale.h>
 #include <unistd.h>
 
+char* argv0;
+Display* display;
+Screen scr;
 static const char version[] = "wikeyname-"VERSION", "COPYRIGHT"\n";
 
-static Handlers handlers;
+Handlers& getHandlers();
+//static Handlers handlers;
 static char*	keyname;
 static int	nkeys;
 
@@ -38,7 +42,7 @@ main(int argc, char *argv[]) {
 	initdisplay();
 
 	selectinput(&scr.root, KeyPressMask|KeyReleaseMask);
-	sethandler(&scr.root, &handlers);
+	sethandler(&scr.root, &getHandlers());
 	if(!grabkeyboard(&scr.root))
 		fatal("can't grab keyboard\n");
 
@@ -71,8 +75,15 @@ kup_event(Window *w, void *aux, XKeyEvent *ev) {
 }
 
 
-static Handlers handlers = {
-	.kup = kup_event,
-	.kdown = kdown_event,
-};
+Handlers&
+getHandlers() {
+    static Handlers handlers;
+    static bool init = false;
+    if (!init) {
+        init = true;
+        handlers.kdown = kdown_event;
+        handlers.kup = kup_event;
+    }
+    return handlers;
+}
 

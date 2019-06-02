@@ -8,7 +8,7 @@ Bwrite(Biobuf *bp, void *ap, long count)
 	unsigned char *p;
 	int i, n, oc;
 
-	p = ap;
+	p = (decltype(p))ap;
 	c = count;
 	oc = bp->ocount;
 

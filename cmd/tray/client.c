@@ -5,7 +5,8 @@
 #include "fns.h"
 #include <string.h>
 
-static Handlers	handlers;
+
+static Handlers& getHandlers();
 
 static void client_cleanup(XEmbed*);
 
@@ -16,7 +17,7 @@ client_manage(XWindow w) {
 	WinAttr wa;
 	int size;
 
-	c = emallocz(sizeof *c);
+	c = (decltype(c))emallocz(sizeof *c);
 	c->w.type = WWindow;
 	c->w.xid = w;
 	c->w.aux = c;
@@ -39,7 +40,7 @@ client_manage(XWindow w) {
 				    InputOutput, &wa, CWBackPixel);
 	setborder(c->indicator, 1, &tray.selcolors.border);
 
-	sethandler(&c->w, &handlers);
+	sethandler(&c->w, &getHandlers());
 
 	for(cp=&tray.clients; *cp; cp=&(*cp)->next)
 		;
@@ -60,7 +61,7 @@ client_cleanup(XEmbed *e) {
 	Client **cp;
 	Client *c;
 
-	c = e->w->aux;
+	c = (decltype(c))e->w->aux;
 	if (c->indicator)
 		destroywindow(c->indicator);
 
@@ -126,9 +127,9 @@ client_opcode(Client *c, long message, long l1, long l2, long l3) {
 		if(l2 > 5 * 1024) /* Don't bother with absurdly large messages. */
 			return;
 
-		m = emallocz(sizeof *m);
+		m = (decltype(m))emallocz(sizeof *m);
 		m->timeout = l1;
-		m->msg     = ixp_message(emallocz(l2), l2, MsgPack);
+		m->msg     = ixp_message((char*)emallocz(l2), l2, MsgPack);
 		m->id      = l3;
 
 		/* Add the message to the end of the queue. */
@@ -157,7 +158,7 @@ static bool
 config_event(Window *w, void *aux, XConfigureEvent *e) {
 	Client *c;
 
-	c = aux;
+	c = (decltype(c))aux;
 	if(false)
 		movewin(c->indicator, addpt(w->r.min, Pt(1, 1)));
 	return false;
@@ -196,11 +197,18 @@ reparent_event(Window *w, void *aux, XReparentEvent *e) {
 	return false;
 }
 
-static Handlers handlers = {
-	.config = config_event,
-	.configreq = configreq_event,
-	.map = map_event,
-	.unmap = unmap_event,
-	.reparent = reparent_event,
-};
+static Handlers&
+getHandlers() {
+    static bool init = false;
+    static Handlers handlers;
+    if (!init) {
+        init = true;
+        handlers.config = config_event;
+        handlers.configreq = configreq_event;
+        handlers.map = map_event;
+        handlers.unmap = unmap_event;
+        handlers.reparent = reparent_event;
+    }
+    return handlers;
+}
 

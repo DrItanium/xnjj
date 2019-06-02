@@ -235,7 +235,7 @@ bdown_event(Window *w, void *aux, XButtonPressedEvent *e) {
 
 	/* Ungrab so a menu can receive events before the button is released */
 	XUngrabPointer(display, e->time);
-	sync();
+	stuff_sync();
 
 	s = aux;
 	b = findbar(s, Pt(e->x, e->y));

@@ -11,6 +11,9 @@
 #include <sys/signal.h>
 #include "fns.h"
 
+char* argv0;
+Display* display;
+Screen scr;
 static const char version[] = "witray-"VERSION", "COPYRIGHT"\n";
 
 static int	exitsignal;
@@ -97,9 +100,9 @@ message(Selection *s, XClientMessageEvent *ev) {
 
 	if((c = client_find(w))) {
 		if(ev->message_type == NET("SYSTEM_TRAY_OPCODE") && ev->format == 32)
-			client_opcode(w->aux, ev->data.l[1], ev->data.l[2], ev->data.l[3], ev->data.l[4]);
+			client_opcode((Client*)w->aux, ev->data.l[1], ev->data.l[2], ev->data.l[3], ev->data.l[4]);
 		else
-			client_message(w->aux, ev->message_type, ev->format, (ClientMessageData*)&ev->data);
+			client_message((Client*)w->aux, ev->message_type, ev->format, (ClientMessageData*)&ev->data);
 		return;
 	}
 }

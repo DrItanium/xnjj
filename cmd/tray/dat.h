@@ -3,7 +3,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
+extern "C" {
 #include <ixp.h>
+}
 #include <stuff/x.h>
 #include <stuff/util.h>
 #include "selection.h"
@@ -55,7 +57,7 @@ EXTERN IxpServer	srv;
 EXTERN char**		program_args;
 EXTERN int		debug;
 
-EXTERN struct {
+struct {
 	Window*		win;
 	Image*		pixmap;
 	Client*		clients;

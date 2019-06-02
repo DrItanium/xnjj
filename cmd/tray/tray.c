@@ -6,8 +6,8 @@
 #include <strings.h>
 #include "fns.h"
 
-static Handlers handlers;
-static Handlers root_handlers;
+static Handlers& getHandlers();
+static Handlers& getRootHandlers();
 
 void
 restrut(Window *w, int orientation) {
@@ -54,9 +54,12 @@ restrut(Window *w, int orientation) {
 
 	ewmh_setstrut(w, strut);
 }
-
 void
 tray_init(void) {
+    static ulong temporaryArray0[1] = { 5 };
+    static long temporaryArray1[1] = { TYPE("DOCK") };
+    static char* temporaryArray2[2] = { "witray", nullptr };
+    static char* temporaryArray3[3] = { "witray", "witray", nullptr };
 	WinAttr wa;
 	XWMHints hints = { 0, };
 
@@ -75,25 +78,22 @@ tray_init(void) {
 					  | CWBitGravity
 					  | CWEventMask);
 
-	sethandler(tray.win, &handlers);
-	pushhandler(&scr.root, &root_handlers, nil);
+	sethandler(tray.win, &getHandlers());
+	pushhandler(&scr.root, &getRootHandlers(), nil);
 	selectinput(&scr.root, scr.root.eventmask | PropertyChangeMask);
 
 
 	changeprop_string(tray.win, "_WMII_TAGS", tray.tags);
 
-	changeprop_ulong(tray.win, "XdndAware", "ATOM", (ulong[1]){ 5 }, 1);
+	changeprop_ulong(tray.win, "XdndAware", "ATOM", temporaryArray0, 1);
 
 	changeprop_ulong(tray.selection->owner, Net("SYSTEM_TRAY_VISUAL"), "VISUALID",
 			 &scr.visual->visualid, 1);
-	changeprop_long(tray.win, Net("WM_WINDOW_TYPE"), "ATOM",
-			(long[1]){ TYPE("DOCK") }, 1);
+	changeprop_long(tray.win, Net("WM_WINDOW_TYPE"), "ATOM", temporaryArray1, 1);
 
 	changeprop_string(tray.win, Net("WM_NAME"), "witray");
-	changeprop_textlist(tray.win, "WM_NAME", "STRING",
-			    (char*[2]){ "witray", nil });
-	changeprop_textlist(tray.win, "WM_CLASS", "STRING",
-			    (char*[3]){ "witray", "witray", nil });
+	changeprop_textlist(tray.win, "WM_NAME", "STRING", temporaryArray2);
+	changeprop_textlist(tray.win, "WM_CLASS", "STRING", temporaryArray3);
 	changeprop_textlist(tray.win, "WM_COMMAND", "STRING", program_args);
 
 	hints.flags = InputHint;
@@ -104,13 +104,13 @@ tray_init(void) {
 
 static void
 tray_unmap(void) {
+    XUnmapEvent temporary {
+        .type = UnmapNotify,
+        .event = scr.root.xid,
+        .window = tray.win->xid
+    };
 	unmapwin(tray.win);
-	sendevent(&scr.root, false, SubstructureNotifyMask,
-		  &(XUnmapEvent){
-			.type = UnmapNotify,
-			.event = scr.root.xid,
-			.window = tray.win->xid
-		  });
+	sendevent(&scr.root, false, SubstructureNotifyMask, &temporary);
 }
 
 static void
@@ -177,20 +177,21 @@ tray_update(void) {
 	for(c=tray.clients; c; c=c->next) {
 		if(c->w.mapped) {
 			reshapewin(&c->w, rectaddpt(r, offset));
+            XEvent temporary {
+                .xconfigure = {
+                    .type = ConfigureNotify,
+                    .event = c->w.xid,
+                    .window = c->w.xid,
+                    .x = c->w.r.min.x,
+                    .y = c->w.r.min.y,
+                    .width = Dx(c->w.r),
+                    .height = Dy(c->w.r),
+                    .border_width = 0,
+                    .above = None,
+                }
+            };
 			/* This seems, sadly, to be necessary. */
-			sendevent(&c->w, false, StructureNotifyMask, &(XEvent){
-				  .xconfigure = {
-					.type = ConfigureNotify,
-					.event = c->w.xid,
-					.window = c->w.xid,
-					.above = None,
-					.x = c->w.r.min.x,
-					.y = c->w.r.min.y,
-					.width = Dx(c->w.r),
-					.height = Dy(c->w.r),
-					.border_width = 0,
-				  }
-			  });
+			sendevent(&c->w, false, StructureNotifyMask, &temporary);
 
 			movewin(c->indicator, addpt(offset, Pt(2, 2)));
 			if(tray.orientation == OHorizontal)
@@ -402,11 +403,18 @@ message_event(Window *w, void *aux, XClientMessageEvent *e) {
 	return true;
 }
 
-static Handlers handlers = {
-	.message = message_event,
-	.config = config_event,
-	.expose = expose_event,
-};
+Handlers&
+getHandlers() {
+    static bool init = false;
+    static Handlers _handlers;
+    if (!init) {
+        init = true;
+        _handlers.message = message_event;
+        _handlers.config = config_event;
+        _handlers.expose = expose_event;
+    }
+    return _handlers;
+}
 
 static bool
 property_event(Window *w, void *aux, XPropertyEvent *ev) {
@@ -417,7 +425,15 @@ property_event(Window *w, void *aux, XPropertyEvent *ev) {
 	return false;
 }
 
-static Handlers root_handlers = {
-	.property = property_event,
-};
+
+Handlers&
+getRootHandlers() {
+    static bool init = false;
+    static Handlers _handlers;
+    if (!init) {
+        init = true;
+	    _handlers.property = property_event;
+    }
+    return _handlers;
+}
 

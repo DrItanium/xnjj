@@ -4,6 +4,6 @@
 #include "x11.h"
 
 void
-sync(void) {
+stuff_sync(void) {
 	XSync(display, false);
 }

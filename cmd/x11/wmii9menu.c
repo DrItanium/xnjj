@@ -48,6 +48,9 @@
 #include <stuff/util.h>
 #include <stuff/x.h>
 
+char* argv0;
+Display* display;
+Screen scr;
 char version[] = "wmii9menu-"VERSION" "COPYRIGHT", ©1994 David Hogan, Arnold Robbins";
 
 static Window*	menuwin;
@@ -121,8 +124,8 @@ main(int argc, char **argv)
 	create_window();
 
 	numitems = argc;
-	labels = emalloc(numitems * sizeof *labels);
-	commands = emalloc(numitems * sizeof *labels);
+	labels = (decltype(labels))emalloc(numitems * sizeof *labels);
+	commands = (decltype(commands))emalloc(numitems * sizeof *labels);
 
 	for(i = 0; i < numitems; i++) {
 		labels[i] = argv[i];

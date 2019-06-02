@@ -6,7 +6,9 @@
 #define CLIENTEXTERN
 #include <stdlib.h>
 #include <string.h>
+extern "C" {
 #include <ixp.h>
+}
 #include <stuff/clientutil.h>
 #include <stuff/util.h>
 

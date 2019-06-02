@@ -25,7 +25,7 @@ Brdline(Biobuf *bp, int delim)
 	 * first try in remainder of buffer (gbuf doesn't change)
 	 */
 	ip = (char*)bp->ebuf - i;
-	ep = memchr(ip, delim, i);
+	ep = (decltype(ep))memchr(ip, delim, i);
 	if(ep) {
 		j = (ep - ip) + 1;
 		bp->rdline = j;
@@ -58,7 +58,7 @@ Brdline(Biobuf *bp, int delim)
 		}
 		bp->offset += j;
 		i += j;
-		ep = memchr(ip, delim, j);
+		ep = (decltype(ep))memchr(ip, delim, j);
 		if(ep) {
 			/*
 			 * found in new piece
