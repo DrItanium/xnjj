@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "fns.h"
 
-Handlers& getHandlers();
+static Handlers& getHandlers();
 static int	promptw;
 
 void

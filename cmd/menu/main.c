@@ -12,9 +12,12 @@
 #include "fns.h"
 #define link _link
 
-char* argv0;
-Display* display;
+char* argv0 = nullptr;
+Display* display = nullptr;
 Screen scr;
+Font*		font = nullptr;
+CTuple		cnorm;
+CTuple		csel;
 static const char version[] = "wimenu-"VERSION", "COPYRIGHT"\n";
 static Biobuf*	cmplbuf;
 static Biobuf*	inbuf;
