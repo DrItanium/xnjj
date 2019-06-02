@@ -9,6 +9,9 @@
 #include <stuff/util.h>
 #include <fmt.h>
 
+char* argv0;
+Display* display;
+Screen scr;
 int
 main(int argc, char *argv[]) {
 	XWindow w;

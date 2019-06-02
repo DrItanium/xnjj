@@ -97,7 +97,7 @@ extern char*	const _buf_end;
 #define die(...) \
 	_die(__FILE__, __LINE__, __VA_ARGS__)
 
-char *argv0;
+extern char *argv0;
 #undef ARGBEGIN
 #undef ARGEND
 #undef ARGF
