@@ -43,10 +43,10 @@ CFLAGS += \
 MKDEP = cpp -M
 SOCFLAGS += -fPIC
 
-SETFOCUS_OBJECTS := setfocus.o
-WIKEYNAME_OBJECTS := wikeyname.o
-WIWARP_OBJECTS := wiwarp.o
-WMII9MENU_OBJECTS := wmii9menu.o
+SETFOCUS_OBJECTS := cmd/x11/setfocus.o
+WIKEYNAME_OBJECTS := cmd/x11/wikeyname.o
+WIWARP_OBJECTS := cmd/x11/wiwarp.o
+WMII9MENU_OBJECTS := cmd/x11/wmii9menu.o
 
 X11_OBJECTS := ${SETFOCUS_OBJECTS} \
 			   ${WIKEYNAME_OBJECTS} \
@@ -313,10 +313,10 @@ BIOLIB_OBJECTS := \
 	bio/bwrite.o
 
 
-SETFOCUS_APP := setfocus.out
-WIKEYNAME_APP := wikeyname.out
-WIWARP_APP := wiwarp.out
-WMII9MENU_APP := wmii9menu.out
+SETFOCUS_APP := cmd/x11/setfocus.out
+WIKEYNAME_APP := cmd/x11/wikeyname.out
+WIWARP_APP := cmd/x11/wiwarp.out
+WMII9MENU_APP := cmd/x11/wmii9menu.out
 
 
 STUFFLIB_ARCHIVE := libstuff.a
@@ -324,9 +324,9 @@ FMTLIB_ARCHIVE := libfmt.a
 UTFLIB_ARCHIVE := libutf.a
 BIOLIB_ARCHIVE := libbio.a
 
-WMIIR_OBJECTS := wmiir.o
+WMIIR_OBJECTS := cmd/wmiir.o
 
-WMIIR_APP := wmiir.out
+WMIIR_APP := cmd/wmiir.out
 
 
 APPS := ${SETFOCUS_APP} \
@@ -380,7 +380,7 @@ ${BIOLIB_ARCHIVE}: ${BIOLIB_OBJECTS}
 
 ${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE}
 	@echo LD ${SETFOCUS_APP}
-	${LD} -o ${SETFOCUS_APP} \
+	@${LD} -o ${SETFOCUS_APP} \
 		${SETFOCUS_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
