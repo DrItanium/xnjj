@@ -12,6 +12,9 @@
 #include "fns.h"
 #define link _link
 
+char* argv0;
+Display* display;
+Screen scr;
 static const char version[] = "wimenu-"VERSION", "COPYRIGHT"\n";
 static Biobuf*	cmplbuf;
 static Biobuf*	inbuf;
@@ -55,7 +58,7 @@ populate_list(Biobuf *buf, bool hist) {
 	while((p = Brdstr(buf, '\n', true))) {
 		if(stop && p[0] == '\0')
 			break;
-		i->next_link = emallocz(sizeof *i);
+		i->next_link = (decltype(i->next_link))emallocz(sizeof *i);
 		i = i->next_link;
 		i->string = p;
 		i->retstring = p;
@@ -138,7 +141,7 @@ update_filter(bool print) {
 
 	filter = input.string + min(input.filter_start, input.pos - input.string);
 	if(input.pos < input.end)
-		filter = freelater(estrndup(filter, input.pos - filter));
+		filter = (decltype(filter))freelater(estrndup(filter, input.pos - filter));
 
 	match.sel = nil;
 	match.first = match.start = filter_list(match.all, filter);
@@ -193,7 +196,7 @@ main(int argc, char *argv[]) {
 
 	screen_hint = PointerScreen;
 
-	find = strstr;
+	find = [](const char* a, const char* b) { return (char*)strstr(a,b); };
 	compare = strncmp;
 
 	ndump = -1;
@@ -209,7 +212,7 @@ main(int argc, char *argv[]) {
 		histfile = EARGF(usage());
 		break;
 	case 'i':
-		find = strcasestr;
+		find = stuff_strcasestr;
 		compare = strncasecmp;
 		break;
 	case 'K':

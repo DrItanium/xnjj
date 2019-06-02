@@ -147,7 +147,7 @@ caret_insert(char *s, bool clear) {
 	while(input.size < end + len + 1)
 		input.size <<= 2;
 	if(input.size != size)
-		input.string = erealloc(input.string, input.size);
+		input.string = (decltype(input.string))erealloc(input.string, input.size);
 
 	input.pos = input.string + pos;
 	input.end = input.string + end + len;

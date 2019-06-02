@@ -38,12 +38,12 @@ parse_keys(char *spec) {
 		if(p)
 			*p = '\0';
 
-		nwords = stokenize(words, nelem(words) - 1, line, " \t");
+		nwords = (decltype(nwords))stokenize(words, nelem(words) - 1, line, " \t");
 		words[nwords] = nil;
 		if(!words[0])
 			continue;
 		if(parsekey(words[0], &mask, &p)) {
-			k = emallocz(sizeof *k);
+			k = (decltype(k))emallocz(sizeof *k);
 			k->key    = p;
 			k->mask   = mask;
 			k->action = strlistdup(words + 1);

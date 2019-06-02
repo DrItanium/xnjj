@@ -7,7 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <ixp.h>
+extern "C" {
+    #include <ixp.h>
+}
 #include <stuff/x.h>
 #include <stuff/util.h>
 
@@ -58,7 +60,7 @@ struct Item {
 	int	width;
 };
 
-EXTERN struct {
+struct {
 	char*	string;
 	char*	end;
 	char*	pos;
@@ -69,7 +71,7 @@ EXTERN struct {
 	int	filter_start;
 } input;
 
-EXTERN struct {
+struct {
 	Window*		win;
 	Image*		buf;
 	char*		prompt;
@@ -84,7 +86,7 @@ extern char	binding_spec[];
 
 EXTERN IxpServer	srv;
 
-EXTERN struct {
+struct {
 	Item*	all;
 	Item*	first;
 	Item*	start;

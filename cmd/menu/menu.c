@@ -4,13 +4,15 @@
 #include <unistd.h>
 #include "fns.h"
 
-static Handlers	handlers;
+Handlers& getHandlers();
 static int	promptw;
 
 void
 menu_init(void) {
 	WinAttr wa;
 
+    static long temporary[] = { TYPE("MENU") };
+    static char* temporary1[3] = { "wimenu", "wimenu", nullptr };
 	wa.event_mask = ExposureMask | KeyPressMask;
 	menu.win = createwindow(&scr.root, Rect(-1, -1, 1, 1), scr.depth, InputOutput,
 				&wa, CWEventMask);
@@ -21,11 +23,11 @@ menu_init(void) {
 					  XNFocusWindow, menu.win->xid,
 					  nil);
 
-	changeprop_long(menu.win, Net("WM_WINDOW_TYPE"), "ATOM", (long[]){ TYPE("MENU") }, 1);
+	changeprop_long(menu.win, Net("WM_WINDOW_TYPE"), "ATOM", temporary, 1);
 	changeprop_string(menu.win, "_WMII_TAGS", "sel");
-	changeprop_textlist(menu.win, "WM_CLASS", "STRING", (char*[3]){ "wimenu", "wimenu" });
+	changeprop_textlist(menu.win, "WM_CLASS", "STRING", temporary1);
 
-	sethandler(menu.win, &handlers);
+	sethandler(menu.win, &getHandlers());
 	mapwin(menu.win);
 
 	int i = 0;
@@ -331,7 +333,7 @@ kdown_event(Window *w, void *aux, XKeyEvent *e) {
 			update_input();
 			break;
 		case LPASTE:
-			getselection(action[1] ? action[1] : "PRIMARY", paste, nil);
+			getselection((char*)(action[1] ? action[1] : "PRIMARY"), paste, nil);
 			break;
 		case LREJECT:
 			srv.running = false;
@@ -351,8 +353,11 @@ expose_event(Window *w, void *aux, XExposeEvent *e) {
 	return false;
 }
 
-static Handlers handlers = {
-	.expose = expose_event,
-	.kdown = kdown_event,
-};
-
+Handlers&
+getHandlers() {
+    static Handlers handlers = {
+        .expose = expose_event,
+        .kdown = kdown_event,
+    };
+    return handlers;
+}
