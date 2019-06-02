@@ -98,7 +98,7 @@ rect_morph(Rectangle *r, Point d, Align *mask) {
 		n = r->min.x;
 		r->min.x = r->max.x;
 		r->max.x = n;
-		*mask ^= East|West;
+		*mask ^= Align(East|West);
 	}
 	if(r->min.y > r->max.y) {
 		n = r->min.y;
@@ -174,7 +174,7 @@ snap_rect(const Rectangle *rects, int num, Rectangle *r, Align *mask, int snap) 
 		d.y = 0;
 
 	rect_morph(r, d, mask);
-	return ret ^ *mask;
+	return Align(ret ^ *mask);
 }
 
 int
@@ -636,9 +636,10 @@ mouse_checkresize(Frame *f, Point p, bool exec) {
 		|| p.y <= 2
 		|| r.max.x - p.x <= 2
 		|| r.max.y - p.y <= 2) {
-			cur = quad_cursor(q);
-			if(exec)
-				mouse_resize(f->client, q, false);
+			cur = quad_cursor((Align)q);
+			if(exec) {
+				mouse_resize(f->client, Align(q), false);
+            }
 		}
 		else if(exec && rect_haspoint_p(f->titlebar, p))
 			mouse_movegrabbox(f->client, true);

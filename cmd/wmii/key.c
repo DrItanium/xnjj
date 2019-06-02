@@ -71,10 +71,11 @@ getkey(const char *name) {
 	utflcpy(buf, name, sizeof buf);
 	toks = tokenize(seq, 8, buf, ',');
 	for(i = 0; i < toks; i++) {
-		if(!k)
-			r = k = emallocz(sizeof *k);
-		else {
-			k->next = emallocz(sizeof *k);
+		if(!k) {
+            k = emallocz<Key>();
+            r = k;
+        } else {
+			k->next = emallocz<Key>();
 			k = k->next;
 		}
 		utflcpy(k->name, name, sizeof k->name);

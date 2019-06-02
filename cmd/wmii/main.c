@@ -13,6 +13,7 @@
 #include <sys/signal.h>
 #include <sys/stat.h>
 #include "fns.h"
+#include <type_traits>
 
 static const char
 	version[] = "wmii-"VERSION", "COPYRIGHT"\n";
@@ -178,7 +179,7 @@ init_screens(void) {
 
 	/* Reallocate screens, zero any new ones. */
 	rects = xinerama_screens(&n);
-	r = malloc(n * sizeof *r);
+	r = (Rectangle*)malloc(n * sizeof *r);
 
 	/* Weed out subsumed/cloned screens */
 	for(m=-1; m < n; n=m) {
@@ -203,7 +204,7 @@ init_screens(void) {
 		view_update_screens(v);
 
 	nscreens = nscreens_new;
-	screens = erealloc(screens, (nscreens + 1) * sizeof *screens);
+	screens = (decltype(screens))erealloc(screens, (nscreens + 1) * sizeof *screens);
 	screens[nscreens] = nil;
 
 	/* Reallocate buffers. */
@@ -217,7 +218,7 @@ init_screens(void) {
 	/* Resize and initialize screens. */
 	for(i=0; i < nscreens; i++) {
 		if(i >= m)
-			screens[i] = emallocz(sizeof *screens[i]);
+			screens[i] = emallocz<std::decay_t<decltype(*screens[i])>>();
 
 		screen = screens[i];
 		screen->idx = i;

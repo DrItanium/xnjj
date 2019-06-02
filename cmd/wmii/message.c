@@ -402,7 +402,8 @@ strarea(View *v, ulong scrn, const char *area) {
 	if(area == nil)
 		error(Ebadvalue);
 
-	if((p = strchr(area, ':'))) {
+    p = (char*)strchr(area, ':');
+    if (p) {
 		/* <screen>:<area> */
 		*p++ = '\0';
 		screen = area;
@@ -412,9 +413,9 @@ strarea(View *v, ulong scrn, const char *area) {
 			scrn = v->selscreen;
 		else
 			scrn = msg_getulong(screen);
-	}
-	else if(!strcmp(area, "sel"))
+	} else if(!strcmp(area, "sel")) {
 		return v->sel;
+    }
 
 	if(!strcmp(area, "sel")) {
 		if(scrn != v->selscreen)

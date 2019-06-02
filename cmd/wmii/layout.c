@@ -14,7 +14,7 @@ enum {
 		ButtonMask | PointerMotionMask
 };
 
-static Handlers handlers;
+static Handlers& getHandlers();
 
 enum { OHoriz, OVert };
 typedef struct Framewin Framewin;
@@ -69,16 +69,15 @@ frameadjust(Framewin *f, Point pt, int orientation, int xy) {
 static Framewin*
 framewin(Frame *f, Point pt, int orientation, int n) {
 	WinAttr wa;
-	Framewin *fw;
 
-	fw = emallocz(sizeof *fw);
+	auto fw = emallocz<Framewin>();
 	wa.override_redirect = true;
 	wa.event_mask = ExposureMask;
 	fw->w = createwindow(&scr.root, Rect(0, 0, 1, 1),
 			scr.depth, InputOutput,
 			&wa, CWEventMask);
 	fw->w->aux = fw;
-	sethandler(fw->w, &handlers);
+	sethandler(fw->w, &getHandlers());
 
 	fw->f = f;
 	fw->screen = f->area->screen;
@@ -98,15 +97,13 @@ framedestroy(Framewin *f) {
 }
 
 static bool
-expose_event(Window *w, void *aux, XExposeEvent *e) {
+expose_event(Window *w, void *aux, XExposeEvent*) {
 	Rectangle r;
-	Framewin *f;
 	Image *buf;
 	CTuple *c;
 
-	USED(e);
 
-	f = aux;
+	auto f = (Framewin*)aux;
 	c = &def.focuscolor;
 	buf = disp.ibuf;
 
@@ -120,9 +117,13 @@ expose_event(Window *w, void *aux, XExposeEvent *e) {
 	return false;
 }
 
-static Handlers handlers = {
-	.expose = expose_event,
-};
+Handlers& 
+getHandlers() {
+    static Handlers handlers = {
+        .expose = expose_event,
+    };
+    return handlers;
+} 
 
 static Area*
 find_area(Point pt) {
