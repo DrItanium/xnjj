@@ -42,6 +42,43 @@ X11_OBJECTS := ${SETFOCUS_OBJECTS} \
 			   ${WIKEYNAME_OBJECTS} \
 			   ${WIWARP_OBJECTS} \
 			   ${WMII9MENU_OBJECTS}
+FMTLIB_OBJECTS := \
+	fmt/charstod.o\
+	fmt/pow10.o\
+	fmt/nan64.o\
+	fmt/dofmt.o\
+	fmt/dorfmt.o\
+	fmt/errfmt.o\
+	fmt/fltfmt.o\
+	fmt/fmt.o\
+	fmt/fmtfd.o\
+	fmt/fmtfdflush.o\
+	fmt/fmtlocale.o\
+	fmt/fmtlock.o\
+	fmt/fmtprint.o\
+	fmt/fmtquote.o\
+	fmt/fmtrune.o\
+	fmt/fmtstr.o\
+	fmt/fmtvprint.o\
+	fmt/fprint.o\
+	fmt/print.o\
+	fmt/runefmtstr.o\
+	fmt/runeseprint.o\
+	fmt/runesmprint.o\
+	fmt/runesnprint.o\
+	fmt/runesprint.o\
+	fmt/runevseprint.o\
+	fmt/runevsmprint.o\
+	fmt/runevsnprint.o\
+	fmt/seprint.o\
+	fmt/smprint.o\
+	fmt/snprint.o\
+	fmt/sprint.o\
+	fmt/strtod.o\
+	fmt/vfprint.o\
+	fmt/vseprint.o\
+	fmt/vsmprint.o\
+	fmt/vsnprint.o
 
 STUFFLIB_OBJECTS := stuff/buffer.o		\
 	stuff/clientutil.o	\
@@ -232,16 +269,19 @@ WMII9MENU_APP := wmii9menu.out
 
 
 STUFFLIB_ARCHIVE := libstuff.a
+FMTLIB_ARCHIVE := libfmt.a
 
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
 	    ${WIWARP_APP} \
 	    ${WMII9MENU_APP}
 
-LIBS := ${STUFFLIB_ARCHIVE}
+LIBS := ${STUFFLIB_ARCHIVE} \
+		${FMTLIB_ARCHIVE}
 
 OBJECTS := ${X11_OBJECTS} \
-		   ${STUFFLIB_OBJECTS}
+		   ${STUFFLIB_OBJECTS} \
+		   ${FMTLIB_OBJECTS} 
 BASE_X11DEPS := x11 xinerama xrender xrandr
 #XDEPS := -lxext -lxrandr -lxrender -lxinerama
 
@@ -258,11 +298,15 @@ all: ${APPS}
 
 ${STUFFLIB_ARCHIVE}: ${STUFFLIB_OBJECTS}
 	@echo AR ${STUFFLIB_ARCHIVE}
-	${AR} ${STUFFLIB_ARCHIVE} ${STUFFLIB_OBJECTS}
+	@${AR} ${STUFFLIB_ARCHIVE} ${STUFFLIB_OBJECTS}
 
-${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE}
+${FMTLIB_ARCHIVE}: ${FMTLIB_OBJECTS}
+	@echo AR ${FMTLIB_ARCHIVE}
+	@${AR} ${FMTLIB_ARCHIVE} ${FMTLIB_OBJECTS}
+
+${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE}
 	@echo LD ${SETFOCUS_APP}
-	${LD} -o ${SETFOCUS_APP} ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} $$(pkg-config --libs $(BASE_X11DEPS))
+	${LD} -o ${SETFOCUS_APP} ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} $$(pkg-config --libs $(BASE_X11DEPS))
 
 ${WIKEYNAME_APP}: ${WIKEYNAME_OBJECTS}
 	@echo LD ${WIKEYNAME_APP}
