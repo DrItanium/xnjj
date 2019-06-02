@@ -7,10 +7,17 @@ INCLUDES := -Ilib \
 			-Ilib/wmii_hack
 VERSION := 0.1
 COPYRIGHT = ©2019 Joshua Scoggins 
+LOCALCONF = ~/.$(CONFDIR)
+GLOBALCONF = $(ETC)/$(CONFDIR)
 
 REQUIRED_DEFINES := -D_XOPEN_SOURCE=600 \
 	'-DVERSION="$(VERSION)"' \
-	'-DCOPYRIGHT="$(COPYRIGHT)"'
+	'-DCOPYRIGHT="$(COPYRIGHT)"' \
+	'-DCONFDIR="$(CONFDIR)"' \
+	'-DCONFPREFIX="$(ETC)"' \
+	'-DLOCALCONF="$(LOCALCONF)"' \
+	'-DGLOBALCONF="$(GLOBALCONF)"' \
+	-DIXP_NEEDAPI=129
 
 DEBUGCFLAGS = \
 	-g \
@@ -366,6 +373,35 @@ WISTRUT_OBJECTS =	cmd/strut/main.o	\
 
 WISTRUT_APP = cmd/strut/wistrut.out
 
+WMII_OBJECTS := \
+	cmd/wmii/area.o\
+	cmd/wmii/bar.o\
+	cmd/wmii/backtrace.o\
+	cmd/wmii/client.o\
+	cmd/wmii/column.o\
+	cmd/wmii/div.o\
+	cmd/wmii/error.o\
+	cmd/wmii/event.o\
+	cmd/wmii/ewmh.o\
+	cmd/wmii/float.o\
+	cmd/wmii/frame.o\
+	cmd/wmii/fs.o\
+	cmd/wmii/key.o\
+	cmd/wmii/layout.o\
+	cmd/wmii/main.o\
+	cmd/wmii/message.o\
+	cmd/wmii/mouse.o\
+	cmd/wmii/print.o\
+	cmd/wmii/root.o\
+	cmd/wmii/rule.o\
+	cmd/wmii/screen.o\
+	cmd/wmii/stack.o\
+	cmd/wmii/utf.o\
+	cmd/wmii/view.o\
+	cmd/wmii/xdnd.o
+
+WMII_APP := cmd/wmii/wmii.out
+
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
 	    ${WIWARP_APP} \
@@ -373,13 +409,15 @@ APPS := ${SETFOCUS_APP} \
 		${WMIIR_APP} \
 		${WITRAY_APP} \
 		${WIMENU_APP} \
-		${WISTRUT_APP}
+		${WISTRUT_APP} \
+		${WMII_APP}
 
 LIBS := ${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
 		${UTFLIB_ARCHIVE} \
 		${BIOLIB_ARCHIVE} \
 		${REGEXPLIB_ARCHIVE}
+
 
 OBJECTS := ${X11_OBJECTS} \
 		   ${STUFFLIB_OBJECTS} \
@@ -390,7 +428,8 @@ OBJECTS := ${X11_OBJECTS} \
 		   ${WITRAY_OBJECTS} \
 		   ${WIMENU_OBJECTS} \
 		   ${WISTRUT_OBJECTS} \
-		   ${REGEXPLIB_OBJECTS}
+		   ${REGEXPLIB_OBJECTS} \
+		   ${WMII_OBJECTS}
 
 BASE_X11DEPS := x11 xinerama xrender xrandr
 BASE_X11_SOLIBS := $$(pkg-config --libs $(BASE_X11DEPS))
@@ -448,7 +487,8 @@ ${WIKEYNAME_APP}: ${WIKEYNAME_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${U
 
 ${WIWARP_APP}: ${WIWARP_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE}
 	@echo LD ${WIWARP_APP}
-	@${LD} -o ${WIWARP_APP} ${WIWARP_OBJECTS} \
+	@${LD} $(LDFLAGS) \
+		-o ${WIWARP_APP} ${WIWARP_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
 		${UTFLIB_ARCHIVE} \
@@ -456,7 +496,8 @@ ${WIWARP_APP}: ${WIWARP_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_
 
 ${WMII9MENU_APP}: ${WMII9MENU_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE}
 	@echo LD ${WMII9MENU_APP}
-	@${LD} -o ${WMII9MENU_APP} ${WMII9MENU_OBJECTS} \
+	@${LD} $(LDFLAGS) \
+		-o ${WMII9MENU_APP} ${WMII9MENU_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
 		${UTFLIB_ARCHIVE} \
@@ -471,7 +512,8 @@ ${WMIIR_APP}: ${WMIIR_OBJECTS} \
 	${UTFLIB_ARCHIVE} \
 	${BIOLIB_ARCHIVE}
 	@echo LD ${WMIIR_APP}
-	@${LD} -o ${WMIIR_APP} \
+	@${LD} $(LDFLAGS) \
+		-o ${WMIIR_APP} \
 		${WMIIR_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
@@ -485,7 +527,8 @@ ${WITRAY_APP}: ${WITRAY_OBJECTS} \
 	${UTFLIB_ARCHIVE} \
 	${BIOLIB_ARCHIVE}
 	@echo LD ${WITRAY_APP}
-	@${LD} -o ${WITRAY_APP} \
+	@${LD} $(LDFLAGS) \
+		-o ${WITRAY_APP} \
 		${WITRAY_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
@@ -501,7 +544,8 @@ ${WIMENU_APP}: ${WIMENU_OBJECTS} \
 	${UTFLIB_ARCHIVE} \
 	${BIOLIB_ARCHIVE}
 	@echo LD ${WIMENU_APP}
-	@${LD} -o ${WIMENU_APP} \
+	@${LD} $(LDFLAGS) \
+		-o ${WIMENU_APP} \
 		${WIMENU_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
@@ -518,7 +562,8 @@ ${WISTRUT_APP}: ${WISTRUT_OBJECTS} \
 	${BIOLIB_ARCHIVE} \
 	${REGEXPLIB_ARCHIVE}
 	@echo LD ${WISTRUT_APP}
-	@${LD} -o ${WISTRUT_APP} \
+	@${LD} $(LDFLAGS) \
+		-o ${WISTRUT_APP} \
 		${WISTRUT_OBJECTS} \
 		${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
@@ -526,6 +571,26 @@ ${WISTRUT_APP}: ${WISTRUT_OBJECTS} \
 		${REGEXPLIB_ARCHIVE} \
 		${UTFLIB_ARCHIVE} \
 		-lixp \
+		${BASE_X11_SOLIBS}
+
+${WMII_APP}: ${WMII_OBJECTS} \
+	${STUFFLIB_ARCHIVE} \
+	${FMTLIB_ARCHIVE} \
+	${UTFLIB_ARCHIVE} \
+	${BIOLIB_ARCHIVE} \
+	${REGEXPLIB_ARCHIVE}
+	@echo LD ${WMII_APP}
+	@${LD} $(LDFLAGS) \
+		-o ${WMII_APP} \
+		${WMII_OBJECTS} \
+		${STUFFLIB_ARCHIVE} \
+		${FMTLIB_ARCHIVE} \
+		${BIOLIB_ARCHIVE} \
+		${REGEXPLIB_ARCHIVE} \
+		${UTFLIB_ARCHIVE} \
+		-lixp \
+		-lXext \
+		-lm \
 		${BASE_X11_SOLIBS}
 
 clean: 

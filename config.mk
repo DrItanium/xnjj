@@ -1,5 +1,6 @@
 # Customize below to fit your system
 
+CONFDIR = xnjj-git
 # Paths
 PREFIX = /usr/local
   BIN = $(PREFIX)/bin
