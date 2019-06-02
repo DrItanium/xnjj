@@ -11,8 +11,9 @@ static void	ewmh_getwinstate(Client*);
 static void	ewmh_setstate(Client*, Atom, int);
 static void	tick(long, void*);
 
-static Handlers	client_handlers;
-static Handlers	root_handlers;
+
+static Handlers&	client_handlers();
+static Handlers&	root_handlers();
 
 static void
 clientprop_long(Client *c, int cache, char *prop, char *type, long *data, int l) {
@@ -41,11 +42,10 @@ ewmh_init(void) {
 	changeprop_long(&scr.root, Net("SUPPORTING_WM_CHECK"), "WINDOW", &win, 1);
 	changeprop_long(ewmhwin, Net("SUPPORTING_WM_CHECK"), "WINDOW", &win, 1);
 	changeprop_string(ewmhwin, Net("WM_NAME"), myname);
+    long temporary[2] = { 0, 0 };
+	changeprop_long(&scr.root, Net("DESKTOP_VIEWPORT"), "CARDINAL", temporary, 2);
 
-	changeprop_long(&scr.root, Net("DESKTOP_VIEWPORT"), "CARDINAL",
-			(long[2]){0, 0}, 2);
-
-	pushhandler(&scr.root, &root_handlers, nil);
+	pushhandler(&scr.root, &root_handlers(), nil);
 
 	tick(0L, nil);
 
@@ -183,7 +183,7 @@ ewmh_initclient(Client *c) {
 	ewmh_getstrut(c);
 	ewmh_framesize(c);
 	ewmh_updateclientlist();
-	pushhandler(&c->w, &client_handlers, c);
+	pushhandler(&c->w, &client_handlers(), c);
 }
 
 void
@@ -215,12 +215,11 @@ usertime(Window *w) {
 
 static bool
 event_client_clientmessage(Window *w, void *aux, XClientMessageEvent *e) {
-	Client *c;
 	ulong *l;
 	ulong msg;
 	int action;
 
-	c = aux;
+	auto c = (Client*)aux;
 	l = (ulong*)e->data.l;
 	msg = e->message_type;
 	Dprint(DEwmh, "ClientMessage: %A\n", msg);
@@ -275,13 +274,17 @@ event_client_clientmessage(Window *w, void *aux, XClientMessageEvent *e) {
 
 static bool
 event_client_property(Window *w, void *aux, XPropertyEvent *e) {
-	return ewmh_prop(aux, e->atom);
+	return ewmh_prop((Client*)aux, e->atom);
 }
 
-static Handlers client_handlers = {
-	.message = event_client_clientmessage,
-	.property = event_client_property,
-};
+Handlers& 
+client_handlers() {
+    static Handlers h = {
+        .message = event_client_clientmessage,
+        .property = event_client_property,
+    };
+    return h;
+} 
 
 bool
 ewmh_prop(Client *c, Atom a) {
@@ -413,13 +416,13 @@ ewmh_getstrut(Client *c) {
 			return;
 		}
 		Dprint(DEwmh, "ewmh_getstrut(%#C[%C]) Using WM_STRUT\n", c, c);
-		strut = erealloc(strut, Last * sizeof *strut);
+		strut = (decltype(strut))erealloc(strut, Last * sizeof *strut);
 		strut[LeftMin] = strut[RightMin] = 0;
 		strut[LeftMax] = strut[RightMax] = INT_MAX;
 		strut[TopMin] = strut[BottomMin] = 0;
 		strut[TopMax] = strut[BottomMax] = INT_MAX;
 	}
-	c->strut = emalloc(sizeof *c->strut);
+	c->strut = (decltype(c->strut))emalloc(sizeof *c->strut);
 	c->strut->left =   Rect(0,                strut[LeftMin],  strut[Left],      strut[LeftMax]);
 	c->strut->right =  Rect(-strut[Right],    strut[RightMin], 0,                strut[RightMax]);
 	c->strut->top =    Rect(strut[TopMin],    0,               strut[TopMax],    strut[Top]);
@@ -493,9 +496,13 @@ event_root_clientmessage(Window *w, void *aux, XClientMessageEvent *e) {
 	return false;
 }
 
-static Handlers root_handlers = {
-	.message = event_root_clientmessage,
-};
+Handlers&
+root_handlers() {
+    static Handlers h = {
+        .message = event_root_clientmessage,
+    };
+    return h;
+}
 
 
 void
@@ -543,13 +550,12 @@ ewmh_updatestate(Client *c) {
 	else
 		clientprop_del(c, PState, Net("WM_STATE"));
 
-	if(c->fullscreen >= 0)
-		clientprop_long(c, PMonitors, Net("WM_FULLSCREEN_MONITORS"), "CARDINAL",
-				(long[]) { c->fullscreen, c->fullscreen,
-					   c->fullscreen, c->fullscreen },
-				4);
-	else
+	if(c->fullscreen >= 0) {
+        long temporary[] = { c->fullscreen, c->fullscreen, c->fullscreen, c->fullscreen };
+		clientprop_long(c, PMonitors, Net("WM_FULLSCREEN_MONITORS"), "CARDINAL", temporary, 4);
+    } else {
 		clientprop_del(c, PMonitors, Net("WM_FULLSCREEN_MONITORS"));
+    }
 }
 
 /* Views */

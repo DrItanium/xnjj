@@ -27,7 +27,7 @@ column_setmode(Area *a, const char *mode) {
 	 * change.
 	 */
 
-	str = freelater(estrdup(mode));
+	str = (char*)freelater(estrdup(mode));
 	old = '+';
 	while((tok = mask(&str, &add, &old))) {
 		if(!strcmp(tok, "max")) {
@@ -389,7 +389,7 @@ column_squeeze(Area *a) {
 	fvec.n = 0;
 	for(f=a->frame; f; f=f->anext)
 		if(!f->collapsed) {
-			f->r = frame_hints(f, f->r, 0);
+			f->r = frame_hints(f, f->r, Align(0));
 			vector_ppush(&fvec, f);
 		}
 
@@ -398,7 +398,7 @@ column_squeeze(Area *a) {
 		osurplus = surplus;
 		qsort(fvec.ary, fvec.n, sizeof *fvec.ary, comp_frame);
 		for(i=0; i < fvec.n; i++) {
-			f=fvec.ary[i];
+			f=(Frame*)fvec.ary[i];
 			dy = foo(f);
 			if(dy > surplus)
 				break;

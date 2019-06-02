@@ -11,7 +11,7 @@
 
 #define Mbsearch(k, l, cmp) bsearch(k, l, nelem(l), sizeof(*l), cmp)
 
-static Handlers handlers;
+static Handlers& getHandlers();
 
 enum {
 	ClientMask = StructureNotifyMask
@@ -45,7 +45,7 @@ group_init(Client *c) {
 		if(g->leader == w)
 			break;
 	if(g == nil) {
-		g = emallocz(sizeof *g);
+		g = emallocz<Group>();
 		g->leader = w;
 		g->next = group;
 		group = g;
@@ -93,11 +93,11 @@ group_leader(Group *g) {
 
 Client*
 client_create(XWindow w, XWindowAttributes *wa) {
-	Client **t, *c;
+	Client **t;
 	char **host = nil;
 	ulong *pid = nil;
 
-	c = emallocz(sizeof *c);
+	auto c = emallocz<Client>();
 	c->fullscreen = -1;
 	c->border = wa->border_width;
 
@@ -109,8 +109,8 @@ client_create(XWindow w, XWindowAttributes *wa) {
 	c->w.xid = w;
 	c->w.r = c->r;
 	c->w.aux = c;
-
-	setborder(&c->w, 0, &(Color){0});
+    Color temporary = { 0 };
+	setborder(&c->w, 0, &temporary);
 
 	client_prop(c, xatom("WM_PROTOCOLS"));
 	client_prop(c, xatom("WM_TRANSIENT_FOR"));
@@ -131,7 +131,7 @@ client_create(XWindow w, XWindowAttributes *wa) {
 	c->rgba = render_argb_p(c->w.visual);
 	client_reparent(c);
 
-	sethandler(&c->w, &handlers);
+	sethandler(&c->w, &getHandlers());
 
 	selectinput(&c->w, ClientMask);
 
@@ -449,7 +449,7 @@ client_groupframe(Client *c, View *v) {
 
 Rectangle
 frame_hints(Frame *f, Rectangle r, Align sticky) {
-	Rectangle or;
+	Rectangle _or;
 	WinHints h;
 	Point p;
 	Client *c;
@@ -458,23 +458,23 @@ frame_hints(Frame *f, Rectangle r, Align sticky) {
 	if(c->w.hints == nil)
 		return r;
 
-	or = r;
+	_or = r;
 	h = frame_gethints(f);
 	r = sizehint(&h, r);
 
 	if(!f->area->floating) {
 		/* Not allowed to grow */
-		if(Dx(r) > Dx(or))
-			r.max.x = r.min.x+Dx(or);
-		if(Dy(r) > Dy(or))
-			r.max.y = r.min.y+Dy(or);
+		if(Dx(r) > Dx(_or))
+			r.max.x = r.min.x+Dx(_or);
+		if(Dy(r) > Dy(_or))
+			r.max.y = r.min.y+Dy(_or);
 	}
 
 	p = ZP;
 	if((sticky&(East|West)) == East)
-		p.x = Dx(or) - Dx(r);
+		p.x = Dx(_or) - Dx(r);
 	if((sticky&(North|South)) == South)
-		p.y = Dy(or) - Dy(r);
+		p.y = Dy(_or) - Dy(r);
 	return rectaddpt(r, p);
 }
 
@@ -609,9 +609,7 @@ client_configure(Client *c) {
 
 	c->configr = c->r;
 	r = rectsubpt(c->r, Pt(c->border, c->border));
-
-	sendevent(&c->w, false, StructureNotifyMask,
-		  &(XConfigureEvent) {
+    XConfigureEvent temporary = {
 			  .type = ConfigureNotify,
 			  .event = c->w.xid,
 			  .window = c->w.xid,
@@ -621,7 +619,8 @@ client_configure(Client *c) {
 			  .width = Dx(r),
 			  .height = Dy(r),
 			  .border_width = c->border,
-		  });
+		  };
+	sendevent(&c->w, false, StructureNotifyMask, &temporary);
 }
 
 void
@@ -704,8 +703,8 @@ client_seturgent(Client *c, int urgent, int from) {
 	if(urgent == Toggle)
 		urgent = c->urgent ^ On;
 
-	cfrom = (from == UrgManager ? "Manager" : "Client");
-	cnot = (urgent ? "" : "Not");
+	cfrom = (char*)(from == UrgManager ? "Manager" : "Client");
+	cnot = (char*)(urgent ? "" : "Not");
 
 	if(urgent != c->urgent) {
 		event("%sUrgent %#C %s\n", cnot, c, cfrom);
@@ -721,7 +720,7 @@ client_seturgent(Client *c, int urgent, int from) {
 	if(from == UrgManager) {
 		wmh = XGetWMHints(display, c->w.xid);
 		if(wmh == nil)
-			wmh = emallocz(sizeof *wmh);
+			wmh = emallocz<XWMHints>();
 
 		wmh->flags &= ~XUrgencyHint;
 		if(urgent)
@@ -735,7 +734,7 @@ client_seturgent(Client *c, int urgent, int from) {
 void
 update_class(Client *c) {
 
-	snprint(c->props, sizeof c->props, "%s:%s", c->class, c->name);
+	snprint(c->props, sizeof c->props, "%s:%s", c->_class, c->name);
 }
 
 static void
@@ -807,7 +806,7 @@ bool
 client_prop(Client *c, Atom a) {
 	WinHints h;
 	XWMHints *wmh;
-	char **class;
+	char **_class;
 	int n;
 
 	if(a == xatom("WM_PROTOCOLS"))
@@ -845,11 +844,11 @@ client_prop(Client *c, Atom a) {
 		}
 		break;
 	case XA_WM_CLASS:
-		n = getprop_textlist(&c->w, "WM_CLASS", &class);
-		snprint(c->class, sizeof c->class, "%s:%s",
-			(n > 0 ? class[0] : "<nil>"),
-			(n > 1 ? class[1] : "<nil>"));
-		freestringlist(class);
+		n = getprop_textlist(&c->w, "WM_CLASS", &_class);
+		snprint(c->_class, sizeof c->_class, "%s:%s",
+			(n > 0 ? _class[0] : "<nil>"),
+			(n > 1 ? _class[1] : "<nil>"));
+		freestringlist(_class);
 		update_class(c);
 		break;
 	case XA_WM_NAME:
@@ -864,9 +863,8 @@ client_prop(Client *c, Atom a) {
 static bool
 configreq_event(Window *w, void *aux, XConfigureRequestEvent *e) {
 	Rectangle r;
-	Client *c;
 
-	c = aux;
+	auto c = (Client*)aux;
 
 	r = client_grav(c, ZR);
 	r.max = subpt(r.max, r.min);
@@ -896,10 +894,8 @@ configreq_event(Window *w, void *aux, XConfigureRequestEvent *e) {
 }
 
 static bool
-destroy_event(Window *w, void *aux, XDestroyWindowEvent *e) {
-	USED(w, e);
-
-	client_destroy(aux);
+destroy_event(Window *, void *aux, XDestroyWindowEvent *) {
+	client_destroy((Client*)aux);
 	return false;
 }
 
@@ -907,7 +903,7 @@ static bool
 enter_event(Window *w, void *aux, XCrossingEvent *e) {
 	Client *c;
 
-	c = aux;
+	c = (Client*)aux;
 	if(e->detail != NotifyInferior) {
 		if(e->detail != NotifyVirtual)
 		if(e->serial > event_lastconfigure && disp.focus != c) {
@@ -924,7 +920,7 @@ static bool
 focusin_event(Window *w, void *aux, XFocusChangeEvent *e) {
 	Client *c, *old;
 
-	c = aux;
+	c = (Client*)aux;
 
 	print_focus("focusin_event", c, c->name);
 
@@ -943,9 +939,7 @@ focusin_event(Window *w, void *aux, XFocusChangeEvent *e) {
 
 static bool
 focusout_event(Window *w, void *aux, XFocusChangeEvent *e) {
-	Client *c;
-
-	c = aux;
+	Client* c = (Client*)aux;
 	if((e->mode == NotifyWhileGrabbed) && (disp.hasgrab != &c_root)) {
 		if(disp.focus)
 			disp.hasgrab = disp.focus;
@@ -960,9 +954,7 @@ focusout_event(Window *w, void *aux, XFocusChangeEvent *e) {
 
 static bool
 unmap_event(Window *w, void *aux, XUnmapEvent *e) {
-	Client *c;
-
-	c = aux;
+	auto c = (Client*)aux;
 	if(!e->send_event && w->parent != c->framewin)
 		c->w.unmapped++;
 	if(e->send_event || c->w.unmapped < 0)
@@ -971,15 +963,12 @@ unmap_event(Window *w, void *aux, XUnmapEvent *e) {
 }
 
 static bool
-map_event(Window *w, void *aux, XMapEvent *e) {
-	Client *c;
+map_event(Window *w, void *aux, XMapEvent*) {
 
-	USED(e);
-
-	c = aux;
-	if(c == selclient())
-		client_focus(c);
-	return true;
+	if (Client* c = (Client*)aux; c == selclient()) {
+        client_focus(c);
+    }
+    return true;
 }
 
 static bool
@@ -987,19 +976,27 @@ property_event(Window *w, void *aux, XPropertyEvent *e) {
 
 	if(e->state == PropertyDelete) /* FIXME */
 		return true;
-	return client_prop(aux, e->atom);
+	return client_prop((Client*)aux, e->atom);
 }
 
-static Handlers handlers = {
-	.configreq = configreq_event,
-	.destroy = destroy_event,
-	.enter = enter_event,
-	.focusin = focusin_event,
-	.focusout = focusout_event,
-	.map = map_event,
-	.unmap = unmap_event,
-	.property = property_event,
-};
+Handlers&
+getHandlers() {
+    static bool init = false;
+    static Handlers handlers;
+    if (!init) {
+        init = true;
+        handlers.configreq = configreq_event;
+        handlers.destroy = destroy_event;
+        handlers.enter = enter_event;
+        handlers.focusin = focusin_event;
+        handlers.focusout = focusout_event;
+        handlers.map = map_event;
+        handlers.unmap = unmap_event;
+        handlers.property = property_event;
+    }
+
+    return handlers;
+}
 
 /* Other */
 void
@@ -1116,7 +1113,7 @@ client_applytags(Client *c, const char *tags) {
 		refree(&c->tagre);
 		refree(&c->tagvre);
 	}
-	strlcat(buf, tags, sizeof buf);
+	stuff_strlcat(buf, tags, sizeof buf);
 
 	j = 0;
 	s = buf;

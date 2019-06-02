@@ -7,7 +7,7 @@
 static Image*	divimg;
 static Image*	divmask;
 static CTuple	divcolor;
-static Handlers	handlers;
+static Handlers& getHandlers();
 
 static Divide*
 getdiv(Divide ***dp) {
@@ -17,7 +17,7 @@ getdiv(Divide ***dp) {
 	if(**dp)
 		d = **dp;
 	else {
-		d = emallocz(sizeof *d);
+		d = emallocz<Divide>();
 
 		wa.override_redirect = true;
 		wa.cursor = cursor[CurDHArrow];
@@ -32,7 +32,7 @@ getdiv(Divide ***dp) {
 			| CWEventMask
 			| CWCursor);
 		d->w->aux = d;
-		sethandler(d->w, &handlers);
+		sethandler(d->w, &getHandlers());
 		**dp = d;
 	}
 	*dp = &d->next;
@@ -92,9 +92,12 @@ drawimg(Image *img, Color cbg, Color cborder, Divide *d) {
 
 static void
 drawdiv(Divide *d) {
-
-	fill(divmask, divmask->r, &(Color){0});
-	drawimg(divmask, (Color){~0,~0,~0}, (Color){~0,~0,~0}, d);
+    constexpr uint16_t inverseValue = uint16_t(~uint16_t(0));
+    Color temporary0  = { 0 };
+    Color temporary1 = { inverseValue, inverseValue, inverseValue };
+    Color temporary2 = { inverseValue, inverseValue, inverseValue };
+	fill(divmask, divmask->r, &temporary0);
+	drawimg(divmask,temporary1, temporary2, d);
 	drawimg(divimg, divcolor.bg, divcolor.border, d);
 
 	copyimage(d->w, divimg->r, divimg, ZP);
@@ -164,29 +167,25 @@ div_update_all(void) {
 
 /* Div Handlers */
 static bool
-bdown_event(Window *w, void *aux, XButtonEvent *e) {
-	Divide *d;
-
-	USED(e);
-
-	d = aux;
+bdown_event(Window *w, void *aux, XButtonEvent*) {
+	auto d = (Divide*)aux;
 	mouse_resizecol(d);
 	return false;
 }
 
 static bool
-expose_event(Window *w, void *aux, XExposeEvent *e) {
-	Divide *d;
-
-	USED(e);
-
-	d = aux;
+expose_event(Window *w, void *aux, XExposeEvent*) {
+    auto d = (Divide*)(aux);
 	drawdiv(d);
 	return false;
 }
 
-static Handlers handlers = {
-	.bdown = bdown_event,
-	.expose = expose_event,
-};
+Handlers& 
+getHandlers() {
+    static Handlers handlers = {
+        .bdown = bdown_event,
+        .expose = expose_event,
+    };
+    return handlers;
+}
 
