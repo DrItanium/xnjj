@@ -1,6 +1,7 @@
 include config.mk
 INCLUDES := -I. \
-			-Ifmt
+			-Ifmt \
+			-Iutf
 REQUIRED_DEFINES := -D_XOPEN_SOURCE=600
 DEBUGCFLAGS = \
 	-g \
@@ -261,6 +262,28 @@ STUFFLIB_OBJECTS := stuff/buffer.o		\
 	stuff/x11/windows/window.o	\
 	stuff/xext.o
 
+UTFLIB_OBJECTS := \
+	utf/rune.o\
+	utf/runestrcat.o\
+	utf/runestrchr.o\
+	utf/runestrcmp.o\
+	utf/runestrcpy.o\
+	utf/runestrdup.o\
+	utf/runestrlen.o\
+	utf/runestrecpy.o\
+	utf/runestrncat.o\
+	utf/runestrncmp.o\
+	utf/runestrncpy.o\
+	utf/runestrrchr.o\
+	utf/runestrstr.o\
+	utf/runetype.o\
+	utf/utfecpy.o\
+	utf/utflen.o\
+	utf/utfnlen.o\
+	utf/utfrrune.o\
+	utf/utfrune.o\
+	utf/utfutf.o
+
 
 SETFOCUS_APP := setfocus.out
 WIKEYNAME_APP := wikeyname.out
@@ -270,6 +293,7 @@ WMII9MENU_APP := wmii9menu.out
 
 STUFFLIB_ARCHIVE := libstuff.a
 FMTLIB_ARCHIVE := libfmt.a
+UTFLIB_ARCHIVE := libutf.a
 
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
@@ -277,11 +301,14 @@ APPS := ${SETFOCUS_APP} \
 	    ${WMII9MENU_APP}
 
 LIBS := ${STUFFLIB_ARCHIVE} \
-		${FMTLIB_ARCHIVE}
+		${FMTLIB_ARCHIVE} \
+		${UTFLIB_ARCHIVE}
 
 OBJECTS := ${X11_OBJECTS} \
 		   ${STUFFLIB_OBJECTS} \
-		   ${FMTLIB_OBJECTS} 
+		   ${FMTLIB_OBJECTS} \
+		   ${UTFLIB_OBJECTS}
+
 BASE_X11DEPS := x11 xinerama xrender xrandr
 #XDEPS := -lxext -lxrandr -lxrender -lxinerama
 
@@ -304,9 +331,13 @@ ${FMTLIB_ARCHIVE}: ${FMTLIB_OBJECTS}
 	@echo AR ${FMTLIB_ARCHIVE}
 	@${AR} ${FMTLIB_ARCHIVE} ${FMTLIB_OBJECTS}
 
-${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE}
+${UTFLIB_ARCHIVE}: ${UTFLIB_OBJECTS}
+	@echo AR ${UTFLIB_ARCHIVE}
+	@${AR} ${UTFLIB_ARCHIVE} ${UTFLIB_OBJECTS}
+
+${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE}
 	@echo LD ${SETFOCUS_APP}
-	${LD} -o ${SETFOCUS_APP} ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} $$(pkg-config --libs $(BASE_X11DEPS))
+	${LD} -o ${SETFOCUS_APP} ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE} $$(pkg-config --libs $(BASE_X11DEPS))
 
 ${WIKEYNAME_APP}: ${WIKEYNAME_OBJECTS}
 	@echo LD ${WIKEYNAME_APP}
