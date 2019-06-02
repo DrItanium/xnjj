@@ -1,7 +1,10 @@
 include config.mk
 INCLUDES := -I. \
 			-Ifmt \
-			-Iutf
+			-Iutf \
+			-Ibio \
+			-Iregexp \
+			-Iwmii_hack
 VERSION := 0.1
 COPYRIGHT = ©2019 Joshua Scoggins 
 
