@@ -5,6 +5,6 @@
 
 void
 sendevent(Window *w, bool propagate, long mask, void *e) {
-	XSendEvent(display, w->xid, propagate, mask, e);
+	XSendEvent(display, w->xid, propagate, mask, (XEvent*)e);
 }
 

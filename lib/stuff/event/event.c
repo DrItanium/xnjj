@@ -2,13 +2,41 @@
  * See LICENSE file for license details.
  */
 #include "event.h"
+#include <functional>
+#include <map>
 
-typedef bool (*Handler)(Window*, void*, XEvent*);
+using Handler = std::function<bool(Window*, void*, XEvent*)>;
 void	(*event_debug)(XEvent*);
 long	event_lastconfigure;
 long	event_xtime;
 bool	event_looprunning;
 
+std::map<uint, EventHandler> event_handler = {
+
+	{ButtonPress,		(EventHandler)event_buttonpress},
+	{ButtonRelease,	(EventHandler)event_buttonrelease},
+	{ClientMessage,	(EventHandler)event_clientmessage},
+	{ConfigureNotify,	(EventHandler)event_configurenotify},
+	{ConfigureRequest,	(EventHandler)event_configurerequest},
+	{DestroyNotify,	(EventHandler)event_destroynotify},
+	{EnterNotify,		(EventHandler)event_enternotify},
+	{Expose,		(EventHandler)event_expose},
+	{FocusIn,		(EventHandler)event_focusin},
+	{FocusOut,		(EventHandler)event_focusout},
+	{KeyPress,		(EventHandler)event_keypress},
+	{KeyRelease,		(EventHandler)event_keyrelease},
+	{LeaveNotify,		(EventHandler)event_leavenotify},
+	{MapNotify,		(EventHandler)event_mapnotify},
+	{MapRequest,		(EventHandler)event_maprequest},
+	{MappingNotify,	(EventHandler)event_mappingnotify},
+	{MotionNotify,	(EventHandler)event_motionnotify},
+	{PropertyNotify,	(EventHandler)event_propertynotify},
+	{ReparentNotify,	(EventHandler)event_reparentnotify},
+	{SelectionClear,	(EventHandler)event_selectionclear},
+	{SelectionNotify,	(EventHandler)event_selection},
+	{UnmapNotify,		(EventHandler)event_unmapnotify},
+};
+#if 0
 EventHandler event_handler[LASTEvent] = {
 	[ButtonPress] =		(EventHandler)event_buttonpress,
 	[ButtonRelease] =	(EventHandler)event_buttonrelease,
@@ -33,6 +61,7 @@ EventHandler event_handler[LASTEvent] = {
 	[SelectionNotify] =	(EventHandler)event_selection,
 	[UnmapNotify] =		(EventHandler)event_unmapnotify,
 };
+#endif
 
 void
 _event_handle(Window *w, ulong offset, XEvent *event) {
@@ -54,11 +83,15 @@ event_dispatch(XEvent *e) {
 	if(event_debug)
 		event_debug(e);
 
-	if(e->type < nelem(event_handler)) {
-		if(event_handler[e->type])
-			event_handler[e->type](e);
-	}else
+	if(e->type < LASTEvent) {
+        if (auto ident = event_handler.find(e->type); ident != event_handler.end()) {
+		//if(event_handler[e->type]) {
+			//event_handler[e->type](e);
+            ident->second(e);
+        }
+	}else {
 		xext_event(e);
+    }
 }
 
 void
@@ -117,13 +150,12 @@ findenter(Display *d, XEvent *e, XPointer v) {
 uint
 event_flushenter(void) {
 	XEvent e;
-	long l;
-	int n;
 
-	l = 0;
-	n = 0;
-	while(XCheckIfEvent(display, &e, findenter, (void*)&l))
+	long l = 0;
+	int n = 0;
+	while(XCheckIfEvent(display, &e, findenter, (XPointer)&l)) {
 		n++;
+    }
 	return n;
 }
 

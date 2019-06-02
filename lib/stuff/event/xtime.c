@@ -26,7 +26,7 @@ event_updatextime(void) {
 
 	XSelectInput(display, w->xid, PropertyChangeMask);
 	changeprop_long(w, "ATOM", "ATOM", &l, 0);
-	XIfEvent(display, &e, findtime, (void*)w);
+	XIfEvent(display, &e, findtime, (XPointer)w);
 
 	destroywindow(w);
 	return event_xtime;

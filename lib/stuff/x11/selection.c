@@ -3,7 +3,7 @@
  */
 #include "x11.h"
 
-static Handlers handlers;
+Handlers* getHandlers();
 
 typedef struct Data	Data;
 
@@ -22,27 +22,23 @@ _getselection(Window *w, long selection, char *type) {
 
 void
 getselection(char *selection, void (*callback)(void*, char*), void *aux) {
-	Window *w;
-	Data *d;
-
-	d = emallocz(sizeof *d);
+	Data* d = (Data*)emallocz(sizeof *d);
 	d->selection = xatom(selection);
 	d->callback = callback;
 	d->aux = aux;
 
-	w = createwindow(&scr.root, Rect(0, 0, 1, 1), 0, InputOnly, nil, 0);
+	Window* w = createwindow(&scr.root, Rect(0, 0, 1, 1), 0, InputOnly, nil, 0);
 	w->aux = d;
-	sethandler(w, &handlers);
+	sethandler(w, getHandlers());
 
 	_getselection(w, d->selection, "UTF8_STRING");
 }
 
 static bool
 selection_event(Window *w, void *aux, XSelectionEvent *ev) {
-	Data *d;
 	char **ret;
 
-	d = aux;
+	Data* d = (Data*)aux;
 	if(ev->property == None && ev->target != xatom("STRING"))
 		return _getselection(w, d->selection, "STRING");
 	else if(ev->property == None)
@@ -57,7 +53,14 @@ selection_event(Window *w, void *aux, XSelectionEvent *ev) {
 	return false;
 }
 
-static Handlers handlers = {
-	.selection = selection_event,
-};
+Handlers*
+getHandlers() {
+    static Handlers handlers;
+    static bool init = false;
+    if (!init) {
+        init = true;
+        handlers.selection = selection_event;
+    }
+    return &handlers;
+}
 

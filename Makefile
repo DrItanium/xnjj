@@ -61,8 +61,6 @@ CXXFLAGS += \
 	-pipe \
 	-fno-strict-aliasing \
 	-Wall \
-	-Wimplicit \
-	-Wmissing-prototypes \
 	-Wno-comment \
 	-Wno-missing-braces \
 	-Wno-parentheses \
@@ -70,7 +68,6 @@ CXXFLAGS += \
 	-Wno-switch \
 	-Wpointer-arith \
 	-Wreturn-type \
-	-Wstrict-prototypes \
 	-Wtrigraphs \
 	${INCLUDES} \
 	${REQUIRED_DEFINES}

@@ -8,7 +8,7 @@
 
 /* TODO: Make this UTF-8 compliant. */
 char*
-strcasestr(const char *dst, const char *src) {
+stuff_strcasestr(const char *dst, const char *src) {
 	int len, dc, sc;
 
 	if(src[0] == '\0')

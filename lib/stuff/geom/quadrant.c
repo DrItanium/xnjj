@@ -5,13 +5,12 @@
 
 Align
 quadrant(Rectangle r, Point pt) {
-	Align ret;
 
 	pt = subpt(pt, r.min);
-	ret = East  * (pt.x >= Dx(r) * .7)
-	    | West  * (pt.x <= Dx(r) * .3)
-	    | South * (pt.y >= Dy(r) * .7)
-	    | North * (pt.y <= Dy(r) * .3);
+	int ret = (int)East  * (pt.x >= Dx(r) * .7)
+	    | (int)West  * (pt.x <= Dx(r) * .3)
+	    | (int)South * (pt.y >= Dy(r) * .7)
+	    | (int)North * (pt.y <= Dy(r) * .3);
 
-	return ret;
+	return Align(ret);
 }

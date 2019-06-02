@@ -8,5 +8,5 @@ estrdup(const char *str) {
 	void *ret = strdup(str);
 	if(!ret)
 		mfatal("strdup", strlen(str));
-	return ret;
+	return (char*)ret;
 }

@@ -5,20 +5,18 @@
 
 Align
 get_sticky(Rectangle src, Rectangle dst) {
-	Align corner;
-
-	corner = 0;
+	int corner = 0;
 	if(src.min.x != dst.min.x
 	&& src.max.x == dst.max.x)
-		corner |= East;
+		corner |= (int)East;
 	else
-		corner |= West;
+		corner |= (int)West;
 
 	if(src.min.y != dst.min.y
 	&& src.max.y == dst.max.y)
-		corner |= South;
+		corner |= (int)South;
 	else
-		corner |= North;
+		corner |= (int)North;
 
-	return corner;
+	return Align(corner);
 }

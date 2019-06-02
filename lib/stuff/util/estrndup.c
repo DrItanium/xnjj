@@ -5,11 +5,9 @@
 
 char*
 estrndup(const char *str, uint len) {
-	char *ret;
-
 	len = min(len, strlen(str));
-	ret = emalloc(len + 1);
+	char* ret = (char*)emalloc(len + 1);
 	memcpy(ret, str, len);
 	ret[len] = '\0';
-	return ret;
+	return (char*)ret;
 }

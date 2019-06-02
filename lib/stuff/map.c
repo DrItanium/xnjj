@@ -30,10 +30,9 @@ hash(const char *str) {
 
 static void
 insert(Map *m, MapEnt **e, ulong val, const char *key) {
-	MapEnt *te;
 
 	m->nmemb++;
-	te = emallocz(sizeof *te);
+	MapEnt* te = (MapEnt*)emallocz(sizeof *te);
 	te->hash = val;
 	te->key = key;
 	te->next = *e;

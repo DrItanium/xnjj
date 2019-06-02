@@ -47,7 +47,7 @@
 #define Window XWindow
 #define unmask _unmask
 
-#define nil ((void*)0)
+#define nil nullptr 
 
 typedef struct Pair Pair;
 
@@ -497,7 +497,7 @@ pevent(Fmt *fmt, void *e, ...) {
 	char *key;
 	int n;
 
-	ev = e;
+	ev = (XAnyEvent*)e;
 	fmtprint(fmt, "%3ld %-20s ", ev->serial, eventtype(ev->type));
 	if(ev->send_event)
 		fmtstrcpy(fmt, "(sendevent) ");
@@ -567,7 +567,7 @@ VerbColormap(Fmt *fmt, XEvent *e) {
 	return 	pevent(fmt, ev,
 		TWindow, _(window),
 		TIntNone, _(colormap),
-		TBool, _(new),
+		TBool, _(c_new),
 		TColMap, _(state),
 		TEnd
 	);

@@ -15,7 +15,7 @@ spawn3l(int fd[3], const char *file, ...) {
 		;
 	va_end(ap);
 
-	argv = emalloc((n+1) * sizeof *argv);
+	argv = (char**)emalloc((n+1) * sizeof *argv);
 	va_start(ap, file);
 	quotefmtinstall();
 	for(i=0; i <= n; i++)

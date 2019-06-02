@@ -10,6 +10,6 @@ freelater(void *p) {
 
 	id = nobj++ % nelem(obj);
 	free(obj[id]);
-	obj[id] = p;
+	obj[id] = (char*)p;
 	return p;
 }

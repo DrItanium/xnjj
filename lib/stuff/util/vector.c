@@ -23,7 +23,7 @@ vector_##c##push(Vector_##nam *v, type val) {                           \
 		if(v->size == 0)                                        \
 			v->size = 2;                                    \
 		v->size <<= 2;                                          \
-		v->ary = erealloc(v->ary, v->size * sizeof *v->ary);    \
+		v->ary = (type*)erealloc(v->ary, v->size * sizeof *v->ary);    \
 	}                                                               \
 	v->ary[v->n++] = val;                                           \
 }                                                                       \

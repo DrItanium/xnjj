@@ -39,8 +39,8 @@ localefmt(Fmt *f) {
 	if(!(f->flags & FmtLeft) && !pad(f, localelen(str, end)))
 		return -1;
 
-	sp = f->to;
-	send = f->stop;
+	sp = (char*)f->to;
+	send = (char*)f->stop;
 	rp = (Rune*)f->to;
 	rend = (Rune*)f->stop;
 
@@ -72,8 +72,8 @@ localefmt(Fmt *f) {
 			}else {
 				if(sp + UTFmax > send && sp + (rlen = runelen(r)) > send) {
 					// print("flush %d\n", rlen);
-					sp = __fmtflush(f, sp, rlen);
-					send = f->stop;
+					sp = (char*)__fmtflush(f, sp, rlen);
+					send = (char*)f->stop;
 					if(sp == nil)
 						return -1;
 				}

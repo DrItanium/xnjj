@@ -13,8 +13,8 @@ fmtBlflush(Fmt *f)
 	Rune *rp, *rend;
 	int res;
 
-	bp = f->farg;
-	rend = f->to;
+	bp = (Biobuf*)f->farg;
+	rend = (Rune*)f->to;
 	state = (mbstate_t){0};
 	for(rp=(Rune*)f->start; rp < rend; rp++) {
 		if(MB_LEN_MAX + bp->ocount > 0 && Bflush(bp) < 0)

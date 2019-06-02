@@ -15,7 +15,7 @@ fmtlfdflush(Fmt *f) {
 
 	sp = buf;
 	send = buf + sizeof buf - UTFmax;
-	rend = f->to;
+	rend = (Rune*)f->to;
 	state = (mbstate_t){0};
 	for(rp=(Rune*)f->start; rp < rend; rp++) {
 		res = wcrtomb(sp, *rp, &state);

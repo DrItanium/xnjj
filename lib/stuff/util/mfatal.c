@@ -21,12 +21,12 @@ mfatal(char *name, uint size) {
 		size /= 10;
 	} while(size > 0);
 
-	strlcat(buf, argv0, sizeof buf);
-	strlcat(buf, couldnot, sizeof buf);
-	strlcat(buf, name, sizeof buf);
-	strlcat(buf, paren, sizeof buf);
-	strlcat(buf, sizestr+i, sizeof buf);
-	strlcat(buf, bytes, sizeof buf);
+	stuff_strlcat(buf, argv0, sizeof buf);
+	stuff_strlcat(buf, couldnot, sizeof buf);
+	stuff_strlcat(buf, name, sizeof buf);
+	stuff_strlcat(buf, paren, sizeof buf);
+	stuff_strlcat(buf, sizestr+i, sizeof buf);
+	stuff_strlcat(buf, bytes, sizeof buf);
 	write(2, buf, strlen(buf));
 
 	exit(1);

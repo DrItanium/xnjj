@@ -36,8 +36,6 @@ enum {
 # pragma varargck	argpos	sxprint	1
 #endif
 
-#define strlcat stuff_strlcat
-#define strcasestr stuff_strcasestr
 
 
 int	Blprint(Biobuf*, const char*, ...);
@@ -74,9 +72,9 @@ void	reinit(Regex*, char*);
 int	spawn3(int[3], const char*, char*[]);
 int	spawn3l(int[3], const char*, ...);
 uint	stokenize(char**, uint, char*, char*);
-char*	strcasestr(const char*, const char*);
+char*	stuff_strcasestr(const char*, const char*);
 char*	strend(char*, int);
-uint	strlcat(char*, const char*, uint);
+uint	stuff_strlcat(char*, const char*, uint);
 int	strlcatprint(char*, int, const char*, ...);
 char*	sxprint(const char*, ...);
 uint	tokenize(char**, uint, char*, char);

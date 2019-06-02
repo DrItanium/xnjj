@@ -5,11 +5,8 @@
 
 XPoint*
 convpts(Point *pt, int np) {
-	XPoint *rp;
-	int i;
-
-	rp = emalloc(np * sizeof *rp);
-	for(i = 0; i < np; i++) {
+	XPoint* rp = (XPoint*)emalloc(np * sizeof *rp);
+	for(int i = 0; i < np; i++) {
 		rp[i].x = pt[i].x;
 		rp[i].y = pt[i].y;
 	}
