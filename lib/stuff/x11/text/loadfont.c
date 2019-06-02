@@ -9,11 +9,10 @@ loadfont(const char *name) {
 	XFontStruct **xfonts;
 	char **missing, **font_names;
 	Biobuf *b;
-	Font *f;
 	int n, i;
 
 	missing = nil;
-	f = emallocz(sizeof *f);
+	auto f = (Font*)emallocz(sizeof(Font));
 	f->name = estrdup(name);
 	if(!strncmp(f->name, "xft:", 4)) {
 		f->type = FXft;

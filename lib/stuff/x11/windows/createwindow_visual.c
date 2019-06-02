@@ -10,7 +10,7 @@ static long pid;
 
 Window*
 createwindow_visual(Window *parent, Rectangle r,
-		    int depth, Visual *vis, uint class,
+		    int depth, Visual *vis, uint theClass,
 		    WinAttr *wa, int valmask) {
 	Window *w;
 	WinAttr wa_empty;
@@ -20,7 +20,7 @@ createwindow_visual(Window *parent, Rectangle r,
 	if(wa == nil)
 		wa = &wa_empty;
 
-	w = emallocz(sizeof *w);
+	w = (decltype(w))emallocz(sizeof *w);
 	w->visual = vis;
 	w->type = WWindow;
 	w->parent = parent;
@@ -30,12 +30,12 @@ createwindow_visual(Window *parent, Rectangle r,
 		w->eventmask = wa->event_mask;
 
 	w->xid = XCreateWindow(display, parent->xid, r.min.x, r.min.y, Dx(r), Dy(r),
-				0 /* border */, depth, class, vis, valmask, wa);
+				0 /* border */, depth, theClass, vis, valmask, wa);
 #if 0
 	print("createwindow_visual(%W, %R, %d, %p, %ud, %p, %x) = %W\n",
-			parent, r, depth, vis, class, wa, valmask, w);
+			parent, r, depth, vis, theClass, wa, valmask, w);
 #endif
-	if(class != InputOnly)
+	if(theClass != InputOnly)
 		w->gc = XCreateGC(display, w->xid, 0, nil);
 
 	if(pid == 0)

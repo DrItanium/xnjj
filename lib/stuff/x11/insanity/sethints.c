@@ -4,9 +4,11 @@
 #include "../x11.h"
 #include <string.h>
 
+
+
 const WinHints ZWinHints = {
-	.inc = {1, 1},
 	.max = {INT_MAX, INT_MAX},
+	.inc = {1, 1},
 };
 
 typedef struct GravityMap	GravityMap;
@@ -37,8 +39,9 @@ sethints(Window *w, WinHints *h) {
 
 	/* TODO: Group hint */
 
-	if(w->hints == nil)
-		w->hints = emalloc(sizeof *h);
+	if(w->hints == nil) {
+		w->hints = (decltype(w->hints))emalloc(sizeof *h);
+    }
 
 	*w->hints = *h;
 

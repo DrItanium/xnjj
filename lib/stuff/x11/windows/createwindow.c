@@ -4,6 +4,6 @@
 #include "../x11.h"
 
 Window*
-createwindow(Window *parent, Rectangle r, int depth, uint class, WinAttr *wa, int valmask) {
-	return createwindow_visual(parent, r, depth, scr.visual, class, wa, valmask);
+createwindow(Window *parent, Rectangle r, int depth, uint theClass, WinAttr *wa, int valmask) {
+	return createwindow_visual(parent, r, depth, scr.visual, theClass, wa, valmask);
 }

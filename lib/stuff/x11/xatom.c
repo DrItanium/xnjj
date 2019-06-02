@@ -28,8 +28,8 @@ atomname(ulong atom) {
 			map_rm(&atomnamemap, atom);
 			return nil;
 		}
-		*hash_get(&atommap, *e, true) = (void*)atom;
+		*hash_get(&atommap, (const char*)*e, true) = (void*)atom;
 	}
-	return *e;
+	return (char*)*e;
 }
 

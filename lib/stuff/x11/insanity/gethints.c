@@ -12,8 +12,9 @@ gethints(Window *w) {
 	Point p;
 	long size;
 
-	if(w->hints == nil)
-		w->hints = emalloc(sizeof *h);
+	if(w->hints == nil) {
+		w->hints = (decltype(w->hints))emalloc(sizeof *h);
+    }
 
 	h = w->hints;
 	*h = ZWinHints;

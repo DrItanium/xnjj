@@ -11,7 +11,7 @@ findwin(XWindow xw) {
 
 	e = map_get(&windowmap, (ulong)xw, false);
 	if(e) {
-		w = *e;
+		w = (decltype(w))*e;
 		assert(w->xid == xw);
 		return w;
 	}

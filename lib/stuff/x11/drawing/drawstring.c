@@ -19,30 +19,27 @@ uint
 drawstring(Image *dst, Font *font,
 	   Rectangle r, Align align,
 	   const char *text, Color *col) {
-	Rectangle tr;
-	char *buf;
-	uint x, y, width, height, len;
-	int shortened;
+	uint x;
 
-	shortened = 0;
+	auto shortened = 0;
 
-	len = strlen(text);
-	buf = emalloc(len+1);
+	uint len = strlen(text);
+	char* buf = (char*)emalloc(len+1);
 	memcpy(buf, text, len+1);
 
 	r.max.y -= font->pad.min.y;
 	r.min.y += font->pad.max.y;
 
-	height = font->ascent + font->descent;
-	y = r.min.y + Dy(r) / 2 - height / 2 + font->ascent;
+	uint height = font->ascent + font->descent;
+	uint y = r.min.y + Dy(r) / 2 - height / 2 + font->ascent;
 
-	width = Dx(r) - font->pad.min.x - font->pad.max.x - (font->height & ~1);
+	uint width = Dx(r) - font->pad.min.x - font->pad.max.x - (font->height & ~1);
 
 	r.min.x += font->pad.min.x;
 	r.max.x -= font->pad.max.x;
 
 	/* shorten text if necessary */
-	tr = ZR;
+	Rectangle tr = ZR;
 	while(len > 0) {
 		tr = textextents_l(font, buf, len + min(shortened, 3), nil);
 		if(Dx(tr) <= width)
@@ -81,7 +78,7 @@ drawstring(Image *dst, Font *font,
 				buf, len);
 		break;
 	case FXft:
-		xft->drawstring(xftdrawable(dst), xftcolor(dst, col),
+		xft->drawstring((Display*)xftdrawable(dst), xftcolor(dst, col),
 				font->font.xft,
 				x, y, buf, len);
 		break;
