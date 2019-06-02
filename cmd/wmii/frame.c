@@ -19,9 +19,7 @@ frame_idx(Frame *f) {
 Frame*
 frame_create(Client *c, View *v) {
 	static ushort id = 1;
-	Frame *f;
-
-	f = emallocz(sizeof *f);
+	auto f = emallocz<Frame>();
 	f->id = id++;
 	f->client = c;
 	f->view = v;
@@ -145,11 +143,9 @@ bup_event(Window *w, void *aux, XButtonEvent *e) {
 
 static bool
 bdown_event(Window *w, void *aux, XButtonEvent *e) {
-	Frame *f;
-	Client *c;
 
-	c = aux;
-	f = c->sel;
+	auto c = (Client*)aux;
+	auto f = c->sel;
 
 	if((e->state & def.mod) == def.mod) {
 		switch(e->button) {
@@ -197,11 +193,8 @@ bdown_event(Window *w, void *aux, XButtonEvent *e) {
 
 static bool
 enter_event(Window *w, void *aux, XCrossingEvent *e) {
-	Client *c;
-	Frame *f;
-
-	c = aux;
-	f = c->sel;
+	auto c = (Client*)aux;
+	auto f = c->sel;
 	if(disp.focus != c || selclient() != c) {
 		Dprint(DFocus, "%E\n", e);
 		Dprint(DFocus, "enter_notify(f) => [%#C]%s%s\n",
@@ -216,33 +209,36 @@ enter_event(Window *w, void *aux, XCrossingEvent *e) {
 }
 
 static bool
-expose_event(Window *w, void *aux, XExposeEvent *e) {
-	Client *c;
-
-	USED(e);
-
-	c = aux;
-	if(c->sel)
+expose_event(Window *w, void *aux, XExposeEvent*) {
+	if (auto c = (Client*)aux; c->sel) {
 		frame_draw(c->sel);
+    }
 	return false;
 }
 
 static bool
 motion_event(Window *w, void *aux, XMotionEvent *e) {
-	Client *c;
-
-	c = aux;
+	auto c = (Client*)aux;
 	mouse_checkresize(c->sel, Pt(e->x, e->y), false);
 	return false;
 }
 
-Handlers framehandler = {
-	.bup = bup_event,
-	.bdown = bdown_event,
-	.enter = enter_event,
-	.expose = expose_event,
-	.motion = motion_event,
-};
+
+Handlers&
+getFramehandler() {
+    static bool init = false;
+    static Handlers h;
+    if (!init) {
+        init = true;
+        h.bup = bup_event;
+        h.bdown = bdown_event;
+        h.enter = enter_event;
+        h.expose = expose_event;
+        h.motion = motion_event;
+    }
+
+    return h;
+}
 
 WinHints
 frame_gethints(Frame *f) {
