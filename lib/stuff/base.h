@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 #ifndef nil
-#  define nil	((void*)0)
+#  define nil	nullptr
 #endif
 
 #ifndef nelem

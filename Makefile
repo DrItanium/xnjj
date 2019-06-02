@@ -466,7 +466,7 @@ BASE_X11_SOLIBS := $$(pkg-config --libs $(BASE_X11DEPS))
 
 .c.o :
 	@echo CC $<
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CXX} -x c++ ${CXXFLAGS} -c $< -o $@
 
 .cc.o :
 	@echo CXX $<

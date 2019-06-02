@@ -251,9 +251,9 @@ void	changeproperty(Window*, const char*, const char*, int width, const uchar*, 
 void	cleanupwindow(Window*);
 void	clientmessage(Window*, const char*, long, int, ClientMessageData);
 void	copyimage(Image*, Rectangle, Image*, Point);
-Window*	createwindow(Window*, Rectangle, int depth, uint class, WinAttr*, int valuemask);
+Window*	createwindow(Window*, Rectangle, int depth, uint theClass, WinAttr*, int valuemask);
 Window*	createwindow_rgba(Window*, Rectangle, WinAttr*, int valuemask);
-Window*	createwindow_visual(Window*, Rectangle, int depth, Visual*, uint class, WinAttr*, int);
+Window*	createwindow_visual(Window*, Rectangle, int depth, Visual*, uint theClass, WinAttr*, int);
 void	delproperty(Window*, const char*);
 void	destroywindow(Window*);
 void	drawline(Image*, Point, Point, int cap, int w, Color*);

@@ -56,7 +56,7 @@ struct Reinst{
  */
 struct Reprog{
 	Reinst	*startinst;	/* start pc */
-	Reclass	class[32];	/* .data */
+	Reclass	_class[32];	/* .data */
 	Reinst	firstinst[5];	/* .text */
 };
 

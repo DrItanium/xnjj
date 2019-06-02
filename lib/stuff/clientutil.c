@@ -35,9 +35,9 @@ readctl(char *ctlname, char *key) {
 			p += nkey;
 			s = strchr(p, '\n');
 			n = (s ? s : ectl) - p;
-			s = freelater(emalloc(n + 1));
+			s = (char*)freelater(emalloc(n + 1));
 			s[n] = '\0';
-			return memcpy(s, p, n);
+			return (char*)memcpy(s, p, n);
 		}
 	} while((p = strchr(p, '\n')));
 	return "";
