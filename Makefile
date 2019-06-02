@@ -1,10 +1,10 @@
 include config.mk
-INCLUDES := -I. \
-			-Ifmt \
-			-Iutf \
-			-Ibio \
-			-Iregexp \
-			-Iwmii_hack
+INCLUDES := -Ilib \
+			-Ilib/fmt \
+			-Ilib/utf \
+			-Ilib/bio \
+			-Ilib/regexp \
+			-Ilib/wmii_hack
 VERSION := 0.1
 COPYRIGHT = ©2019 Joshua Scoggins 
 
@@ -53,264 +53,265 @@ X11_OBJECTS := ${SETFOCUS_OBJECTS} \
 			   ${WIWARP_OBJECTS} \
 			   ${WMII9MENU_OBJECTS}
 FMTLIB_OBJECTS := \
-	fmt/charstod.o\
-	fmt/pow10.o\
-	fmt/nan64.o\
-	fmt/dofmt.o\
-	fmt/dorfmt.o\
-	fmt/errfmt.o\
-	fmt/fltfmt.o\
-	fmt/fmt.o\
-	fmt/fmtfd.o\
-	fmt/fmtfdflush.o\
-	fmt/fmtlocale.o\
-	fmt/fmtlock.o\
-	fmt/fmtprint.o\
-	fmt/fmtquote.o\
-	fmt/fmtrune.o\
-	fmt/fmtstr.o\
-	fmt/fmtvprint.o\
-	fmt/fprint.o\
-	fmt/print.o\
-	fmt/runefmtstr.o\
-	fmt/runeseprint.o\
-	fmt/runesmprint.o\
-	fmt/runesnprint.o\
-	fmt/runesprint.o\
-	fmt/runevseprint.o\
-	fmt/runevsmprint.o\
-	fmt/runevsnprint.o\
-	fmt/seprint.o\
-	fmt/smprint.o\
-	fmt/snprint.o\
-	fmt/sprint.o\
-	fmt/strtod.o\
-	fmt/vfprint.o\
-	fmt/vseprint.o\
-	fmt/vsmprint.o\
-	fmt/vsnprint.o
+	lib/fmt/charstod.o\
+	lib/fmt/pow10.o\
+	lib/fmt/nan64.o\
+	lib/fmt/dofmt.o\
+	lib/fmt/dorfmt.o\
+	lib/fmt/errfmt.o\
+	lib/fmt/fltfmt.o\
+	lib/fmt/fmt.o\
+	lib/fmt/fmtfd.o\
+	lib/fmt/fmtfdflush.o\
+	lib/fmt/fmtlocale.o\
+	lib/fmt/fmtlock.o\
+	lib/fmt/fmtprint.o\
+	lib/fmt/fmtquote.o\
+	lib/fmt/fmtrune.o\
+	lib/fmt/fmtstr.o\
+	lib/fmt/fmtvprint.o\
+	lib/fmt/fprint.o\
+	lib/fmt/print.o\
+	lib/fmt/runefmtstr.o\
+	lib/fmt/runeseprint.o\
+	lib/fmt/runesmprint.o\
+	lib/fmt/runesnprint.o\
+	lib/fmt/runesprint.o\
+	lib/fmt/runevseprint.o\
+	lib/fmt/runevsmprint.o\
+	lib/fmt/runevsnprint.o\
+	lib/fmt/seprint.o\
+	lib/fmt/smprint.o\
+	lib/fmt/snprint.o\
+	lib/fmt/sprint.o\
+	lib/fmt/strtod.o\
+	lib/fmt/vfprint.o\
+	lib/fmt/vseprint.o\
+	lib/fmt/vsmprint.o\
+	lib/fmt/vsnprint.o
 
-STUFFLIB_OBJECTS := stuff/buffer.o		\
-	stuff/clientutil.o	\
-	stuff/client_readconfig.o	\
-	stuff/event/buttonpress.o	\
-	stuff/event/buttonrelease.o	\
-	stuff/event/clientmessage.o	\
-	stuff/event/configurenotify.o	\
-	stuff/event/configurerequest.o	\
-	stuff/event/destroynotify.o	\
-	stuff/event/enternotify.o	\
-	stuff/event/event.o 	\
-	stuff/event/expose.o		\
-	stuff/event/focusin.o		\
-	stuff/event/focusout.o		\
-	stuff/event/ixp.o		\
-	stuff/event/keypress.o		\
-	stuff/event/keyrelease.o	\
-	stuff/event/leavenotify.o	\
-	stuff/event/mapnotify.o		\
-	stuff/event/maprequest.o	\
-	stuff/event/mappingnotify.o	\
-	stuff/event/motionnotify.o	\
-	stuff/event/propertynotify.o	\
-	stuff/event/reparentnotify.o	\
-	stuff/event/selection.o		\
-	stuff/event/selectionclear.o	\
-	stuff/event/selectionrequest.o	\
-	stuff/event/unmapnotify.o	\
-	stuff/event/xtime.o		\
-	stuff/fmt/blprint.o		\
-	stuff/fmt/bvlprint.o		\
-	stuff/fmt/fmtbuf.o		\
-	stuff/fmt/localefmt.o		\
-	stuff/fmt/localelen.o		\
-	stuff/fmt/lprint.o		\
-	stuff/fmt/vlprint.o		\
-	stuff/geom/get_sticky.o		\
-	stuff/geom/quadrant.o		\
-	stuff/geom/rect_contains_p.o	\
-	stuff/geom/rect_haspoint_p.o	\
-	stuff/geom/rect_intersect_p.o	\
-	stuff/geom/rect_intersection.o	\
-	stuff/init_screens.o	\
-	stuff/map.o		\
-	stuff/printevent.o	\
-	stuff/util/_die.o	\
-	stuff/util/closeexec.o	\
-	stuff/util/comm.o	\
-	stuff/util/doublefork.o	\
-	stuff/util/emalloc.o	\
-	stuff/util/emallocz.o	\
-	stuff/util/erealloc.o	\
-	stuff/util/estrdup.o	\
-	stuff/util/estrndup.o	\
-	stuff/util/fatal.o	\
-	stuff/util/freelater.o	\
-	stuff/util/getbase.o	\
-	stuff/util/getint.o	\
-	stuff/util/getlong.o	\
-	stuff/util/getulong.o	\
-	stuff/util/grep.o	\
-	stuff/util/join.o	\
-	stuff/util/max.o	\
-	stuff/util/mfatal.o	\
-	stuff/util/min.o	\
-	stuff/util/nsec.o	\
-	stuff/util/pathsearch.o	\
-	stuff/util/refree.o	\
-	stuff/util/reinit.o	\
-	stuff/util/spawn3.o	\
-	stuff/util/spawn3l.o	\
-	stuff/util/stokenize.o	\
-	stuff/util/strcasestr.o	\
-	stuff/util/strend.o	\
-	stuff/util/strlcat.o	\
-	stuff/util/strlcatprint.o	\
-	stuff/util/sxprint.o	\
-	stuff/util/tokenize.o	\
-	stuff/util/trim.o	\
-	stuff/util/uniq.o	\
-	stuff/util/unmask.o	\
-	stuff/util/unquote.o	\
-	stuff/util/utflcpy.o	\
-	stuff/util/vector.o	\
-	stuff/util/vsxprint.o	\
-	stuff/x11/convpts.o	\
-	stuff/x11/errors.o	\
-	stuff/x11/ignored_xerrors.o	\
-	stuff/x11/freestringlist.o	\
-	stuff/x11/initdisplay.o	\
-	stuff/x11/selection.o	\
-	stuff/x11/sendevent.o	\
-	stuff/x11/sendmessage.o	\
-	stuff/x11/sync.o	\
-	stuff/x11/x11.o		\
-	stuff/x11/xatom.o	\
-	stuff/x11/xft.o		\
-	stuff/x11/colors/loadcolor.o	\
-	stuff/x11/colors/parsecolor.o	\
-	stuff/x11/colors/xftcolor.o	\
-	stuff/x11/drawing/border.o	\
-	stuff/x11/drawing/drawline.o	\
-	stuff/x11/drawing/drawpoly.o	\
-	stuff/x11/drawing/drawstring.o	\
-	stuff/x11/drawing/fill.o	\
-	stuff/x11/drawing/fillpoly.o	\
-	stuff/x11/drawing/setgccol.o	\
-	stuff/x11/focus/getfocus.o	\
-	stuff/x11/focus/setfocus.o	\
-	stuff/x11/geometry/XRect.o	\
-	stuff/x11/geometry/addpt.o	\
-	stuff/x11/geometry/divpt.o	\
-	stuff/x11/geometry/eqpt.o	\
-	stuff/x11/geometry/eqrect.o	\
-	stuff/x11/geometry/insetrect.o	\
-	stuff/x11/geometry/mulpt.o	\
-	stuff/x11/geometry/rectaddpt.o	\
-	stuff/x11/geometry/rectsetorigin.o	\
-	stuff/x11/geometry/rectsubpt.o	\
-	stuff/x11/geometry/subpt.o	\
-	stuff/x11/images/allocimage.o	\
-	stuff/x11/images/copyimage.o	\
-	stuff/x11/images/freeimage.o	\
-	stuff/x11/images/xftdrawable.o	\
-	stuff/x11/insanity/gravitate.o	\
-	stuff/x11/insanity/gethints.o	\
-	stuff/x11/insanity/sethints.o	\
-	stuff/x11/insanity/sizehint.o	\
-	stuff/x11/keyboard/grabkeyboard.o	\
-	stuff/x11/keyboard/ungrabkeyboard.o	\
-	stuff/x11/keys/keycode.o	\
-	stuff/x11/keys/parsekey.o	\
-	stuff/x11/mouse/grabpointer.o	\
-	stuff/x11/mouse/pointerscreen.o	\
-	stuff/x11/mouse/querypointer.o	\
-	stuff/x11/mouse/translate.o	\
-	stuff/x11/mouse/ungrabpointer.o	\
-	stuff/x11/mouse/warppointer.o	\
-	stuff/x11/properties/changeprop_char.o	\
-	stuff/x11/properties/changeprop_long.o	\
-	stuff/x11/properties/changeprop_short.o	\
-	stuff/x11/properties/changeprop_string.o	\
-	stuff/x11/properties/changeprop_textlist.o	\
-	stuff/x11/properties/changeprop_ulong.o	\
-	stuff/x11/properties/changeproperty.o	\
-	stuff/x11/properties/delproperty.o	\
-	stuff/x11/properties/getprop.o	\
-	stuff/x11/properties/getprop_long.o	\
-	stuff/x11/properties/getprop_string.o	\
-	stuff/x11/properties/getprop_textlist.o	\
-	stuff/x11/properties/getproperty.o	\
-	stuff/x11/properties/strlistdup.o	\
-	stuff/x11/properties/windowname.o	\
-	stuff/x11/shape/setshapemask.o	\
-	stuff/x11/text/freefont.o	\
-	stuff/x11/text/labelh.o	\
-	stuff/x11/text/loadfont.o	\
-	stuff/x11/text/textextents_l.o	\
-	stuff/x11/text/textwidth.o	\
-	stuff/x11/text/textwidth_l.o	\
-	stuff/x11/windows/configwin.o	\
-	stuff/x11/windows/createwindow.o	\
-	stuff/x11/windows/createwindow_rgba.o	\
-	stuff/x11/windows/createwindow_visual.o	\
-	stuff/x11/windows/destroywindow.o	\
-	stuff/x11/windows/findwin.o	\
-	stuff/x11/windows/getwinrect.o	\
-	stuff/x11/windows/lowerwin.o	\
-	stuff/x11/windows/mapwin.o	\
-	stuff/x11/windows/movewin.o	\
-	stuff/x11/windows/raisewin.o	\
-	stuff/x11/windows/reparentwindow.o	\
-	stuff/x11/windows/reshapewin.o	\
-	stuff/x11/windows/selectinput.o	\
-	stuff/x11/windows/setborder.o	\
-	stuff/x11/windows/sethandler.o	\
-	stuff/x11/windows/setwinattr.o	\
-	stuff/x11/windows/unmapwin.o	\
-	stuff/x11/windows/window.o	\
-	stuff/xext.o
+STUFFLIB_OBJECTS := \
+	lib/stuff/buffer.o		\
+	lib/stuff/clientutil.o	\
+	lib/stuff/client_readconfig.o	\
+	lib/stuff/event/buttonpress.o	\
+	lib/stuff/event/buttonrelease.o	\
+	lib/stuff/event/clientmessage.o	\
+	lib/stuff/event/configurenotify.o	\
+	lib/stuff/event/configurerequest.o	\
+	lib/stuff/event/destroynotify.o	\
+	lib/stuff/event/enternotify.o	\
+	lib/stuff/event/event.o 	\
+	lib/stuff/event/expose.o		\
+	lib/stuff/event/focusin.o		\
+	lib/stuff/event/focusout.o		\
+	lib/stuff/event/ixp.o		\
+	lib/stuff/event/keypress.o		\
+	lib/stuff/event/keyrelease.o	\
+	lib/stuff/event/leavenotify.o	\
+	lib/stuff/event/mapnotify.o		\
+	lib/stuff/event/maprequest.o	\
+	lib/stuff/event/mappingnotify.o	\
+	lib/stuff/event/motionnotify.o	\
+	lib/stuff/event/propertynotify.o	\
+	lib/stuff/event/reparentnotify.o	\
+	lib/stuff/event/selection.o		\
+	lib/stuff/event/selectionclear.o	\
+	lib/stuff/event/selectionrequest.o	\
+	lib/stuff/event/unmapnotify.o	\
+	lib/stuff/event/xtime.o		\
+	lib/stuff/fmt/blprint.o		\
+	lib/stuff/fmt/bvlprint.o		\
+	lib/stuff/fmt/fmtbuf.o		\
+	lib/stuff/fmt/localefmt.o		\
+	lib/stuff/fmt/localelen.o		\
+	lib/stuff/fmt/lprint.o		\
+	lib/stuff/fmt/vlprint.o		\
+	lib/stuff/geom/get_sticky.o		\
+	lib/stuff/geom/quadrant.o		\
+	lib/stuff/geom/rect_contains_p.o	\
+	lib/stuff/geom/rect_haspoint_p.o	\
+	lib/stuff/geom/rect_intersect_p.o	\
+	lib/stuff/geom/rect_intersection.o	\
+	lib/stuff/init_screens.o	\
+	lib/stuff/map.o		\
+	lib/stuff/printevent.o	\
+	lib/stuff/util/_die.o	\
+	lib/stuff/util/closeexec.o	\
+	lib/stuff/util/comm.o	\
+	lib/stuff/util/doublefork.o	\
+	lib/stuff/util/emalloc.o	\
+	lib/stuff/util/emallocz.o	\
+	lib/stuff/util/erealloc.o	\
+	lib/stuff/util/estrdup.o	\
+	lib/stuff/util/estrndup.o	\
+	lib/stuff/util/fatal.o	\
+	lib/stuff/util/freelater.o	\
+	lib/stuff/util/getbase.o	\
+	lib/stuff/util/getint.o	\
+	lib/stuff/util/getlong.o	\
+	lib/stuff/util/getulong.o	\
+	lib/stuff/util/grep.o	\
+	lib/stuff/util/join.o	\
+	lib/stuff/util/max.o	\
+	lib/stuff/util/mfatal.o	\
+	lib/stuff/util/min.o	\
+	lib/stuff/util/nsec.o	\
+	lib/stuff/util/pathsearch.o	\
+	lib/stuff/util/refree.o	\
+	lib/stuff/util/reinit.o	\
+	lib/stuff/util/spawn3.o	\
+	lib/stuff/util/spawn3l.o	\
+	lib/stuff/util/stokenize.o	\
+	lib/stuff/util/strcasestr.o	\
+	lib/stuff/util/strend.o	\
+	lib/stuff/util/strlcat.o	\
+	lib/stuff/util/strlcatprint.o	\
+	lib/stuff/util/sxprint.o	\
+	lib/stuff/util/tokenize.o	\
+	lib/stuff/util/trim.o	\
+	lib/stuff/util/uniq.o	\
+	lib/stuff/util/unmask.o	\
+	lib/stuff/util/unquote.o	\
+	lib/stuff/util/utflcpy.o	\
+	lib/stuff/util/vector.o	\
+	lib/stuff/util/vsxprint.o	\
+	lib/stuff/x11/convpts.o	\
+	lib/stuff/x11/errors.o	\
+	lib/stuff/x11/ignored_xerrors.o	\
+	lib/stuff/x11/freestringlist.o	\
+	lib/stuff/x11/initdisplay.o	\
+	lib/stuff/x11/selection.o	\
+	lib/stuff/x11/sendevent.o	\
+	lib/stuff/x11/sendmessage.o	\
+	lib/stuff/x11/sync.o	\
+	lib/stuff/x11/x11.o		\
+	lib/stuff/x11/xatom.o	\
+	lib/stuff/x11/xft.o		\
+	lib/stuff/x11/colors/loadcolor.o	\
+	lib/stuff/x11/colors/parsecolor.o	\
+	lib/stuff/x11/colors/xftcolor.o	\
+	lib/stuff/x11/drawing/border.o	\
+	lib/stuff/x11/drawing/drawline.o	\
+	lib/stuff/x11/drawing/drawpoly.o	\
+	lib/stuff/x11/drawing/drawstring.o	\
+	lib/stuff/x11/drawing/fill.o	\
+	lib/stuff/x11/drawing/fillpoly.o	\
+	lib/stuff/x11/drawing/setgccol.o	\
+	lib/stuff/x11/focus/getfocus.o	\
+	lib/stuff/x11/focus/setfocus.o	\
+	lib/stuff/x11/geometry/XRect.o	\
+	lib/stuff/x11/geometry/addpt.o	\
+	lib/stuff/x11/geometry/divpt.o	\
+	lib/stuff/x11/geometry/eqpt.o	\
+	lib/stuff/x11/geometry/eqrect.o	\
+	lib/stuff/x11/geometry/insetrect.o	\
+	lib/stuff/x11/geometry/mulpt.o	\
+	lib/stuff/x11/geometry/rectaddpt.o	\
+	lib/stuff/x11/geometry/rectsetorigin.o	\
+	lib/stuff/x11/geometry/rectsubpt.o	\
+	lib/stuff/x11/geometry/subpt.o	\
+	lib/stuff/x11/images/allocimage.o	\
+	lib/stuff/x11/images/copyimage.o	\
+	lib/stuff/x11/images/freeimage.o	\
+	lib/stuff/x11/images/xftdrawable.o	\
+	lib/stuff/x11/insanity/gravitate.o	\
+	lib/stuff/x11/insanity/gethints.o	\
+	lib/stuff/x11/insanity/sethints.o	\
+	lib/stuff/x11/insanity/sizehint.o	\
+	lib/stuff/x11/keyboard/grabkeyboard.o	\
+	lib/stuff/x11/keyboard/ungrabkeyboard.o	\
+	lib/stuff/x11/keys/keycode.o	\
+	lib/stuff/x11/keys/parsekey.o	\
+	lib/stuff/x11/mouse/grabpointer.o	\
+	lib/stuff/x11/mouse/pointerscreen.o	\
+	lib/stuff/x11/mouse/querypointer.o	\
+	lib/stuff/x11/mouse/translate.o	\
+	lib/stuff/x11/mouse/ungrabpointer.o	\
+	lib/stuff/x11/mouse/warppointer.o	\
+	lib/stuff/x11/properties/changeprop_char.o	\
+	lib/stuff/x11/properties/changeprop_long.o	\
+	lib/stuff/x11/properties/changeprop_short.o	\
+	lib/stuff/x11/properties/changeprop_string.o	\
+	lib/stuff/x11/properties/changeprop_textlist.o	\
+	lib/stuff/x11/properties/changeprop_ulong.o	\
+	lib/stuff/x11/properties/changeproperty.o	\
+	lib/stuff/x11/properties/delproperty.o	\
+	lib/stuff/x11/properties/getprop.o	\
+	lib/stuff/x11/properties/getprop_long.o	\
+	lib/stuff/x11/properties/getprop_string.o	\
+	lib/stuff/x11/properties/getprop_textlist.o	\
+	lib/stuff/x11/properties/getproperty.o	\
+	lib/stuff/x11/properties/strlistdup.o	\
+	lib/stuff/x11/properties/windowname.o	\
+	lib/stuff/x11/shape/setshapemask.o	\
+	lib/stuff/x11/text/freefont.o	\
+	lib/stuff/x11/text/labelh.o	\
+	lib/stuff/x11/text/loadfont.o	\
+	lib/stuff/x11/text/textextents_l.o	\
+	lib/stuff/x11/text/textwidth.o	\
+	lib/stuff/x11/text/textwidth_l.o	\
+	lib/stuff/x11/windows/configwin.o	\
+	lib/stuff/x11/windows/createwindow.o	\
+	lib/stuff/x11/windows/createwindow_rgba.o	\
+	lib/stuff/x11/windows/createwindow_visual.o	\
+	lib/stuff/x11/windows/destroywindow.o	\
+	lib/stuff/x11/windows/findwin.o	\
+	lib/stuff/x11/windows/getwinrect.o	\
+	lib/stuff/x11/windows/lowerwin.o	\
+	lib/stuff/x11/windows/mapwin.o	\
+	lib/stuff/x11/windows/movewin.o	\
+	lib/stuff/x11/windows/raisewin.o	\
+	lib/stuff/x11/windows/reparentwindow.o	\
+	lib/stuff/x11/windows/reshapewin.o	\
+	lib/stuff/x11/windows/selectinput.o	\
+	lib/stuff/x11/windows/setborder.o	\
+	lib/stuff/x11/windows/sethandler.o	\
+	lib/stuff/x11/windows/setwinattr.o	\
+	lib/stuff/x11/windows/unmapwin.o	\
+	lib/stuff/x11/windows/window.o	\
+	lib/stuff/xext.o
 
 UTFLIB_OBJECTS := \
-	utf/rune.o\
-	utf/runestrcat.o\
-	utf/runestrchr.o\
-	utf/runestrcmp.o\
-	utf/runestrcpy.o\
-	utf/runestrdup.o\
-	utf/runestrlen.o\
-	utf/runestrecpy.o\
-	utf/runestrncat.o\
-	utf/runestrncmp.o\
-	utf/runestrncpy.o\
-	utf/runestrrchr.o\
-	utf/runestrstr.o\
-	utf/runetype.o\
-	utf/utfecpy.o\
-	utf/utflen.o\
-	utf/utfnlen.o\
-	utf/utfrrune.o\
-	utf/utfrune.o\
-	utf/utfutf.o
+	lib/utf/rune.o\
+	lib/utf/runestrcat.o\
+	lib/utf/runestrchr.o\
+	lib/utf/runestrcmp.o\
+	lib/utf/runestrcpy.o\
+	lib/utf/runestrdup.o\
+	lib/utf/runestrlen.o\
+	lib/utf/runestrecpy.o\
+	lib/utf/runestrncat.o\
+	lib/utf/runestrncmp.o\
+	lib/utf/runestrncpy.o\
+	lib/utf/runestrrchr.o\
+	lib/utf/runestrstr.o\
+	lib/utf/runetype.o\
+	lib/utf/utfecpy.o\
+	lib/utf/utflen.o\
+	lib/utf/utfnlen.o\
+	lib/utf/utfrrune.o\
+	lib/utf/utfrune.o\
+	lib/utf/utfutf.o
 
 BIOLIB_OBJECTS := \
-	bio/bbuffered.o\
-	bio/bfildes.o\
-	bio/bflush.o\
-	bio/bgetc.o\
-	bio/bgetd.o\
-	bio/bgetrune.o\
-	bio/binit.o\
-	bio/boffset.o\
-	bio/bprint.o\
-	bio/bvprint.o\
-	bio/bputc.o\
-	bio/bputrune.o\
-	bio/brdline.o\
-	bio/brdstr.o\
-	bio/bread.o\
-	bio/bseek.o\
-	bio/bwrite.o
+	lib/bio/bbuffered.o\
+	lib/bio/bfildes.o\
+	lib/bio/bflush.o\
+	lib/bio/bgetc.o\
+	lib/bio/bgetd.o\
+	lib/bio/bgetrune.o\
+	lib/bio/binit.o\
+	lib/bio/boffset.o\
+	lib/bio/bprint.o\
+	lib/bio/bvprint.o\
+	lib/bio/bputc.o\
+	lib/bio/bputrune.o\
+	lib/bio/brdline.o\
+	lib/bio/brdstr.o\
+	lib/bio/bread.o\
+	lib/bio/bseek.o\
+	lib/bio/bwrite.o
 
 
 SETFOCUS_APP := cmd/x11/setfocus.out
@@ -319,10 +320,10 @@ WIWARP_APP := cmd/x11/wiwarp.out
 WMII9MENU_APP := cmd/x11/wmii9menu.out
 
 
-STUFFLIB_ARCHIVE := libstuff.a
-FMTLIB_ARCHIVE := libfmt.a
-UTFLIB_ARCHIVE := libutf.a
-BIOLIB_ARCHIVE := libbio.a
+STUFFLIB_ARCHIVE := lib/stuff/libstuff.a
+FMTLIB_ARCHIVE := lib/fmt/libfmt.a
+UTFLIB_ARCHIVE := lib/utf/libutf.a
+BIOLIB_ARCHIVE := lib/bio/libbio.a
 
 WMIIR_OBJECTS := cmd/wmiir.o
 
