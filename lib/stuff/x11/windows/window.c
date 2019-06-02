@@ -7,8 +7,8 @@ Window*
 window(XWindow xw) {
 	Window *w;
 
-	w = emallocz(sizeof *w);
+	w = (decltype(w))emallocz(sizeof *w);
 	w->type = WWindow;
 	w->xid = xw;
-	return freelater(w);
+	return (decltype(w))freelater(w);
 }

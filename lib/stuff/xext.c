@@ -7,6 +7,7 @@
 #include <X11/extensions/Xrandr.h>
 #include <X11/extensions/Xrender.h>
 #include <X11/extensions/Xinerama.h>
+#include <functional>
 
 #if RANDR_MAJOR < 1
 #  error XRandR versions less than 1.0 are not supported
@@ -18,8 +19,9 @@ static void	randr_init(void);
 static void	render_init(void);
 static void	xinerama_init(void);
 
-typedef void		(*EvHandler)(XEvent*);
-static EvHandler	randr_handlers[RRNumberEvents];
+using EvHandler = std::function<void(XEvent*)>;
+std::vector<EvHandler>& getRandrHandlers();
+//static EvHandler	randr_handlers[RRNumberEvents];
 
 bool	have_RandR;
 bool	have_render;
@@ -45,7 +47,7 @@ void
 xext_event(XEvent *e) {
 
 	if(randr_event_p(e))
-		handle(e, randr_handlers, randr_eventbase);
+		handle(e, getRandrHandlers().data(), randr_eventbase);
 }
 
 static void
@@ -77,9 +79,23 @@ randr_screenchange(XRRScreenChangeNotifyEvent *ev) {
 	init_screens();
 }
 
+std::vector<EvHandler>&
+getRandrHandlers() {
+    static bool init = false;
+    static std::vector<EvHandler> _handlers(RRScreenChangeNotify+1, nullptr);
+    if (!init) {
+        init = true;
+        _handlers[RRScreenChangeNotify] = [](XEvent* e) { 
+            randr_screenchange((XRRScreenChangeNotifyEvent*)e);
+        };
+    }
+    return _handlers;
+}
+#if 0
 static EvHandler randr_handlers[] = {
 	[RRScreenChangeNotify] = (EvHandler)randr_screenchange,
 };
+#endif
 
 /* Ripped most graciously from ecore_x. XRender documentation
  * is sparse.
@@ -94,7 +110,7 @@ render_init(void) {
 	if(!have_render)
 		return;
 
-	vi.class = TrueColor;
+	vi.c_class = TrueColor;
 	vi.depth = 32;
 	vi.screen = scr.screen;
 	vip = XGetVisualInfo(display, VisualClassMask
@@ -149,7 +165,7 @@ xinerama_screens(int *np) {
 
 	free(rects);
 	res = XineramaQueryScreens(display, &n);
-	rects = emalloc(n * sizeof *rects);
+	rects = (decltype(rects))emalloc(n * sizeof *rects);
 	for(i=0; i < n; i++) {
 		rects[i].min.x = res[i].x_org;
 		rects[i].min.y = res[i].y_org;

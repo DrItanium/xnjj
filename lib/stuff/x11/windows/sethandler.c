@@ -19,11 +19,11 @@ updatemap(Window *w) {
 }
 
 Handlers*
-sethandler(Window *w, Handlers *new) {
+sethandler(Window *w, Handlers *theNew) {
 	Handlers *old;
 
 	old = w->handler;
-	w->handler = new;
+	w->handler = theNew;
 
 	updatemap(w);
 	return old;
@@ -32,12 +32,12 @@ sethandler(Window *w, Handlers *new) {
 static HandlersLink*	free_link;
 
 void
-pushhandler(Window *w, Handlers *new, void *aux) {
+pushhandler(Window *w, Handlers *theNew, void *aux) {
 	HandlersLink *l;
 	int i;
 
 	if(free_link == nil) {
-		l = emalloc(16 * sizeof *l);
+		l = (decltype(l))emalloc(16 * sizeof *l);
 		for(i=0; i < 16; i++) {
 			l[i].next = free_link;
 			free_link = l;
@@ -46,10 +46,10 @@ pushhandler(Window *w, Handlers *new, void *aux) {
 	l = free_link;
 	free_link = l->next;
 
-	/* TODO: Maybe: pophandler(w, new); */
+	/* TODO: Maybe: pophandler(w, theNew); */
 
 	l->next = w->handler_link;
-	l->handler = new;
+	l->handler = theNew;
 	l->aux = aux;
 	w->handler_link = l;
 
