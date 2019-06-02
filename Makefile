@@ -760,3 +760,407 @@ xatom.o: lib/stuff/x11/xatom.c lib/stuff/x11/x11.h lib/stuff/x.h \
  lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
 xft.o: lib/stuff/x11/xft.c lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
  lib/stuff/geom.h lib/stuff/util.h
+
+
+loadcolor.o: lib/stuff/x11/colors/loadcolor.c \
+ lib/stuff/x11/colors/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+parsecolor.o: lib/stuff/x11/colors/parsecolor.c \
+ lib/stuff/x11/colors/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+xftcolor.o: lib/stuff/x11/colors/xftcolor.c lib/stuff/x11/colors/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+border.o: lib/stuff/x11/drawing/border.c lib/stuff/x11/drawing/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+drawline.o: lib/stuff/x11/drawing/drawline.c \
+ lib/stuff/x11/drawing/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+drawpoly.o: lib/stuff/x11/drawing/drawpoly.c \
+ lib/stuff/x11/drawing/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+drawstring.o: lib/stuff/x11/drawing/drawstring.c \
+ lib/stuff/x11/drawing/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+fill.o: lib/stuff/x11/drawing/fill.c lib/stuff/x11/drawing/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+fillpoly.o: lib/stuff/x11/drawing/fillpoly.c \
+ lib/stuff/x11/drawing/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+setgccol.o: lib/stuff/x11/drawing/setgccol.c \
+ lib/stuff/x11/drawing/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+getfocus.o: lib/stuff/x11/focus/getfocus.c lib/stuff/x11/focus/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+setfocus.o: lib/stuff/x11/focus/setfocus.c lib/stuff/x11/focus/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+addpt.o: lib/stuff/x11/geometry/addpt.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+divpt.o: lib/stuff/x11/geometry/divpt.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+eqpt.o: lib/stuff/x11/geometry/eqpt.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+eqrect.o: lib/stuff/x11/geometry/eqrect.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+insetrect.o: lib/stuff/x11/geometry/insetrect.c \
+ lib/stuff/x11/geometry/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+mulpt.o: lib/stuff/x11/geometry/mulpt.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+rectaddpt.o: lib/stuff/x11/geometry/rectaddpt.c \
+ lib/stuff/x11/geometry/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+rectsetorigin.o: lib/stuff/x11/geometry/rectsetorigin.c \
+ lib/stuff/x11/geometry/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+rectsubpt.o: lib/stuff/x11/geometry/rectsubpt.c \
+ lib/stuff/x11/geometry/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+subpt.o: lib/stuff/x11/geometry/subpt.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+XRect.o: lib/stuff/x11/geometry/XRect.c lib/stuff/x11/geometry/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+allocimage.o: lib/stuff/x11/images/allocimage.c \
+ lib/stuff/x11/images/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+copyimage.o: lib/stuff/x11/images/copyimage.c \
+ lib/stuff/x11/images/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+freeimage.o: lib/stuff/x11/images/freeimage.c \
+ lib/stuff/x11/images/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+xftdrawable.o: lib/stuff/x11/images/xftdrawable.c \
+ lib/stuff/x11/images/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+gethints.o: lib/stuff/x11/insanity/gethints.c \
+ lib/stuff/x11/insanity/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+gravitate.o: lib/stuff/x11/insanity/gravitate.c \
+ lib/stuff/x11/insanity/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+sethints.o: lib/stuff/x11/insanity/sethints.c \
+ lib/stuff/x11/insanity/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+sizehint.o: lib/stuff/x11/insanity/sizehint.c \
+ lib/stuff/x11/insanity/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+grabkeyboard.o: lib/stuff/x11/keyboard/grabkeyboard.c \
+ lib/stuff/x11/keyboard/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+ungrabkeyboard.o: lib/stuff/x11/keyboard/ungrabkeyboard.c \
+ lib/stuff/x11/keyboard/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+keycode.o: lib/stuff/x11/keys/keycode.c lib/stuff/x11/keys/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+parsekey.o: lib/stuff/x11/keys/parsekey.c lib/stuff/x11/keys/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+grabpointer.o: lib/stuff/x11/mouse/grabpointer.c \
+ lib/stuff/x11/mouse/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+pointerscreen.o: lib/stuff/x11/mouse/pointerscreen.c \
+ lib/stuff/x11/mouse/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+querypointer.o: lib/stuff/x11/mouse/querypointer.c \
+ lib/stuff/x11/mouse/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+translate.o: lib/stuff/x11/mouse/translate.c lib/stuff/x11/mouse/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+ungrabpointer.o: lib/stuff/x11/mouse/ungrabpointer.c \
+ lib/stuff/x11/mouse/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+warppointer.o: lib/stuff/x11/mouse/warppointer.c \
+ lib/stuff/x11/mouse/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeprop_char.o: lib/stuff/x11/properties/changeprop_char.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeproperty.o: lib/stuff/x11/properties/changeproperty.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeprop_long.o: lib/stuff/x11/properties/changeprop_long.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeprop_short.o: lib/stuff/x11/properties/changeprop_short.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeprop_string.o: lib/stuff/x11/properties/changeprop_string.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeprop_textlist.o: lib/stuff/x11/properties/changeprop_textlist.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+changeprop_ulong.o: lib/stuff/x11/properties/changeprop_ulong.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+delproperty.o: lib/stuff/x11/properties/delproperty.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+getprop.o: lib/stuff/x11/properties/getprop.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+getproperty.o: lib/stuff/x11/properties/getproperty.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+getprop_long.o: lib/stuff/x11/properties/getprop_long.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+getprop_string.o: lib/stuff/x11/properties/getprop_string.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+getprop_textlist.o: lib/stuff/x11/properties/getprop_textlist.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+strlistdup.o: lib/stuff/x11/properties/strlistdup.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+windowname.o: lib/stuff/x11/properties/windowname.c \
+ lib/stuff/x11/properties/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+setshapemask.o: lib/stuff/x11/shape/setshapemask.c \
+ lib/stuff/x11/shape/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+freefont.o: lib/stuff/x11/text/freefont.c lib/stuff/x11/text/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+labelh.o: lib/stuff/x11/text/labelh.c lib/stuff/x11/text/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+loadfont.o: lib/stuff/x11/text/loadfont.c lib/stuff/x11/text/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+textextents_l.o: lib/stuff/x11/text/textextents_l.c \
+ lib/stuff/x11/text/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+textwidth.o: lib/stuff/x11/text/textwidth.c lib/stuff/x11/text/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+textwidth_l.o: lib/stuff/x11/text/textwidth_l.c \
+ lib/stuff/x11/text/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+configwin.o: lib/stuff/x11/windows/configwin.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+createwindow.o: lib/stuff/x11/windows/createwindow.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+createwindow_rgba.o: lib/stuff/x11/windows/createwindow_rgba.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+createwindow_visual.o: lib/stuff/x11/windows/createwindow_visual.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+destroywindow.o: lib/stuff/x11/windows/destroywindow.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+findwin.o: lib/stuff/x11/windows/findwin.c lib/stuff/x11/windows/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+getwinrect.o: lib/stuff/x11/windows/getwinrect.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+lowerwin.o: lib/stuff/x11/windows/lowerwin.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+mapwin.o: lib/stuff/x11/windows/mapwin.c lib/stuff/x11/windows/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+movewin.o: lib/stuff/x11/windows/movewin.c lib/stuff/x11/windows/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+raisewin.o: lib/stuff/x11/windows/raisewin.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+reparentwindow.o: lib/stuff/x11/windows/reparentwindow.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+reshapewin.o: lib/stuff/x11/windows/reshapewin.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+selectinput.o: lib/stuff/x11/windows/selectinput.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+setborder.o: lib/stuff/x11/windows/setborder.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+sethandler.o: lib/stuff/x11/windows/sethandler.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+setwinattr.o: lib/stuff/x11/windows/setwinattr.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+unmapwin.o: lib/stuff/x11/windows/unmapwin.c \
+ lib/stuff/x11/windows/../x11.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+window.o: lib/stuff/x11/windows/window.c lib/stuff/x11/windows/../x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+
+
+rune.o: lib/utf/rune.c lib/plan9.h lib/utf/utf.h
+runestrcat.o: lib/utf/runestrcat.c lib/plan9.h
+runestrchr.o: lib/utf/runestrchr.c lib/plan9.h lib/utf/utf.h
+runestrcmp.o: lib/utf/runestrcmp.c lib/plan9.h lib/utf/utf.h
+runestrcpy.o: lib/utf/runestrcpy.c lib/plan9.h lib/utf/utf.h
+runestrdup.o: lib/utf/runestrdup.c lib/plan9.h
+runestrecpy.o: lib/utf/runestrecpy.c lib/plan9.h lib/utf/utf.h
+runestrlen.o: lib/utf/runestrlen.c lib/plan9.h
+runestrncat.o: lib/utf/runestrncat.c lib/plan9.h lib/utf/utf.h
+runestrncmp.o: lib/utf/runestrncmp.c lib/plan9.h lib/utf/utf.h
+runestrncpy.o: lib/utf/runestrncpy.c lib/plan9.h lib/utf/utf.h
+runestrrchr.o: lib/utf/runestrrchr.c lib/plan9.h lib/utf/utf.h
+runestrstr.o: lib/utf/runestrstr.c lib/plan9.h lib/utf/utf.h
+runetype.o: lib/utf/runetype.c lib/plan9.h lib/utf/utf.h
+utfecpy.o: lib/utf/utfecpy.c lib/plan9.h lib/utf/utf.h
+utflen.o: lib/utf/utflen.c lib/plan9.h lib/utf/utf.h
+utfnlen.o: lib/utf/utfnlen.c lib/plan9.h lib/utf/utf.h
+utfrrune.o: lib/utf/utfrrune.c lib/plan9.h lib/utf/utf.h
+utfrune.o: lib/utf/utfrune.c lib/plan9.h lib/utf/utf.h
+utfutf.o: lib/utf/utfutf.c lib/plan9.h lib/utf/utf.h
+
+
+hack.o: lib/wmii_hack/hack.c lib/wmii_hack/hack.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h lib/wmii_hack/util.c \
+ lib/wmii_hack/x11.c lib/wmii_hack/x11.h
+util.o: lib/wmii_hack/util.c
+x11.o: lib/wmii_hack/x11.c lib/wmii_hack/x11.h
+
+
+wmiir.o: cmd/wmiir.c lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+
+
+caret.o: cmd/menu/caret.c cmd/menu/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/menu/fns.h
+history.o: cmd/menu/history.c cmd/menu/dat.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h \
+ cmd/menu/fns.h
+keys.o: cmd/menu/keys.c cmd/menu/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/menu/fns.h
+main.o: cmd/menu/main.c cmd/menu/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h lib/stuff/clientutil.h \
+ cmd/menu/fns.h
+menu.o: cmd/menu/menu.c cmd/menu/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/menu/fns.h
+
+
+ewmh.o: cmd/strut/ewmh.c cmd/strut/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/strut/fns.h
+main.o: cmd/strut/main.c cmd/strut/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/strut/fns.h
+win.o: cmd/strut/win.c cmd/strut/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/strut/fns.h
+client.o: cmd/tray/client.c cmd/tray/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/tray/selection.h \
+ cmd/tray/fns.h
+ewmh.o: cmd/tray/ewmh.c cmd/tray/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/tray/selection.h \
+ cmd/tray/fns.h
+main.o: cmd/tray/main.c cmd/tray/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/tray/selection.h \
+ lib/stuff/clientutil.h cmd/tray/fns.h
+selection.o: cmd/tray/selection.c cmd/tray/dat.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h \
+ cmd/tray/selection.h cmd/tray/fns.h
+tray.o: cmd/tray/tray.c cmd/tray/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/tray/selection.h \
+ cmd/tray/fns.h
+xembed.o: cmd/tray/xembed.c cmd/tray/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/tray/selection.h \
+ cmd/tray/fns.h
+
+
+area.o: cmd/wmii/area.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+backtrace.o: cmd/wmii/backtrace.c lib/plan9.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h cmd/wmii/debug.h
+bar.o: cmd/wmii/bar.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+client.o: cmd/wmii/client.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+column.o: cmd/wmii/column.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+div.o: cmd/wmii/div.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+error.o: cmd/wmii/error.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+event.o: cmd/wmii/event.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+ewmh.o: cmd/wmii/ewmh.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+float.o: cmd/wmii/float.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+frame.o: cmd/wmii/frame.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+fs.o: cmd/wmii/fs.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+key.o: cmd/wmii/key.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+layout.o: cmd/wmii/layout.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+main.o: cmd/wmii/main.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+message.o: cmd/wmii/message.c cmd/wmii/dat.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h \
+ cmd/wmii/debug.h cmd/wmii/fns.h
+mouse.o: cmd/wmii/mouse.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+print.o: cmd/wmii/print.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+root.o: cmd/wmii/root.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+rule.o: cmd/wmii/rule.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+screen.o: cmd/wmii/screen.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+stack.o: cmd/wmii/stack.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+utf.o: cmd/wmii/utf.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+view.o: cmd/wmii/view.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+xdnd.o: cmd/wmii/xdnd.c cmd/wmii/dat.h lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h cmd/wmii/debug.h \
+ cmd/wmii/fns.h
+setfocus.o: cmd/x11/setfocus.c lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+wikeyname.o: cmd/x11/wikeyname.c lib/stuff/util.h lib/stuff/geom.h \
+ lib/stuff/base.h lib/stuff/x.h lib/stuff/x11.h
+wiwarp.o: cmd/x11/wiwarp.c lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h lib/stuff/util.h
+wmii9menu.o: cmd/x11/wmii9menu.c lib/stuff/clientutil.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h lib/stuff/x.h lib/stuff/x11.h
