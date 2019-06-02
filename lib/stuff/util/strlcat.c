@@ -3,7 +3,7 @@
 #include "util.h"
 
 uint
-strlcat(char *dst, const char *src, uint size) {
+stuff_strlcat(char *dst, const char *src, uint size) {
 	const char *s;
 	char *d;
 	int n, len;

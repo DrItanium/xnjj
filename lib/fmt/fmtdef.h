@@ -67,9 +67,9 @@ int          __strfmt(Fmt *f);
 #define FMTCHAR(f, t, s, c)\
 	do{\
 	if(t + 1 > (char*)s){\
-		t = __fmtflush(f, t, 1);\
+		t = (decltype(t))__fmtflush(f, t, 1);\
 		if(t != nil)\
-			s = f->stop;\
+			s = (decltype(s))f->stop;\
 		else\
 			return -1;\
 	}\
@@ -79,9 +79,9 @@ int          __strfmt(Fmt *f);
 #define FMTRCHAR(f, t, s, c)\
 	do{\
 	if(t + 1 > (Rune*)s){\
-		t = __fmtflush(f, t, sizeof(Rune));\
+		t = (decltype(t))__fmtflush(f, t, sizeof(Rune));\
 		if(t != nil)\
-			s = f->stop;\
+			s = (decltype(s))f->stop;\
 		else\
 			return -1;\
 	}\
@@ -93,9 +93,9 @@ int          __strfmt(Fmt *f);
 	Rune _rune;\
 	int _runelen;\
 	if(t + UTFmax > (char*)s && t + (_runelen = runelen(r)) > (char*)s){\
-		t = __fmtflush(f, t, _runelen);\
+		t = (decltype(t))__fmtflush(f, t, _runelen);\
 		if(t != nil)\
-			s = f->stop;\
+			s = (decltype(s))f->stop;\
 		else\
 			return -1;\
 	}\

@@ -24,7 +24,7 @@ utfrune(const char *s, long c)
 	int n;
 
 	if(c < Runesync)		/* not part of utf sequence */
-		return strchr(s, c);
+		return (char*)strchr(s, c);
 
 	for(;;) {
 		c1 = *(uchar*)s;

@@ -17,11 +17,10 @@
 Rune*
 runestrdup(const Rune *s)
 {
-	Rune *ns;
-
-	ns = malloc(sizeof(Rune)*(runestrlen(s) + 1));
-	if(ns == 0)
+	if (auto ns = (Rune*)malloc(sizeof(Rune)*(runestrlen(s) + 1)); !ns) {
 		return 0;
+    } else {
+	    return runestrcpy(ns, s);
+    }
 
-	return runestrcpy(ns, s);
 }

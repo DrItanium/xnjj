@@ -31,7 +31,7 @@ utfutf(const char *s1, const char *s2)
 	n1 = chartorune(&r, s2);
 	f = r;
 	if(f <= Runesync)		/* represents self */
-		return strstr(s1, s2);
+		return (char*)strstr(s1, s2);
 
 	n2 = strlen(s2);
 	for(p=s1; p=utfrune(p, f); p+=n1)

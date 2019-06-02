@@ -24,5 +24,5 @@ runefmtstrflush(Fmt *f)
 		return nil;
 	*(Rune*)f->to = '\0';
 	f->to = f->start;
-	return f->start;
+	return (Rune*)f->start;
 }
