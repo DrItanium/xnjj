@@ -329,12 +329,22 @@ WMIIR_OBJECTS := cmd/wmiir.o
 
 WMIIR_APP := cmd/wmiir.out
 
+WITRAY_OBJECTS = \
+	cmd/tray/client.o	\
+	cmd/tray/ewmh.o	\
+	cmd/tray/main.o	\
+	cmd/tray/selection.o	\
+	cmd/tray/tray.o	\
+	cmd/tray/xembed.o
+WITRAY_APP = cmd/tray/witray.out
+
 
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
 	    ${WIWARP_APP} \
 	    ${WMII9MENU_APP} \
-		${WMIIR_APP}
+		${WMIIR_APP} \
+		${WITRAY_APP}
 
 LIBS := ${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
@@ -346,7 +356,8 @@ OBJECTS := ${X11_OBJECTS} \
 		   ${FMTLIB_OBJECTS} \
 		   ${UTFLIB_OBJECTS} \
 		   ${WMIIR_OBJECTS}  \
-		   ${BIOLIB_OBJECTS} 
+		   ${BIOLIB_OBJECTS} \
+		   ${WITRAY_OBJECTS}
 
 BASE_X11DEPS := x11 xinerama xrender xrandr
 BASE_X11_SOLIBS := $$(pkg-config --libs $(BASE_X11DEPS))
@@ -430,6 +441,22 @@ ${WMIIR_APP}: ${WMIIR_OBJECTS} \
 		${UTFLIB_ARCHIVE} \
 		${BIOLIB_ARCHIVE} \
 		-lixp
+
+${WITRAY_APP}: ${WITRAY_OBJECTS} \
+	${STUFFLIB_ARCHIVE} \
+	${FMTLIB_ARCHIVE} \
+	${UTFLIB_ARCHIVE} \
+	${BIOLIB_ARCHIVE}
+	@echo LD ${WITRAY_APP}
+	@${LD} -o ${WITRAY_APP} \
+		${WITRAY_OBJECTS} \
+		${STUFFLIB_ARCHIVE} \
+		${FMTLIB_ARCHIVE} \
+		${UTFLIB_ARCHIVE} \
+		${BIOLIB_ARCHIVE} \
+		-lixp \
+		-ldl \
+		${BASE_X11_SOLIBS}
 
 clean: 
 	@echo Cleaning...
