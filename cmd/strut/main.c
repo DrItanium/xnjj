@@ -112,8 +112,8 @@ manage(ulong xid) {
 	if(!managable(xid))
 		return;
 
-	win = (decltype(win))emallocz(sizeof *win);
-	frame = (decltype(frame))emalloc(sizeof *frame);
+    win = emallocz<Window>();
+    frame = emallocz<Window>();
 
 	win->type = WWindow;
 	win->xid = xid;

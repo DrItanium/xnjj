@@ -43,7 +43,7 @@ parse_keys(char *spec) {
 		if(!words[0])
 			continue;
 		if(parsekey(words[0], &mask, &p)) {
-			k = (decltype(k))emallocz(sizeof *k);
+            k = emallocz<Key>();
 			k->key    = p;
 			k->mask   = mask;
 			k->action = strlistdup(words + 1);

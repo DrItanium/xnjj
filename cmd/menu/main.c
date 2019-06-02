@@ -61,7 +61,7 @@ populate_list(Biobuf *buf, bool hist) {
 	while((p = Brdstr(buf, '\n', true))) {
 		if(stop && p[0] == '\0')
 			break;
-		i->next_link = (decltype(i->next_link))emallocz(sizeof *i);
+		i->next_link = emallocz<Item>();
 		i = i->next_link;
 		i->string = p;
 		i->retstring = p;

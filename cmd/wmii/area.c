@@ -32,7 +32,7 @@ static Rectangle
 area_rect(void *v) {
 	Area *a;
 
-	a = v;
+	a = (decltype(a))v;
 	return a->r;
 }
 
@@ -46,7 +46,7 @@ area_find(View *v, Rectangle r, int dir, bool wrap) {
 	foreach_column(v, s, a)
 		vector_ppush(&vec, a);
 
-	return findthing(r, dir, &vec, area_rect, wrap);
+	return (Area*)findthing(r, dir, &vec, area_rect, wrap);
 }
 
 int
@@ -117,7 +117,7 @@ area_create(View *v, Area *pos, int scrn, uint width) {
 		view_scale(v, scrn, Dx(v->r[scrn]) - width);
 	}
 
-	a = emallocz(sizeof *a);
+    a = emallocz<Area>();
 	a->view = v;
 	a->screen = scrn;
 	a->id = id++;

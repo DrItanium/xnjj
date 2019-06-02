@@ -46,7 +46,15 @@ void	closeexec(int);
 char**	comm(int, char**, char**);
 int	doublefork(void);
 void*	emalloc(uint);
-void*	emallocz(uint);
+void*	_emallocz(uint);
+template<typename R>
+R* emallocz(uint size) {
+    return (R*)_emallocz(size);
+}
+template<typename R>
+R* emallocz() {
+    return emallocz<R>(sizeof(R));
+}
 void*	erealloc(void*, uint);
 char*	estrdup(const char*);
 char*	estrndup(const char*, uint);

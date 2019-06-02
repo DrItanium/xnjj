@@ -37,9 +37,8 @@ static void	xembed_sendmessage(XEmbed*, long, long, long, long);
 
 XEmbed*
 xembed_swallow(Window *parent, Window *client, void (*cleanup)(XEmbed*)) {
-	XEmbed *xembed;
 
-	xembed = (decltype(xembed))emallocz(sizeof *xembed);
+	auto xembed = emallocz<XEmbed>();
 	xembed->w = client;
 	xembed->owner = parent;
 	xembed->cleanup = cleanup;

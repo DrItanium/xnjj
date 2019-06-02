@@ -12,7 +12,7 @@ loadfont(const char *name) {
 	int n, i;
 
 	missing = nil;
-	auto f = (Font*)emallocz(sizeof(Font));
+	auto f = emallocz<Font>();
 	f->name = estrdup(name);
 	if(!strncmp(f->name, "xft:", 4)) {
 		f->type = FXft;

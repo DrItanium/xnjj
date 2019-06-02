@@ -5,9 +5,7 @@
 
 Window*
 window(XWindow xw) {
-	Window *w;
-
-	w = (decltype(w))emallocz(sizeof *w);
+    auto w = emallocz<Window>();
 	w->type = WWindow;
 	w->xid = xw;
 	return (decltype(w))freelater(w);

@@ -17,7 +17,7 @@ _selection_create(char *selection, ulong time,
 	if(time == 0)
 		time = event_xtime;
 
-	s = (decltype(s))emallocz(sizeof *s);
+    s = emallocz<Selection>();
 	s->owner = createwindow(&scr.root, Rect(0, 0, 1, 1), 0,
 				InputOnly, nil, 0);
 	s->owner->aux = s;
@@ -99,7 +99,7 @@ selection_manage(char *selection, ulong time,
 		if (!steal)
 			return nil;
 
-		w = (decltype(w))emallocz(sizeof *w);
+        w = emallocz<Window>();
 		w->type = WWindow;
 		w->xid = old;
 		selectinput(w, StructureNotifyMask);

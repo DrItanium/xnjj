@@ -4,7 +4,7 @@
 #include "util.h"
 
 void*
-emallocz(uint size) {
+_emallocz(uint size) {
 	void *ret = emalloc(size);
 	memset(ret, 0, size);
 	return ret;

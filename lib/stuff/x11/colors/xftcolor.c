@@ -6,7 +6,7 @@
 XftColor*
 xftcolor(Image *i, Color *c) {
 
-	XftColor* xc = (XftColor*)emallocz(sizeof *c);
+	XftColor* xc = emallocz<XftColor>(sizeof(*c));
 	*xc = (XftColor){ pixelvalue(i, c), c->red, c->green, c->blue, c->alpha };
 	return (XftColor*)freelater(xc);
 }

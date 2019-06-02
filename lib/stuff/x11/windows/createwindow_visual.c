@@ -12,7 +12,6 @@ Window*
 createwindow_visual(Window *parent, Rectangle r,
 		    int depth, Visual *vis, uint theClass,
 		    WinAttr *wa, int valmask) {
-	Window *w;
 	WinAttr wa_empty;
 
 	assert(parent->type == WWindow);
@@ -20,7 +19,7 @@ createwindow_visual(Window *parent, Rectangle r,
 	if(wa == nil)
 		wa = &wa_empty;
 
-	w = (decltype(w))emallocz(sizeof *w);
+	auto w = emallocz<Window>();
 	w->visual = vis;
 	w->type = WWindow;
 	w->parent = parent;

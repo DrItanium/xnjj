@@ -22,7 +22,7 @@ _getselection(Window *w, long selection, char *type) {
 
 void
 getselection(char *selection, void (*callback)(void*, char*), void *aux) {
-	Data* d = (Data*)emallocz(sizeof *d);
+	Data* d = emallocz<Data>(sizeof *d);
 	d->selection = xatom(selection);
 	d->callback = callback;
 	d->aux = aux;

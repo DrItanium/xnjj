@@ -182,7 +182,7 @@ struct Client {
 	Rectangle configr;
 	Rectangle r;
 	char**	retags;
-	char	class[256];
+	char	_class[256];
 	char	name[256];
 	char	props[512];
 	char	tags[256];
@@ -339,7 +339,7 @@ EXTERN struct WMScreen {
 } **screens, *screen;
 EXTERN uint	nscreens;
 
-EXTERN struct {
+struct {
 	Client*	focus;
 	Client*	hasgrab;
 	Image*	ibuf;

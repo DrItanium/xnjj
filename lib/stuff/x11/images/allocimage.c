@@ -5,7 +5,7 @@
 
 Image*
 allocimage(int w, int h, int depth) {
-	auto img = (Image*)emallocz(sizeof(Image));
+	auto img = emallocz<Image>();
 	img->type = WImage;
 	img->xid = XCreatePixmap(display, scr.root.xid, w, h, depth);
 	img->gc = XCreateGC(display, img->xid, 0, nil);

@@ -13,11 +13,10 @@ static void client_cleanup(XEmbed*);
 void
 client_manage(XWindow w) {
 	Client **cp;
-	Client *c;
 	WinAttr wa;
 	int size;
 
-	c = (decltype(c))emallocz(sizeof *c);
+	auto c = emallocz<Client>();
 	c->w.type = WWindow;
 	c->w.xid = w;
 	c->w.aux = c;
@@ -127,9 +126,9 @@ client_opcode(Client *c, long message, long l1, long l2, long l3) {
 		if(l2 > 5 * 1024) /* Don't bother with absurdly large messages. */
 			return;
 
-		m = (decltype(m))emallocz(sizeof *m);
+		m = emallocz<Message>();
 		m->timeout = l1;
-		m->msg     = ixp_message((char*)emallocz(l2), l2, MsgPack);
+		m->msg     = ixp_message((char*)_emallocz(l2), l2, MsgPack);
 		m->id      = l3;
 
 		/* Add the message to the end of the queue. */

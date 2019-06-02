@@ -32,7 +32,7 @@ static void
 insert(Map *m, MapEnt **e, ulong val, const char *key) {
 
 	m->nmemb++;
-	MapEnt* te = (MapEnt*)emallocz(sizeof *te);
+	MapEnt* te = emallocz<MapEnt>(sizeof *te);
 	te->hash = val;
 	te->key = key;
 	te->next = *e;

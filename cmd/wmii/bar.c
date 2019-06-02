@@ -4,7 +4,7 @@
 #include "dat.h"
 #include "fns.h"
 
-static Handlers handlers;
+static Handlers& getHandlers();
 
 #define foreach_bar(s, b) \
 	for(int __bar_n=0; __bar_n < nelem((s)->bar); __bar_n++) \
@@ -35,7 +35,7 @@ bar_init(WMScreen *s) {
 				   | CWEventMask);
 	s->barwin->aux = s;
 	xdnd_initwindow(s->barwin);
-	sethandler(s->barwin, &handlers);
+	sethandler(s->barwin, &getHandlers());
 	if(s == screens[0])
 		mapwin(s->barwin);
 }
@@ -91,14 +91,14 @@ bar_create(Bar **bp, const char *name) {
 	if(b)
 		return b;
 
-	b = emallocz(sizeof *b);
+	b = emallocz<Bar>();
 	b->id = id++;
 	utflcpy(b->name, name, sizeof b->name);
 	b->colors = def.normcolor;
 
-	strlcat(b->buf, b->colors.colstr, sizeof b->buf);
-	strlcat(b->buf, " ", sizeof b->buf);
-	strlcat(b->buf, b->text, sizeof b->buf);
+	stuff_strlcat(b->buf, b->colors.colstr, sizeof b->buf);
+	stuff_strlcat(b->buf, " ", sizeof b->buf);
+	stuff_strlcat(b->buf, b->text, sizeof b->buf);
 
 	SET(i);
 	for(sp=screens; (s = *sp); sp++) {
@@ -237,7 +237,7 @@ bdown_event(Window *w, void *aux, XButtonPressedEvent *e) {
 	XUngrabPointer(display, e->time);
 	stuff_sync();
 
-	s = aux;
+	s = (decltype(s))aux;
 	b = findbar(s, Pt(e->x, e->y));
 	if(b)
 		event("%sBarMouseDown %d %s\n", barside[b->bar], e->button, b->name);
@@ -249,7 +249,7 @@ bup_event(Window *w, void *aux, XButtonPressedEvent *e) {
 	WMScreen *s;
 	Bar *b;
 
-	s = aux;
+	s = (decltype(s))aux;
 	b = findbar(s, Pt(e->x, e->y));
 	if(b)
 		event("%sBarClick %d %s\n", barside[b->bar], e->button, b->name);
@@ -261,7 +261,7 @@ dndmotion_event(Window *w, void *aux, Point p) {
 	WMScreen *s;
 	Bar *b;
 
-	s = aux;
+	s = (decltype(s))aux;
 	b = findbar(s, p);
 	if(b) {
 		event("%sBarDND 1 %s\n", barside[b->bar], b->name);
@@ -273,14 +273,22 @@ dndmotion_event(Window *w, void *aux, Point p) {
 static bool
 expose_event(Window *w, void *aux, XExposeEvent *e) {
 	USED(w, e);
-	bar_draw(aux);
+	bar_draw((WMScreen*)aux);
 	return false;
 }
 
-static Handlers handlers = {
-	.bdown = bdown_event,
-	.bup = bup_event,
-	.dndmotion = dndmotion_event,
-	.expose = expose_event,
-};
+static Handlers&
+getHandlers() {
+
+    static bool init = false;
+    static Handlers handlers;
+    if (!init) {
+        init = true;
+        handlers.bdown = bdown_event;
+        handlers.bup = bup_event;
+        handlers.dndmotion = dndmotion_event;
+        handlers.expose = expose_event;
+    }
+    return handlers;
+}
 
