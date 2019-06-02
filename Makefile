@@ -1,5 +1,6 @@
 include config.mk
-INCLUDES := -I.
+INCLUDES := -I. \
+			-Ifmt
 REQUIRED_DEFINES := -D_XOPEN_SOURCE=600
 DEBUGCFLAGS = \
 	-g \
