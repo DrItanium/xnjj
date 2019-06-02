@@ -463,3 +463,300 @@ clean:
 	@rm -f ${APPS} ${OBJECTS} ${LIBS}
 
 .PHONY: clean
+
+
+# generated via g++ -MM -std=c++17 *.cc
+
+
+bbuffered.o: lib/bio/bbuffered.c lib/plan9.h
+bcat.o: lib/bio/bcat.c lib/bio/bio.h
+bfildes.o: lib/bio/bfildes.c lib/plan9.h
+bflush.o: lib/bio/bflush.c lib/plan9.h
+bgetc.o: lib/bio/bgetc.c lib/plan9.h
+bgetd.o: lib/bio/bgetd.c lib/plan9.h
+bgetrune.o: lib/bio/bgetrune.c lib/plan9.h
+binit.o: lib/bio/binit.c lib/plan9.h
+boffset.o: lib/bio/boffset.c lib/plan9.h
+bprint.o: lib/bio/bprint.c lib/plan9.h
+bputc.o: lib/bio/bputc.c lib/plan9.h
+bputrune.o: lib/bio/bputrune.c lib/plan9.h
+brdline.o: lib/bio/brdline.c lib/plan9.h
+brdstr.o: lib/bio/brdstr.c lib/plan9.h
+bread.o: lib/bio/bread.c lib/plan9.h
+bseek.o: lib/bio/bseek.c lib/plan9.h
+bvprint.o: lib/bio/bvprint.c lib/plan9.h
+bwrite.o: lib/bio/bwrite.c lib/plan9.h
+
+
+charstod.o: lib/fmt/charstod.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+dofmt.o: lib/fmt/dofmt.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+dorfmt.o: lib/fmt/dorfmt.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+errfmt.o: lib/fmt/errfmt.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fltfmt.o: lib/fmt/fltfmt.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmt.o: lib/fmt/fmt.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtfd.o: lib/fmt/fmtfd.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtfdflush.o: lib/fmt/fmtfdflush.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+fmtlocale.o: lib/fmt/fmtlocale.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+fmtlock.o: lib/fmt/fmtlock.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtprint.o: lib/fmt/fmtprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtquote.o: lib/fmt/fmtquote.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtrune.o: lib/fmt/fmtrune.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtstr.o: lib/fmt/fmtstr.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+fmtvprint.o: lib/fmt/fmtvprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+fprint.o: lib/fmt/fprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+nan64.o: lib/fmt/nan64.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+pow10.o: lib/fmt/pow10.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+print.o: lib/fmt/print.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+runefmtstr.o: lib/fmt/runefmtstr.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runeseprint.o: lib/fmt/runeseprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runesmprint.o: lib/fmt/runesmprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runesnprint.o: lib/fmt/runesnprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runesprint.o: lib/fmt/runesprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runevseprint.o: lib/fmt/runevseprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runevsmprint.o: lib/fmt/runevsmprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+runevsnprint.o: lib/fmt/runevsnprint.c lib/plan9.h lib/fmt/fmt.h \
+ lib/fmt/fmtdef.h
+seprint.o: lib/fmt/seprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+smprint.o: lib/fmt/smprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+snprint.o: lib/fmt/snprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+sprint.o: lib/fmt/sprint.c lib/plan9.h lib/fmt/fmtdef.h
+strtod.o: lib/fmt/strtod.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+test2.o: lib/fmt/test2.c
+test3.o: lib/fmt/test3.c
+test.o: lib/fmt/test.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+vfprint.o: lib/fmt/vfprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+vseprint.o: lib/fmt/vseprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+vsmprint.o: lib/fmt/vsmprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+vsnprint.o: lib/fmt/vsnprint.c lib/plan9.h lib/fmt/fmt.h lib/fmt/fmtdef.h
+
+
+regaux.o: lib/regexp/regaux.c lib/plan9.h lib/regexp/regexp9.h \
+ lib/regexp/regcomp.h
+regcomp.o: lib/regexp/regcomp.c lib/plan9.h lib/regexp/regexp9.h \
+ lib/regexp/regcomp.h
+regerror.o: lib/regexp/regerror.c lib/plan9.h
+regexec.o: lib/regexp/regexec.c lib/plan9.h lib/regexp/regexp9.h \
+ lib/regexp/regcomp.h
+regsub.o: lib/regexp/regsub.c lib/plan9.h lib/regexp/regexp9.h
+rregexec.o: lib/regexp/rregexec.c lib/plan9.h lib/regexp/regexp9.h \
+ lib/regexp/regcomp.h
+rregsub.o: lib/regexp/rregsub.c lib/plan9.h lib/regexp/regexp9.h
+test2.o: lib/regexp/test2.c lib/plan9.h
+test.o: lib/regexp/test.c lib/plan9.h
+
+
+buffer.o: lib/stuff/buffer.c
+client_readconfig.o: lib/stuff/client_readconfig.c lib/stuff/clientutil.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h lib/stuff/x.h \
+ lib/stuff/x11.h
+clientutil.o: lib/stuff/clientutil.c lib/stuff/clientutil.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+init_screens.o: lib/stuff/init_screens.c
+map.o: lib/stuff/map.c lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+printevent.o: lib/stuff/printevent.c lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h lib/stuff/printevent.h
+xext.o: lib/stuff/xext.c lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h lib/stuff/util.h
+
+
+buttonpress.o: lib/stuff/event/buttonpress.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+buttonrelease.o: lib/stuff/event/buttonrelease.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+clientmessage.o: lib/stuff/event/clientmessage.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+configurenotify.o: lib/stuff/event/configurenotify.c \
+ lib/stuff/event/event.h lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h
+configurerequest.o: lib/stuff/event/configurerequest.c \
+ lib/stuff/event/event.h lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h
+destroynotify.o: lib/stuff/event/destroynotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+enternotify.o: lib/stuff/event/enternotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+event.o: lib/stuff/event/event.c lib/stuff/event/event.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+expose.o: lib/stuff/event/expose.c lib/stuff/event/event.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+focusin.o: lib/stuff/event/focusin.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+focusout.o: lib/stuff/event/focusout.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+ixp.o: lib/stuff/event/ixp.c lib/stuff/event/event.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+keypress.o: lib/stuff/event/keypress.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+keyrelease.o: lib/stuff/event/keyrelease.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+leavenotify.o: lib/stuff/event/leavenotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+mapnotify.o: lib/stuff/event/mapnotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+mappingnotify.o: lib/stuff/event/mappingnotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+maprequest.o: lib/stuff/event/maprequest.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+motionnotify.o: lib/stuff/event/motionnotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+propertynotify.o: lib/stuff/event/propertynotify.c \
+ lib/stuff/event/event.h lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h
+reparentnotify.o: lib/stuff/event/reparentnotify.c \
+ lib/stuff/event/event.h lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h
+selection.o: lib/stuff/event/selection.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+selectionclear.o: lib/stuff/event/selectionclear.c \
+ lib/stuff/event/event.h lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h
+selectionrequest.o: lib/stuff/event/selectionrequest.c \
+ lib/stuff/event/event.h lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h
+unmapnotify.o: lib/stuff/event/unmapnotify.c lib/stuff/event/event.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h
+xtime.o: lib/stuff/event/xtime.c lib/stuff/x.h lib/stuff/base.h \
+ lib/stuff/x11.h lib/stuff/geom.h
+blprint.o: lib/stuff/fmt/blprint.c lib/stuff/fmt/fmtdef.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+bvlprint.o: lib/stuff/fmt/bvlprint.c lib/stuff/fmt/fmtdef.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+fmtbuf.o: lib/stuff/fmt/fmtbuf.c lib/stuff/fmt/fmtdef.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+localefmt.o: lib/stuff/fmt/localefmt.c lib/stuff/fmt/fmtdef.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+localelen.o: lib/stuff/fmt/localelen.c lib/stuff/fmt/fmtdef.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+lprint.o: lib/stuff/fmt/lprint.c lib/stuff/fmt/fmtdef.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+vlprint.o: lib/stuff/fmt/vlprint.c lib/stuff/fmt/fmtdef.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+get_sticky.o: lib/stuff/geom/get_sticky.c lib/stuff/geom.h \
+ lib/stuff/base.h
+quadrant.o: lib/stuff/geom/quadrant.c lib/stuff/geom.h lib/stuff/base.h
+rect_contains_p.o: lib/stuff/geom/rect_contains_p.c lib/stuff/geom.h \
+ lib/stuff/base.h
+rect_haspoint_p.o: lib/stuff/geom/rect_haspoint_p.c lib/stuff/geom.h \
+ lib/stuff/base.h
+rect_intersection.o: lib/stuff/geom/rect_intersection.c lib/stuff/geom.h \
+ lib/stuff/base.h lib/stuff/util.h
+rect_intersect_p.o: lib/stuff/geom/rect_intersect_p.c lib/stuff/geom.h \
+ lib/stuff/base.h
+closeexec.o: lib/stuff/util/closeexec.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+comm.o: lib/stuff/util/comm.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h lib/stuff/x11.h
+_die.o: lib/stuff/util/_die.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+doublefork.o: lib/stuff/util/doublefork.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+emalloc.o: lib/stuff/util/emalloc.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+emallocz.o: lib/stuff/util/emallocz.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+erealloc.o: lib/stuff/util/erealloc.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+estrdup.o: lib/stuff/util/estrdup.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+estrndup.o: lib/stuff/util/estrndup.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+fatal.o: lib/stuff/util/fatal.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+freelater.o: lib/stuff/util/freelater.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+getbase.o: lib/stuff/util/getbase.c lib/stuff/util.h lib/stuff/geom.h \
+ lib/stuff/base.h
+getint.o: lib/stuff/util/getint.c lib/stuff/util.h lib/stuff/geom.h \
+ lib/stuff/base.h
+getlong.o: lib/stuff/util/getlong.c lib/stuff/util.h lib/stuff/geom.h \
+ lib/stuff/base.h
+getulong.o: lib/stuff/util/getulong.c lib/stuff/util.h lib/stuff/geom.h \
+ lib/stuff/base.h
+grep.o: lib/stuff/util/grep.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+join.o: lib/stuff/util/join.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+max.o: lib/stuff/util/max.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+mfatal.o: lib/stuff/util/mfatal.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+min.o: lib/stuff/util/min.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+nsec.o: lib/stuff/util/nsec.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+pathsearch.o: lib/stuff/util/pathsearch.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+refree.o: lib/stuff/util/refree.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+reinit.o: lib/stuff/util/reinit.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+spawn3.o: lib/stuff/util/spawn3.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+spawn3l.o: lib/stuff/util/spawn3l.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+stokenize.o: lib/stuff/util/stokenize.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+strcasestr.o: lib/stuff/util/strcasestr.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+strend.o: lib/stuff/util/strend.c lib/stuff/util.h lib/stuff/geom.h \
+ lib/stuff/base.h
+strlcat.o: lib/stuff/util/strlcat.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+strlcatprint.o: lib/stuff/util/strlcatprint.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+sxprint.o: lib/stuff/util/sxprint.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+tokenize.o: lib/stuff/util/tokenize.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+trim.o: lib/stuff/util/trim.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+uniq.o: lib/stuff/util/uniq.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+unmask.o: lib/stuff/util/unmask.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+unquote.o: lib/stuff/util/unquote.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+utflcpy.o: lib/stuff/util/utflcpy.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+vector.o: lib/stuff/util/vector.c lib/stuff/util/util.h lib/stuff/util.h \
+ lib/stuff/geom.h lib/stuff/base.h
+vsxprint.o: lib/stuff/util/vsxprint.c lib/stuff/util/util.h \
+ lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+convpts.o: lib/stuff/x11/convpts.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+errors.o: lib/stuff/x11/errors.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+freestringlist.o: lib/stuff/x11/freestringlist.c lib/stuff/x11/x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+ignored_xerrors.o: lib/stuff/x11/ignored_xerrors.c lib/stuff/x11/x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+initdisplay.o: lib/stuff/x11/initdisplay.c lib/stuff/x11/x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+selection.o: lib/stuff/x11/selection.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+sendevent.o: lib/stuff/x11/sendevent.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+sendmessage.o: lib/stuff/x11/sendmessage.c lib/stuff/x11/x11.h \
+ lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h \
+ lib/stuff/util.h
+sync.o: lib/stuff/x11/sync.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+x11.o: lib/stuff/x11/x11.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+xatom.o: lib/stuff/x11/xatom.c lib/stuff/x11/x11.h lib/stuff/x.h \
+ lib/stuff/base.h lib/stuff/x11.h lib/stuff/geom.h lib/stuff/util.h
+xft.o: lib/stuff/x11/xft.c lib/stuff/x.h lib/stuff/base.h lib/stuff/x11.h \
+ lib/stuff/geom.h lib/stuff/util.h
