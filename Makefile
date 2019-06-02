@@ -313,6 +313,21 @@ BIOLIB_OBJECTS := \
 	lib/bio/bseek.o\
 	lib/bio/bwrite.o
 
+REGEXPLIB_OBJECTS := \
+	lib/regexp/regcomp.o\
+	lib/regexp/regerror.o\
+	lib/regexp/regexec.o\
+	lib/regexp/regsub.o\
+	lib/regexp/regaux.o\
+	lib/regexp/rregexec.o\
+	lib/regexp/rregsub.o
+
+
+STUFFLIB_ARCHIVE := lib/stuff/libstuff.a
+FMTLIB_ARCHIVE := lib/fmt/libfmt.a
+UTFLIB_ARCHIVE := lib/utf/libutf.a
+BIOLIB_ARCHIVE := lib/bio/libbio.a
+REGEXPLIB_ARCHIVE := lib/regexp/libregexp.a
 
 
 SETFOCUS_APP := cmd/x11/setfocus.out
@@ -321,10 +336,6 @@ WIWARP_APP := cmd/x11/wiwarp.out
 WMII9MENU_APP := cmd/x11/wmii9menu.out
 
 
-STUFFLIB_ARCHIVE := lib/stuff/libstuff.a
-FMTLIB_ARCHIVE := lib/fmt/libfmt.a
-UTFLIB_ARCHIVE := lib/utf/libutf.a
-BIOLIB_ARCHIVE := lib/bio/libbio.a
 
 WMIIR_OBJECTS := cmd/wmiir.o
 
@@ -349,6 +360,11 @@ WIMENU_OBJECTS =\
 
 WIMENU_APP := cmd/menu/wimenu.out
 
+WISTRUT_OBJECTS =	cmd/strut/main.o	\
+	cmd/strut/ewmh.o	\
+	cmd/strut/win.o
+
+WISTRUT_APP = cmd/strut/wistrut.out
 
 APPS := ${SETFOCUS_APP} \
 	    ${WIKEYNAME_APP} \
@@ -356,12 +372,14 @@ APPS := ${SETFOCUS_APP} \
 	    ${WMII9MENU_APP} \
 		${WMIIR_APP} \
 		${WITRAY_APP} \
-		${WIMENU_APP}
+		${WIMENU_APP} \
+		${WISTRUT_APP}
 
 LIBS := ${STUFFLIB_ARCHIVE} \
 		${FMTLIB_ARCHIVE} \
 		${UTFLIB_ARCHIVE} \
-		${BIOLIB_ARCHIVE}
+		${BIOLIB_ARCHIVE} \
+		${REGEXPLIB_ARCHIVE}
 
 OBJECTS := ${X11_OBJECTS} \
 		   ${STUFFLIB_OBJECTS} \
@@ -370,7 +388,9 @@ OBJECTS := ${X11_OBJECTS} \
 		   ${WMIIR_OBJECTS}  \
 		   ${BIOLIB_OBJECTS} \
 		   ${WITRAY_OBJECTS} \
-		   ${WIMENU_OBJECTS}
+		   ${WIMENU_OBJECTS} \
+		   ${WISTRUT_OBJECTS} \
+		   ${REGEXPLIB_OBJECTS}
 
 BASE_X11DEPS := x11 xinerama xrender xrandr
 BASE_X11_SOLIBS := $$(pkg-config --libs $(BASE_X11DEPS))
@@ -402,6 +422,10 @@ ${UTFLIB_ARCHIVE}: ${UTFLIB_OBJECTS}
 ${BIOLIB_ARCHIVE}: ${BIOLIB_OBJECTS}
 	@echo AR ${BIOLIB_ARCHIVE}
 	@${AR} ${BIOLIB_ARCHIVE} ${BIOLIB_OBJECTS}
+
+${REGEXPLIB_ARCHIVE}: ${REGEXPLIB_OBJECTS}
+	@echo AR ${REGEXPLIB_ARCHIVE}
+	@${AR} ${REGEXPLIB_ARCHIVE} ${REGEXPLIB_OBJECTS}
 
 ${SETFOCUS_APP}: ${SETFOCUS_OBJECTS} ${STUFFLIB_ARCHIVE} ${FMTLIB_ARCHIVE} ${UTFLIB_ARCHIVE}
 	@echo LD ${SETFOCUS_APP}
@@ -485,6 +509,23 @@ ${WIMENU_APP}: ${WIMENU_OBJECTS} \
 		${BIOLIB_ARCHIVE} \
 		-lixp \
 		-ldl \
+		${BASE_X11_SOLIBS}
+
+${WISTRUT_APP}: ${WISTRUT_OBJECTS} \
+	${STUFFLIB_ARCHIVE} \
+	${FMTLIB_ARCHIVE} \
+	${UTFLIB_ARCHIVE} \
+	${BIOLIB_ARCHIVE} \
+	${REGEXPLIB_ARCHIVE}
+	@echo LD ${WISTRUT_APP}
+	@${LD} -o ${WISTRUT_APP} \
+		${WISTRUT_OBJECTS} \
+		${STUFFLIB_ARCHIVE} \
+		${FMTLIB_ARCHIVE} \
+		${BIOLIB_ARCHIVE} \
+		${REGEXPLIB_ARCHIVE} \
+		${UTFLIB_ARCHIVE} \
+		-lixp \
 		${BASE_X11_SOLIBS}
 
 clean: 
