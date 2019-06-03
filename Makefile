@@ -1204,7 +1204,7 @@ util.o: lib/wmii_hack/util.c
 x11.o: lib/wmii_hack/x11.c lib/wmii_hack/x11.h
 
 
-wmiir.o: cmd/wmiir.c lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
+wmiir.o: cmd/wmiir.cc lib/stuff/util.h lib/stuff/geom.h lib/stuff/base.h
 
 
 caret.o: cmd/menu/caret.c cmd/menu/dat.h lib/stuff/x.h lib/stuff/base.h \
