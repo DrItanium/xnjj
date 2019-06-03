@@ -305,13 +305,9 @@ struct View {
 	Rectangle *pad;
 };
 
-#ifndef EXTERN
-#  define EXTERN extern
-#endif
-
 /* global variables */
 typedef struct Defs Defs;
-EXTERN struct Defs {
+struct Defs {
 	CTuple	focuscolor;
 	CTuple	normcolor;
 	Font*	font;
@@ -324,13 +320,15 @@ EXTERN struct Defs {
 	uint	snap;
 	int	colmode;
 	int	incmode;
-} def;
+};
+
+extern Defs def;
 
 enum {
 	BLeft, BRight
 };
 
-EXTERN struct WMScreen {
+struct WMScreen {
 	Bar*	bar[2];
 	Window*	barwin;
 	bool	barwin_rgba;
@@ -340,45 +338,47 @@ EXTERN struct WMScreen {
 
 	Rectangle r;
 	Rectangle brect;
-} **screens, *screen;
-EXTERN uint	nscreens;
+};
+extern WMScreen **screens, *screen;
+extern uint	nscreens;
 
-struct {
+struct DispStruct{
 	Client*	focus;
 	Client*	hasgrab;
 	Image*	ibuf;
 	Image*	ibuf32;
 	bool	sel;
-} disp;
+} ;
+extern DispStruct disp;
 
-EXTERN Client	c_magic;
-EXTERN Client	c_root;
-EXTERN Client*	client;
-EXTERN Divide*	divs;
-EXTERN Key*	key;
-EXTERN View*	selview;
-EXTERN View*	view;
+extern Client	c_magic;
+extern Client	c_root;
+extern Client*	client;
+extern Divide*	divs;
+extern Key*	key;
+extern View*	selview;
+extern View*	view;
 
 Handlers& getFramehandler();
 
 /* IXP */
-EXTERN IxpServer srv;
+extern IxpServer srv;
 extern Ixp9Srv	p9srv;
 
 /* X11 */
-EXTERN uint	numlock_mask;
-EXTERN uint	valid_mask;
+extern uint	numlock_mask;
+extern uint	valid_mask;
 
 /* Misc */
-EXTERN char*	execstr;
-EXTERN char	hostname[HOST_NAME_MAX + 1];
-EXTERN long	ignoreenter;
-EXTERN bool	resizing;
-EXTERN int	starting;
-EXTERN char*	user;
-EXTERN long	nscreens_new;
+extern char*	execstr;
+extern char	hostname[HOST_NAME_MAX + 1];
+extern long	ignoreenter;
+extern bool	resizing;
+extern int	starting;
+extern char*	user;
+extern long	nscreens_new;
 
-EXTERN Client*	kludge;
+extern Client*	kludge;
 
 extern char*	debugtab[];
 #endif

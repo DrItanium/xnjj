@@ -12,6 +12,8 @@
 char* argv0 = nullptr;
 Display* display = nullptr;
 Screen scr;
+int direction = 0;
+
 static Window*	testwin;
 static ulong	testtime[2];
 
