@@ -1,3 +1,5 @@
+#ifndef PLAN9_H__
+#define PLAN9_H__
 /*
  * compiler directive on Plan 9
  */
@@ -43,3 +45,4 @@ typedef unsigned long long	uvlong;
 #undef	nelem
 #define	nelem(x)	(sizeof (x)/sizeof (x)[0])
 
+#endif

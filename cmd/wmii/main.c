@@ -2,7 +2,6 @@
  * Copyright ©2006-2014 Kris Maglione <maglione.k at Gmail>
  * See LICENSE file for license details.
  */
-#define EXTERN
 #include "dat.h"
 #include <X11/Xproto.h>
 #include <X11/cursorfont.h>
@@ -18,6 +17,9 @@
 char* argv0 = nullptr;
 Display* display = nullptr;
 Screen scr;
+long debugflag;
+long debugfile;
+Cursor	cursor[CurLast];
 static const char
 	version[] = "wmii-"VERSION", "COPYRIGHT"\n";
 

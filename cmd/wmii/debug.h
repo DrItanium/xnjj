@@ -1,3 +1,5 @@
+#ifndef CMD_XNJJ_DEBUG_H__
+#define CMD_XNJJ_DEBUG_H__
 #include <stdbool.h>
 
 enum DebugOpt {
@@ -20,5 +22,6 @@ void	dwrite(int, void*, int, bool);
 bool	setdebug(int);
 void	vdebug(int, const char*, va_list);
 
-long	debugflag;
-long	debugfile;
+extern long	debugflag;
+extern long	debugfile;
+#endif

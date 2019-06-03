@@ -1,4 +1,5 @@
-
+#ifndef WMII_HACK_H__
+#define WMII_HACK_H__
 typedef unsigned long	ulong;
 typedef unsigned int	uint;
 typedef unsigned char	uchar;
@@ -23,6 +24,7 @@ static char*	smprint(const char*, ...);
 static char*	vsmprint(const char*, va_list);
 static char*	strdup(const char*);
 
-#define nil ((void*)0)
+#define nil nullptr
 #define nelem(ary) (sizeof(ary) / sizeof(*ary))
 
+#endif

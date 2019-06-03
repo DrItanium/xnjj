@@ -1,3 +1,5 @@
+#ifndef STUFF_X11_X11_H__
+#define STUFF_X11_X11_H__
 /* Copyright ©2007-2010 Kris Maglione <maglione.k at Gmail>
  * See LICENSE file for license details.
  */
@@ -23,3 +25,4 @@ void	setgccol(Image*, Color*);
 XftColor*	xftcolor(Image*, Color*);
 XftDraw*	xftdrawable(Image*);
 
+#endif

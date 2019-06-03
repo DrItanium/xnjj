@@ -1,3 +1,5 @@
+#ifndef STUFF_X11_H__
+#define STUFF_X11_H__
 /* Copyright ©2007-2010 Kris Maglione <maglione.k at Gmail>
  * See LICENSE file for license details.
  */
@@ -324,3 +326,4 @@ char*	windowname(Window*);
 long	winprotocols(Window*);
 Atom	xatom(const char*);
 
+#endif

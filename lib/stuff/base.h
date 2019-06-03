@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STUFF_BASE_H__
+#define STUFF_BASE_H__
 #define _XOPEN_SOURCE 600
 
 #include <sys/types.h>
@@ -55,3 +56,4 @@ _used(long a, ...) {
 #  define SET(x) (x = 0)
 /* # define SET(x) USED(&x) GCC 4 is 'too smart' for this. */
 #endif
+#endif 

@@ -1,3 +1,5 @@
+#ifndef STUFF_GEOM_H__
+#define STUFF_GEOM_H__
 #pragma once
 
 #include <stuff/base.h>
@@ -52,3 +54,4 @@ bool		rect_haspoint_p(Rectangle, Point);
 bool		rect_intersect_p(Rectangle, Rectangle);
 Rectangle	rect_intersection(Rectangle, Rectangle);
 
+#endif

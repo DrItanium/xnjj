@@ -1,3 +1,5 @@
+#ifndef WMII_HACK_X11_H__
+#define WMII_HACK_X11_H__
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
@@ -16,3 +18,4 @@ static ulong	getprop_long(Display*, Window, char*, char*, ulong, long**, ulong);
 /* static ulong	getproperty(Display*, Window, char*, char*, Atom*, ulong, uchar**, ulong); */
 static Atom	xatom(Display*, char*);
 
+#endif

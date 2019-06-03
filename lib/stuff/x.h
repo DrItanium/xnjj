@@ -1,3 +1,5 @@
+#ifndef STUFF_X_H___
+#define STUFF_X_H___
 #include <stuff/base.h>
 #include <stuff/x11.h>
 #include <fmt.h>
@@ -78,4 +80,4 @@ extern Colormap	render_colormap;
 extern bool	have_RandR;
 extern bool	have_render;
 extern bool	have_xinerama;
-
+#endif 

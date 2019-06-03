@@ -1,3 +1,5 @@
+#ifndef CMD_TRAY_FNS_H__
+#define CMD_TRAY_FNS_H__
 
 void	cleanup(Selection*);
 Client*	client_find(Window*);
@@ -20,3 +22,4 @@ XEmbed*	xembed_swallow(Window*, Window*, void (*)(XEmbed*));
 #define Debug if(debug)
 #define Dprint Debug print
 
+#endif

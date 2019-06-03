@@ -1,3 +1,5 @@
+#ifndef STUFF_UTIL_H__
+#define STUFF_UTIL_H__
 /* Copyright ©2007-2010 Kris Maglione <maglione.k at Gmail>
  * See LICENSE file for license details.
  */
@@ -160,3 +162,4 @@ VECTOR(Rectangle, rect, r)
 VECTOR(void*, ptr, p)
 #undef VECTOR
 
+#endif

@@ -1,3 +1,5 @@
+#ifndef STUFF_PRINTEVENT_H__
+#define STUFF_PRINTEVENT_H__
 int fmtevent(Fmt *fmt);
 
 enum {
@@ -246,3 +248,4 @@ enum {
 	"GetModifierMapping",\
 	"NoOperation",\
 
+#endif

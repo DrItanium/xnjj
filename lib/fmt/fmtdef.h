@@ -1,3 +1,5 @@
+#ifndef FMTDEF_H__
+#define FMTDEF_H__
 /*
  * The authors of this software are Rob Pike and Ken Thompson.
  *              Copyright (c) 2002 by Lucent Technologies.
@@ -111,3 +113,4 @@ int          __strfmt(Fmt *f);
 #	define va_copy(a,b) (a) = (b)
 #endif
 
+#endif

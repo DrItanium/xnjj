@@ -1,3 +1,5 @@
+#ifndef STUFF_EVENT_H__
+#define STUFF_EVENT_H__
 #include <stuff/x.h>
 #include <map>
 
@@ -9,3 +11,4 @@ typedef void (*EventHandler)(XEvent*);
 extern std::map<uint, EventHandler> event_handler;
 //extern EventHandler event_handler[LASTEvent];
 
+#endif

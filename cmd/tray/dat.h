@@ -1,3 +1,5 @@
+#ifndef CMD_TRAY_DAT_H__
+#define CMD_TRAY_DAT_H__
 #include <fmt.h>
 #include <stdarg.h>
 #include <stdbool.h>
@@ -73,3 +75,4 @@ struct {
 	CTuple		normcolors;
 } tray;
 
+#endif

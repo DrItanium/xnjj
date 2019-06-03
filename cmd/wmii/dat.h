@@ -1,3 +1,5 @@
+#ifndef CMD_XNJJ_DAT_H__
+#define CMD_XNJJ_DAT_H__
 /* Copyright ©2007-2014 Kris Maglione <jg@suckless.org>
  * See LICENSE file for license details.
  */
@@ -44,7 +46,7 @@ enum {
 	CurNone,
 	CurLast,
 };
-Cursor	cursor[CurLast];
+extern Cursor	cursor[CurLast];
 
 enum IncMode {
 	IIgnore,
@@ -361,7 +363,7 @@ Handlers& getFramehandler();
 
 /* IXP */
 EXTERN IxpServer srv;
-EXTERN Ixp9Srv	p9srv;
+extern Ixp9Srv	p9srv;
 
 /* X11 */
 EXTERN uint	numlock_mask;
@@ -379,4 +381,4 @@ EXTERN long	nscreens_new;
 EXTERN Client*	kludge;
 
 extern char*	debugtab[];
-
+#endif

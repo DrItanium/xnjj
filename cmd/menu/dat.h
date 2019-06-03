@@ -1,3 +1,5 @@
+#ifndef CMD_MENU_DAT_H__
+#define CMD_MENU_DAT_H__
 #define _XOPEN_SOURCE 600
 #define IXP_P9_STRUCTS
 #define IXP_NO_P9_
@@ -108,3 +110,4 @@ EXTERN int	result;
 EXTERN char*	(*find)(const char*, const char*);
 EXTERN int	(*compare)(const char*, const char*, size_t);
 
+#endif

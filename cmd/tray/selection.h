@@ -1,3 +1,5 @@
+#ifndef CMD_TRAY_SELECTION_H__
+#define CMD_TRAY_SELECTION_H__
 typedef struct Selection	Selection;
 
 struct Selection {
@@ -16,3 +18,4 @@ Selection*	selection_create(char*, ulong, void (*)(Selection*, XSelectionRequest
 Selection*	selection_manage(char*, ulong, void (*)(Selection*, XClientMessageEvent*), void (*)(Selection*), bool);
 void		selection_release(Selection*);
 
+#endif

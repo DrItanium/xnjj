@@ -1,3 +1,5 @@
+#ifndef CMD_STRUT_DAT_H__
+#define CMD_STRUT_DAT_H__
 #include <fmt.h>
 #include <stdarg.h>
 #include <stdbool.h>
@@ -6,12 +8,9 @@
 #include <stuff/x.h>
 #include <stuff/util.h>
 
-#ifndef EXTERN
-# define EXTERN extern
-#endif
-
 enum { DAuto, DHorizontal, DVertical };
 
 Handlers& getHandlers();
-EXTERN int	direction;
+extern int	direction;
 
+#endif

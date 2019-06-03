@@ -1,3 +1,5 @@
+#ifndef CMD_XNJJ_FNS_H__
+#define CMD_XNJJ_FNS_H__
 /* Copyright ©2007-2014 Kris Maglione <jg@suckless.org>
  * See LICENSE file for license details.
  */
@@ -292,3 +294,4 @@ char*	toutf8n(const char*, size_t);
 /* xdnd.c */
 void	xdnd_initwindow(Window*);
 
+#endif

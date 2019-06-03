@@ -1,4 +1,5 @@
-
+#ifndef CMD_MENU_FNS_H__
+#define CMD_MENU_FNS_H__
 /* caret.c */
 void	caret_delete(int, int);
 char*	caret_find(int, int);
@@ -26,3 +27,4 @@ void	parse_keys(char*);
 char**	find_key(char*, long);
 int	getsym(char*);
 
+#endif
