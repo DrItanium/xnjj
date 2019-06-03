@@ -204,7 +204,7 @@ client_reparent(Client *c) {
 				   | CWOverrideRedirect);
 
 	c->framewin->aux = c;
-	sethandler(c->framewin, &framehandler);
+	sethandler(c->framewin, &getFramehandler());
 	reparentwindow(&c->w, c->framewin, ZP);
 	if(fw)
 		destroywindow(fw);

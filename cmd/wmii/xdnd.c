@@ -4,7 +4,7 @@
 #include "dat.h"
 #include "fns.h"
 
-static Handlers	handlers;
+static Handlers& getHandlers();
 
 void
 xdnd_initwindow(Window *w) {
@@ -12,7 +12,7 @@ xdnd_initwindow(Window *w) {
 
 	l = 3; /* They are insane. Why is this an ATOM?! */
 	changeprop_long(w, "XdndAware", "ATOM", &l, 1);
-	pushhandler(w, &handlers, nil);
+	pushhandler(w, &getHandlers(), nil);
 }
 
 typedef struct Dnd Dnd;
@@ -39,8 +39,8 @@ clientmessage_event(Window *w, void *aux, XClientMessageEvent *e) {
 		if(e->format != 32)
 			return false;
 		if(w->dnd == nil)
-			w->dnd = emallocz(sizeof *dnd);
-		dnd = w->dnd;
+			w->dnd = emallocz<Dnd>();
+		dnd = (Dnd*)w->dnd;
 		dnd->source = l[0];
 		dnd->r = ZR;
 		return false;
@@ -58,7 +58,7 @@ clientmessage_event(Window *w, void *aux, XClientMessageEvent *e) {
 		if(e->format != 32)
 			return false;
 		r = ZR;
-		dnd = w->dnd;
+		dnd = (Dnd*)w->dnd;
 		if(dnd) {
 			p.x = (ulong)l[2] >> 16;
 			p.y = (ulong)l[2] & 0xffff;
@@ -81,8 +81,11 @@ clientmessage_event(Window *w, void *aux, XClientMessageEvent *e) {
 
 	return true;
 }
-
+Handlers&
+getHandlers() {
 static Handlers handlers = {
 	.message = clientmessage_event
 };
+return handlers;
+}
 

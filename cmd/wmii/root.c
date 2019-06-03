@@ -4,7 +4,7 @@
 #include "dat.h"
 #include "fns.h"
 
-static Handlers handlers;
+static Handlers& getHandlers();
 
 void
 root_init(void) {
@@ -19,7 +19,7 @@ root_init(void) {
 		      | SubstructureRedirectMask;
 	setwinattr(&scr.root, &wa, CWCursor
 			         | CWEventMask);
-	sethandler(&scr.root, &handlers);
+	sethandler(&scr.root, &getHandlers());
 }
 
 static bool
@@ -75,6 +75,8 @@ kdown_event(Window *w, void *aux, XKeyEvent *e) {
 	return false;
 }
 
+Handlers&
+getHandlers() {
 static Handlers handlers = {
 	.enter = enter_event,
 	.focusin = focusin_event,
@@ -83,4 +85,6 @@ static Handlers handlers = {
 	.mapreq = mapreq_event,
 	.motion = motion_event,
 };
+return handlers;
+}
 

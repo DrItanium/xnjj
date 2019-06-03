@@ -65,7 +65,7 @@ void
 destroyconstraintwin(Window *w) {
 
 	if(w->aux)
-		destroywindow(w->aux);
+		destroywindow((Window*)w->aux);
 	destroywindow(w);
 }
 
@@ -98,13 +98,13 @@ rect_morph(Rectangle *r, Point d, Align *mask) {
 		n = r->min.x;
 		r->min.x = r->max.x;
 		r->max.x = n;
-		*mask ^= Align(East|West);
+        *mask = Align(*mask ^ (East|West));
 	}
 	if(r->min.y > r->max.y) {
 		n = r->min.y;
 		r->min.y = r->max.y;
 		r->max.y = n;
-		*mask ^= North|South;
+        *mask = Align(*mask ^ (North|South));
 	}
 }
 
@@ -164,12 +164,12 @@ snap_rect(const Rectangle *rects, int num, Rectangle *r, Align *mask, int snap) 
 
 	ret = Center;
 	if(abs(d.x) <= snap)
-		ret ^= East|West;
+        ret = Align(ret ^ (East | West));
 	else
 		d.x = 0;
 
 	if(abs(d.y) <= snap)
-		ret ^= North|South;
+        ret = Align(ret ^ (North|South));
 	else
 		d.y = 0;
 

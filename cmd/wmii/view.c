@@ -4,6 +4,7 @@
  */
 #include "dat.h"
 #include "fns.h"
+#include <type_traits>
 
 static bool
 empty_p(View *v) {
@@ -71,17 +72,17 @@ view_create(const char *name) {
 			break;
 	}
 
-	v = emallocz(sizeof *v);
+	v = emallocz<View>();
 	v->id = id++;
-	v->r = emallocz(nscreens * sizeof *v->r);
-	v->pad = emallocz(nscreens * sizeof *v->pad);
+	v->r = emallocz<std::decay_t<decltype(*v->r)>>(nscreens * sizeof *v->r);
+	v->pad = emallocz<std::decay_t<decltype(*v->pad)>>(nscreens * sizeof *v->pad);
 
 	utflcpy(v->name, name, sizeof v->name);
 
 	event("CreateTag %s\n", v->name);
 	area_create(v, nil, screen->idx, 0);
 
-	v->areas = emallocz(nscreens * sizeof *v->areas);
+	v->areas = emallocz<std::decay_t<decltype(*v->areas)>>(nscreens * sizeof *v->areas);
 
 	for(i=0; i < nscreens; i++)
 		view_init(v, i);
@@ -139,9 +140,9 @@ view_update_screens(View *v) {
 		}
 	}
 
-	v->areas = erealloc(v->areas, nscreens_new * sizeof *v->areas);
-	v->r = erealloc(v->r, nscreens_new * sizeof *v->r);
-	v->pad = erealloc(v->pad, nscreens_new * sizeof *v->pad);
+	v->areas = (decltype(v->areas))erealloc(v->areas, nscreens_new * sizeof *v->areas);
+	v->r = (decltype(v->r))erealloc(v->r, nscreens_new * sizeof *v->r);
+	v->pad = (decltype(v->pad))erealloc(v->pad, nscreens_new * sizeof *v->pad);
 }
 
 void
@@ -212,24 +213,24 @@ frames_update_sel(View *v) {
  * of the screen, in either direction.
  */
 static Rectangle
-fix_rect(Rectangle old, Rectangle new) {
+fix_rect(Rectangle old, Rectangle _new) {
 	double r;
 
-	new = rect_intersection(new, old);
+	_new = rect_intersection(_new, old);
 
-	r = (Dy(old) - Dy(new)) / Dy(old);
+	r = (Dy(old) - Dy(_new)) / Dy(old);
 	if(r > .5) {
 		r -= .5;
-		new.min.y -= r * (new.min.y - old.min.y);
-		new.max.y += r * (old.max.y - new.max.y);
+		_new.min.y -= r * (_new.min.y - old.min.y);
+		_new.max.y += r * (old.max.y - _new.max.y);
 	}
-	r = (Dx(old) - Dx(new)) / Dx(old);
+	r = (Dx(old) - Dx(_new)) / Dx(old);
 	if(r > .5) {
 		r -= .5;
-		new.min.x -= r * (new.min.x - old.min.x);
-		new.max.x += r * (old.max.x - new.max.x);
+		_new.min.x -= r * (_new.min.x - old.min.x);
+		_new.max.x += r * (old.max.x - _new.max.x);
 	}
-	return new;
+	return _new;
 }
 
 void
@@ -503,7 +504,7 @@ view_names(void) {
 	for(v=view; v; v=v->next)
 		vector_ppush(&vec, v->name);
 	vector_ppush(&vec, nil);
-	return erealloc(vec.ary, vec.n * sizeof *vec.ary);
+	return (char**)erealloc(vec.ary, vec.n * sizeof *vec.ary);
 }
 
 void

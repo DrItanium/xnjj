@@ -15,6 +15,9 @@
 #include "fns.h"
 #include <type_traits>
 
+char* argv0 = nullptr;
+Display* display = nullptr;
+Screen scr;
 static const char
 	version[] = "wmii-"VERSION", "COPYRIGHT"\n";
 

@@ -13,7 +13,9 @@
 #include <unistd.h>
 #include <limits.h>
 #include <utf.h>
+extern "C" {
 #include <ixp.h>
+}
 #include <stuff/x.h>
 #include <stuff/util.h>
 #include "debug.h"

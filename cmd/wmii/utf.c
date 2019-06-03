@@ -21,7 +21,7 @@ toutf8n(const char *str, size_t nstr) {
 			haveiconv = true;
 	}
 	if(!haveiconv) {
-		buf = emalloc(nstr+1);
+		buf = (char*)emalloc(nstr+1);
 		memcpy(buf, str, nstr);
 		buf[nstr+1] = '\0';
 		return buf;
@@ -30,7 +30,7 @@ toutf8n(const char *str, size_t nstr) {
 	iconv(cd, nil, nil, nil, nil);
 
 	bsize = (nstr+1) << 1;
-	buf = emalloc(bsize);
+	buf = (char*)emalloc(bsize);
 	pos = buf;
 	nbuf = bsize-1;
 	/* The (void*) cast is because, while the BSDs declare:
@@ -40,17 +40,17 @@ toutf8n(const char *str, size_t nstr) {
 	 * This just happens to be safer than declaring our own
 	 * prototype.
 	 */
-	while(iconv(cd, (void*)&str, &nstr, &pos, &nbuf) == -1)
+	while(iconv(cd, (char**)&str, &nstr, &pos, &nbuf) == -1)
 		if(errno == E2BIG) {
 			bsize <<= 1;
 			nbuf = pos - buf;
-			buf = erealloc(buf, bsize);
+			buf = (char*)erealloc(buf, bsize);
 			pos = buf + nbuf;
 			nbuf = bsize - nbuf - 1;
 		}else
 			break;
 	*pos++ = '\0';
-	return erealloc(buf, pos-buf);
+	return (char*)erealloc(buf, pos-buf);
 }
 
 char*

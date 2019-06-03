@@ -80,7 +80,7 @@ value:
 	re = regcomp(regexp);
 	if(!re)
 		goto begin;
-	r = emallocz(sizeof *r);
+	r = emallocz<Rule>();
 	*rule = r;
 	rule = &r->next;
 	r->regex = re;
@@ -93,7 +93,8 @@ value:
 		r->value = estrdup(w);
 		if(strchr(w, '=')) {
 			len = strlen(w) + 1;
-			*rvp = rv = emallocz(sizeof *rv + len);
+			rv = emallocz<Ruleval>(sizeof *rv + len);
+            *rvp = rv;
 			rvp = &rv->next;
 
 			memcpy(&rv[1], w, len);
